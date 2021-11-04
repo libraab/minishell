@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:58:24 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/10/25 10:58:27 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/04 16:31:24 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,17 @@
 
 int	main(void)
 {
-	char	*buf;
-
+	t_cmd	*cmd;
+	t_token *tkn;
+	t_lexer *lex;
+	char	*entry;
 	while (1)
 	{
-		buf = readline("\033[30;47m[minishell] >\033[0m ");
-		if (buf)
+		entry = readline("\033[30;47m[minishell] >\033[0m ");
+		if (entry)
 		{
-			printf("\"%s\"\n", buf);
-			if (*buf)
-				add_history(buf);
-			free(buf);
+			lexer(entry, cmd, tkn, lex);
+			free(entry);
 		}
 		else
 		{

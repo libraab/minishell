@@ -6,7 +6,7 @@
 #    By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/25 10:50:15 by abouhlel          #+#    #+#              #
-#    Updated: 2021/10/25 10:53:25 by abouhlel         ###   ########.fr        #
+#    Updated: 2021/11/04 11:37:21 by abouhlel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ FOLDER				= srcs/
 HEADER_FILE 		= minishell.h
 
 SRCS				= minishell.c \
+						lexer.c \
 
 SRC					= $(addprefix ${FOLDER},${SRCS})
 HEADERS				= $(addprefix ${FOLDER_HEADER},${HEADER_FILE})
@@ -37,10 +38,10 @@ OBJ					= ${OBJS}
 UNAME_S				= $(shell uname -s)
 
 ifeq ($(UNAME_S),Linux)
-	LIBS 			= -L ./libft -lft -lmlx -lXext -lX11
+	LIBS 			= -L ./libft -lft -lreadline
 endif
 ifeq ($(UNAME_S),Darwin)
-	LIBS 			= -L ./libft -lft -lmlx -framework OpenGL -framework AppKit -lz
+	LIBS 			= -L ./libft -lft -lreadline
 endif
 
 COMPIL	= $(CC) $(CFLAGS) ${OBJ} $(LIBS) -o $(NAME)
