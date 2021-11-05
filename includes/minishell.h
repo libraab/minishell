@@ -35,7 +35,6 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "../libft/libft.h"
-
 typedef struct s_token
 {
 	enum
@@ -47,31 +46,23 @@ typedef struct s_token
 		DR_REDIR,
 		DL_REDIR,
 		DOLLAR,
+		TOKEN_EOF,
+		TOKEN_ID,
 	} e_type;
-	char	*tkn;
+	char	*value;
 }			t_token;
-
-typedef struct s_cmd
-{
-	char	*cmd;
-	char	*full_cmd;
-	char	**redir;
-}			t_cmd;
-
 typedef struct s_lexer
 {
 	char			c;
 	unsigned int	index;
 	char			*content;
 }					t_lexer;
-
-t_lexer *init_lexer(char *content, t_lexer *lex);
-void	lexer_advance(t_lexer *lex);
-void	lexer_skip_whitespace(t_lexer *lex);
-t_token *lexer_get_next_token(t_lexer *lex);
-t_token *lexer_collect_string(t_lexer *lex);
-t_token *lexer_advance_with_token(t_lexer *lex, t_token *tkn);
-char *lexer_get_current_c_as_str(t_lexer *lex);
+typedef struct s_cmd
+{
+	char	*cmd;
+	char	*full_cmd;
+	char	**redir;
+}			t_cmd;
 
 
 
