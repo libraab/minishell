@@ -17,6 +17,7 @@ int main (void)
 	char	*entry;
 	t_lexer *lexer = NULL;
 	t_token *token = NULL;
+	
 
 	while (1)
 	{
@@ -24,6 +25,7 @@ int main (void)
 		if (entry)
 		{
 			init_lexer(entry);
+			
 			lexer_get_next_token(lexer, token);
     		printf ("TOKEN(%d, %s)\n", token->e_type, token->value);
 			free(entry);

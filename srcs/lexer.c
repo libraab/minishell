@@ -21,7 +21,7 @@ t_token* init_token(int type, char* value)
     //=====================================
 
     token->e_type = type;
-    token->value = value;
+    token->value = ft_strdup(value);
     return (token);
 }
 
@@ -49,6 +49,11 @@ void lexer_skip_whitespace(t_lexer* lexer)
 
 t_token* lexer_get_next_token(t_lexer* lexer, t_token *token)
 {
+    
+    printf("here\n");
+    init_token(0, "\0");
+    printf("the first char is ---> %c\n", lexer->c);
+    printf("the index is ---> %d\n", lexer->index);
     while (lexer->c != '\0' && lexer->index< strlen(lexer->content))
     {
         if (lexer->c == ' ' || lexer->c == 10)
