@@ -46,8 +46,7 @@ typedef struct s_token
 		DR_REDIR,
 		DL_REDIR,
 		DOLLAR,
-		TOKEN_EOF,
-		TOKEN_ID,
+		CMD,
 	} e_type;
 	char	*value;
 }			t_token;
