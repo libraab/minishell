@@ -15,13 +15,14 @@
 t_token* init_token(int type, char* value)
 {
     t_token *token;
-
+    
     //=====================================
     token = ft_calloc(1, sizeof(t_token));
     //=====================================
-
+   
     token->e_type = type;
     token->value = ft_strdup(value);
+    
     return (token);
 }
 
@@ -39,7 +40,16 @@ t_lexer* init_lexer(char* content)
     return (lexer);
 }
 
-
+int lexer_advance(t_lexer* lexer)
+{
+    if (lexer->c != '\0' && lexer->index< ft_strlen(lexer->content))
+    {
+        lexer->index+= 1;
+        lexer->c = lexer->content[lexer->index];
+        return (1);
+    }
+    return (0);
+}
 
 void lexer_skip_whitespace(t_lexer* lexer)
 {
@@ -49,11 +59,8 @@ void lexer_skip_whitespace(t_lexer* lexer)
 
 t_token* lexer_get_next_token(t_lexer* lexer, t_token *token)
 {
-    
-    printf("here\n");
-    init_token(0, "\0");
-    printf("the first char is ---> %c\n", lexer->c);
-    printf("the index is ---> %d\n", lexer->index);
+    // printf("the first char is ---> %c\n", lexer->c);
+    // printf("the index is ---> %d\n", lexer->index);
     while (lexer->c != '\0' && lexer->index< strlen(lexer->content))
     {
         if (lexer->c == ' ' || lexer->c == 10)
@@ -88,19 +95,13 @@ t_token* lexer_get_next_token(t_lexer* lexer, t_token *token)
         }
         else
             init_token(CMD, ft_collect_cmd(lexer));
-        lexer_advance(lexer);
+        //if (lexer_advance(lexer) == 0) // seg fault comes from here
+          //  return (token);
     }
     return (token);
 }
 
-void lexer_advance(t_lexer* lexer)
-{
-    if (lexer->c != '\0' && lexer->index< ft_strlen(lexer->content))
-    {
-        lexer->index+= 1;
-        lexer->c = lexer->content[lexer->index];
-    }
-}
+
 
 char* ft_collect_double_cot(t_lexer* lexer)
 {

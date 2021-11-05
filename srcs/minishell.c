@@ -15,7 +15,6 @@
 int main (void)
 {
 	char	*entry;
-	t_lexer *lexer = NULL;
 	t_token *token = NULL;
 	
 
@@ -24,9 +23,7 @@ int main (void)
 		entry = readline("\033[30;47m[minishell] >\033[0m ");
 		if (entry)
 		{
-			init_lexer(entry);
-			
-			lexer_get_next_token(lexer, token);
+			lexer_get_next_token(init_lexer(entry), token);
     		printf ("TOKEN(%d, %s)\n", token->e_type, token->value);
 			free(entry);
 		}
