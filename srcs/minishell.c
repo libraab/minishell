@@ -12,18 +12,20 @@
 
 #include "../includes/minishell.h"
 
-int	main(void)
+int main (void)
 {
-	t_cmd	*cmd;
-	t_token *tkn;
-	t_lexer *lex;
 	char	*entry;
+	t_lexer *lexer = NULL;
+	t_token *token = NULL;
+
 	while (1)
 	{
 		entry = readline("\033[30;47m[minishell] >\033[0m ");
 		if (entry)
 		{
-			lexer(entry, cmd, tkn, lex);
+			init_lexer(entry);
+			lexer_get_next_token(lexer, token);
+    		printf ("TOKEN(%d, %s)\n", token->e_type, token->value);
 			free(entry);
 		}
 		else
@@ -34,3 +36,4 @@ int	main(void)
 	}
 	return (0);
 }
+

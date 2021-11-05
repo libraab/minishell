@@ -36,7 +36,6 @@ t_lexer* init_lexer(char* content)
     lexer->content = content;
     lexer->index = 0;
     lexer->c = content[lexer->index];
-    lexer_get_next_token(lexer, token);
     return (lexer);
 }
 
@@ -56,9 +55,9 @@ t_token* lexer_get_next_token(t_lexer* lexer, t_token *token)
             lexer_skip_whitespace(lexer);
         else if (lexer->c == '"')
             init_token(DOUBLE_COT, ft_collect_double_cot(lexer));
-        else if (lexer->c = '\'')
+        else if (lexer->c == '\'')
             init_token(SIMPLE_COT, ft_collect_simple_cot(lexer));
-        else if (lexer->c = '<')
+        else if (lexer->c == '<')
         {
             lexer_advance(lexer);
             if (lexer->c == '<')
@@ -66,7 +65,7 @@ t_token* lexer_get_next_token(t_lexer* lexer, t_token *token)
             else
                 init_token(L_REDIR, "< ");
         }
-        else if (lexer->c = '>')
+        else if (lexer->c == '>')
         {
             lexer_advance(lexer);
             if (lexer->c == '>')
@@ -74,7 +73,7 @@ t_token* lexer_get_next_token(t_lexer* lexer, t_token *token)
             else
                 init_token(R_REDIR, "> ");
         }
-        else if (lexer->c = '$')
+        else if (lexer->c == '$')
         {
             lexer_advance(lexer);
             if (lexer->c == '$' || lexer->c == ' ')
@@ -106,13 +105,13 @@ char* ft_collect_double_cot(t_lexer* lexer)
     int i;
 
     lexer_advance(lexer);
-        
+    start = lexer->index;
     while (lexer->c != '"') // add the case of inhibited double cot (=if another double cot is inside the double cot)
         lexer_advance(lexer);
     end = lexer->index;
 
     //====================================================
-    str = ft_calloc(ft_strlen(end - start), sizeof(char));
+    str = ft_calloc((end - start), sizeof(char));
     //====================================================
 
     str[0] = '\0';
@@ -136,7 +135,7 @@ char* ft_collect_simple_cot(t_lexer* lexer)
     end = lexer->index;
 
     //====================================================
-    str = ft_calloc(ft_strlen(end - start), sizeof(char));
+    str = ft_calloc((end - start), sizeof(char));
     //====================================================
 
     str[0] = '\0';
@@ -146,7 +145,7 @@ char* ft_collect_simple_cot(t_lexer* lexer)
     return (str);
 }
 
-char* ft_collect_double_flous(t_lexer* lexer)
+char* ft_collect_flous(t_lexer* lexer)
 {
     char *str;
     int start;
@@ -160,7 +159,31 @@ char* ft_collect_double_flous(t_lexer* lexer)
     end = lexer->index;
 
     //====================================================
-    str = ft_calloc(ft_strlen(end - start), sizeof(char));
+    str = ft_calloc((end - start), sizeof(char));
+    //====================================================
+
+    str[0] = '\0';
+    i = 0;
+    while (start <= end )
+        str[i++] = lexer->content[start++];
+    return (str);
+}
+
+char* ft_collect_cmd(t_lexer* lexer)
+{
+    char *str;
+    int start;
+    int end;
+    int i;
+
+    lexer_advance(lexer);
+    start = lexer->index;
+    while (lexer->c != '<' && lexer->c != '$' && lexer->c != '>' && lexer->c != '"' && lexer->c != '\'')
+        lexer_advance(lexer);
+    end = lexer->index;
+
+    //====================================================
+    str = ft_calloc((end - start), sizeof(char));
     //====================================================
 
     str[0] = '\0';

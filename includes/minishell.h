@@ -64,5 +64,14 @@ typedef struct s_cmd
 }			t_cmd;
 
 
+t_token* init_token(int type, char* value);
+t_lexer* init_lexer(char* content);
+void lexer_skip_whitespace(t_lexer* lexer);
+t_token* lexer_get_next_token(t_lexer* lexer, t_token *token);
+void lexer_advance(t_lexer* lexer);
+char* ft_collect_double_cot(t_lexer* lexer);
+char* ft_collect_simple_cot(t_lexer* lexer);
+char* ft_collect_flous(t_lexer* lexer);
+char* ft_collect_cmd(t_lexer* lexer);
 
 #endif
