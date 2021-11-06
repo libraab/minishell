@@ -72,10 +72,7 @@ t_token* lexer_get_next_token(t_lexer* lexer, t_token *token)
         if (lexer->c == ' ' || lexer->c == 10)
             lexer_skip_whitespace(lexer);
         else if (lexer->c == '"')
-        {
-            printf("in\n");
             init_token(token, DOUBLE_COT, ft_collect_double_cot(lexer));
-        }
         else if (lexer->c == '\'')
             init_token(token, SIMPLE_COT, ft_collect_simple_cot(lexer));
         else if (lexer->c == '<')
@@ -107,8 +104,6 @@ t_token* lexer_get_next_token(t_lexer* lexer, t_token *token)
             //init_token(CMD, ft_collect_cmd(lexer));
         }
         lexer_advance(lexer);
-       // printf("%d\n", lexer->index);
-     //   printf("%d\n", lexer->c);
     }
     return (token);
 }
@@ -122,7 +117,6 @@ char* ft_collect_double_cot(t_lexer* lexer)
 
     lexer_advance(lexer);
     start = lexer->index;
-    printf("toto\n");
     while (lexer->c != '"' || (lexer->c == '"' && ft_char_is_inhibited(lexer, lexer->index)))
     {
         end = lexer->index;
@@ -138,11 +132,6 @@ char* ft_collect_double_cot(t_lexer* lexer)
     i = 0;
     while (start <= end )
         str[i++] = lexer->content[start++];
-    printf("current char is --> %c\n", lexer->c);
-    printf("and his index  is --> %d\n", lexer->index);
-    for (int j = 0; str[j] != '\0'; j++)
-        printf("%c", str[j]);
-    //exit(EXIT_SUCCESS);"
     return (str);
 }
 
@@ -155,9 +144,12 @@ char* ft_collect_simple_cot(t_lexer* lexer)
 
     lexer_advance(lexer);
     start = lexer->index;
-    while (lexer->c != '\'' && lexer->content[lexer->index - 1] != '\\') 
-        lexer_advance(lexer);
-    end = lexer->index;
+    while (lexer->c != '\'' || (lexer->c == '\'' && ft_char_is_inhibited(lexer, lexer->index)))
+    {
+        end = lexer->index;
+        lexer->index++;
+        lexer->c = lexer->content[lexer->index];
+    }
 
     //====================================================
     str = ft_calloc((end - start), sizeof(char));
