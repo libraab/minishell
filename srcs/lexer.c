@@ -19,10 +19,9 @@ t_token* init_token(int type, char* value)
     //=====================================
     token = ft_calloc(1, sizeof(t_token));
     //=====================================
-   
+
     token->e_type = type;
     token->value = ft_strdup(value);
-    
     return (token);
 }
 
@@ -42,9 +41,9 @@ t_lexer* init_lexer(char* content)
 
 int lexer_advance(t_lexer* lexer)
 {
-    if (lexer->c != '\0' && lexer->index< ft_strlen(lexer->content))
+    if (lexer->c != '\0' && lexer->index < ft_strlen(lexer->content))
     {
-        lexer->index+= 1;
+        lexer->index++;
         lexer->c = lexer->content[lexer->index];
         return (1);
     }
@@ -57,16 +56,26 @@ void lexer_skip_whitespace(t_lexer* lexer)
         lexer_advance(lexer);
 }
 
+bool    ft_char_is_inhibited(t_lexer *lexer, int i)
+{
+    if (lexer->content[i - 1] == '\\') 
+        return (TRUE);
+    return (FALSE);
+}
+
 t_token* lexer_get_next_token(t_lexer* lexer, t_token *token)
 {
-    // printf("the first char is ---> %c\n", lexer->c);
-    // printf("the index is ---> %d\n", lexer->index);
-    while (lexer->c != '\0' && lexer->index< strlen(lexer->content))
+    while (lexer->c != '\0' && lexer->index <= strlen(lexer->content))
     {
         if (lexer->c == ' ' || lexer->c == 10)
             lexer_skip_whitespace(lexer);
         else if (lexer->c == '"')
+        {
             init_token(DOUBLE_COT, ft_collect_double_cot(lexer));
+            printf("type is --> %d\n", token->e_type);
+            printf("type is --> %s\n", token->value);
+            exit(EXIT_SUCCESS);
+        }
         else if (lexer->c == '\'')
             init_token(SIMPLE_COT, ft_collect_simple_cot(lexer));
         else if (lexer->c == '<')
@@ -94,14 +103,13 @@ t_token* lexer_get_next_token(t_lexer* lexer, t_token *token)
                 init_token(DOLLAR, ft_collect_flous(lexer));
         }
         else
-            init_token(CMD, ft_collect_cmd(lexer));
-        //if (lexer_advance(lexer) == 0) // seg fault comes from here
-          //  return (token);
+        {
+            //init_token(CMD, ft_collect_cmd(lexer));
+        
+        }
     }
     return (token);
 }
-
-
 
 char* ft_collect_double_cot(t_lexer* lexer)
 {
@@ -112,9 +120,12 @@ char* ft_collect_double_cot(t_lexer* lexer)
 
     lexer_advance(lexer);
     start = lexer->index;
-    while (lexer->c != '"') // add the case of inhibited double cot (=if another double cot is inside the double cot)
-        lexer_advance(lexer);
-    end = lexer->index;
+    while (lexer->c != '"' || (lexer->c == '"' && ft_char_is_inhibited(lexer, lexer->index)))
+    {
+        end = lexer->index;
+        lexer->index++;
+        lexer->c = lexer->content[lexer->index];
+    }
 
     //====================================================
     str = ft_calloc((end - start), sizeof(char));
@@ -124,6 +135,12 @@ char* ft_collect_double_cot(t_lexer* lexer)
     i = 0;
     while (start <= end )
         str[i++] = lexer->content[start++];
+    // sleep(1);
+    // printf("current char is --> %c\n", lexer->c);
+    // printf("and his index  is --> %d\n", lexer->index);
+    // for (int j = 0; str[j] != '\0'; j++)
+    //     printf("%c", str[j]);
+    // exit(EXIT_SUCCESS);"
     return (str);
 }
 
@@ -136,7 +153,7 @@ char* ft_collect_simple_cot(t_lexer* lexer)
 
     lexer_advance(lexer);
     start = lexer->index;
-    while (lexer->c != '\'') // add the case of inhibited simple cot (=if another simple cot is inside the simple cot)
+    while (lexer->c != '\'' && lexer->content[lexer->index - 1] != '\\') 
         lexer_advance(lexer);
     end = lexer->index;
 

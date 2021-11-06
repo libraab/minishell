@@ -73,5 +73,6 @@ char* ft_collect_double_cot(t_lexer* lexer);
 char* ft_collect_simple_cot(t_lexer* lexer);
 char* ft_collect_flous(t_lexer* lexer);
 char* ft_collect_cmd(t_lexer* lexer);
+bool    ft_char_is_inhibited(t_lexer *lexer, int i);
 
 #endif
