@@ -63,8 +63,14 @@ typedef struct s_cmd
 	char	**redir;
 }			t_cmd;
 
+typedef struct s_data
+{
+	t_lexer	*lexer;
+	t_cmd	*cmd;
+	t_token	*token;
+}				t_data;
 
-t_token* init_token(int type, char* value);
+t_token* init_token(t_token *token, int type, char* value);
 t_lexer* init_lexer(char* content);
 void lexer_skip_whitespace(t_lexer* lexer);
 t_token* lexer_get_next_token(t_lexer* lexer, t_token *token);

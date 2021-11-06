@@ -12,16 +12,18 @@
 
 #include "../includes/minishell.h"
 
-t_token* init_token(int type, char* value)
+t_token* init_token(t_token *token, int type, char* value)
 {
-    t_token *token;
+    //t_token *token;
     
     //=====================================
-    token = ft_calloc(1, sizeof(t_token));
     //=====================================
 
     token->e_type = type;
     token->value = ft_strdup(value);
+    printf("type is --> %d\n", token->e_type);
+    printf("type is --> %s\n", token->value);
+    //exit(EXIT_SUCCESS);
     return (token);
 }
 
@@ -71,42 +73,42 @@ t_token* lexer_get_next_token(t_lexer* lexer, t_token *token)
             lexer_skip_whitespace(lexer);
         else if (lexer->c == '"')
         {
-            init_token(DOUBLE_COT, ft_collect_double_cot(lexer));
-            printf("type is --> %d\n", token->e_type);
-            printf("type is --> %s\n", token->value);
-            exit(EXIT_SUCCESS);
+            printf("in\n");
+            init_token(token, DOUBLE_COT, ft_collect_double_cot(lexer));
         }
         else if (lexer->c == '\'')
-            init_token(SIMPLE_COT, ft_collect_simple_cot(lexer));
+            init_token(token, SIMPLE_COT, ft_collect_simple_cot(lexer));
         else if (lexer->c == '<')
         {
             lexer_advance(lexer);
             if (lexer->c == '<')
-                init_token(DL_REDIR, "<<");
+                init_token(token, DL_REDIR, "<<");
             else
-                init_token(L_REDIR, "< ");
+                init_token(token, L_REDIR, "< ");
         }
         else if (lexer->c == '>')
         {
             lexer_advance(lexer);
             if (lexer->c == '>')
-                init_token(DR_REDIR, ">>");
+                init_token(token, DR_REDIR, ">>");
             else
-                init_token(R_REDIR, "> ");
+                init_token(token, R_REDIR, "> ");
         }
         else if (lexer->c == '$')
         {
             lexer_advance(lexer);
             if (lexer->c == '$' || lexer->c == ' ')
-                init_token(CMD, ft_collect_cmd(lexer));
+                init_token(token, CMD, ft_collect_cmd(lexer));
             else
-                init_token(DOLLAR, ft_collect_flous(lexer));
+                init_token(token, DOLLAR, ft_collect_flous(lexer));
         }
         else
         {
             //init_token(CMD, ft_collect_cmd(lexer));
-        
         }
+        lexer_advance(lexer);
+       // printf("%d\n", lexer->index);
+     //   printf("%d\n", lexer->c);
     }
     return (token);
 }
@@ -120,6 +122,7 @@ char* ft_collect_double_cot(t_lexer* lexer)
 
     lexer_advance(lexer);
     start = lexer->index;
+    printf("toto\n");
     while (lexer->c != '"' || (lexer->c == '"' && ft_char_is_inhibited(lexer, lexer->index)))
     {
         end = lexer->index;
@@ -135,12 +138,11 @@ char* ft_collect_double_cot(t_lexer* lexer)
     i = 0;
     while (start <= end )
         str[i++] = lexer->content[start++];
-    // sleep(1);
-    // printf("current char is --> %c\n", lexer->c);
-    // printf("and his index  is --> %d\n", lexer->index);
-    // for (int j = 0; str[j] != '\0'; j++)
-    //     printf("%c", str[j]);
-    // exit(EXIT_SUCCESS);"
+    printf("current char is --> %c\n", lexer->c);
+    printf("and his index  is --> %d\n", lexer->index);
+    for (int j = 0; str[j] != '\0'; j++)
+        printf("%c", str[j]);
+    //exit(EXIT_SUCCESS);"
     return (str);
 }
 

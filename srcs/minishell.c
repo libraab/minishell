@@ -12,19 +12,28 @@
 
 #include "../includes/minishell.h"
 
+void	alloc_init(t_data *data)
+{
+	data->token = malloc (sizeof (t_token));
+	data->cmd = NULL;
+	data->lexer = NULL;
+}
+
 int main (void)
 {
 	char	*entry;
-	t_token *token = NULL;
+	t_data *data;
 	
-
+	data = malloc(sizeof(t_data));
+	alloc_init(data);
 	while (1)
 	{
 		entry = readline("\033[30;47m[minishell] >\033[0m ");
 		if (entry)
 		{
-			lexer_get_next_token(init_lexer(entry), token);
-    		printf ("TOKEN(%d, %s)\n", token->e_type, token->value);
+			data->lexer = init_lexer(entry);
+			data->token = lexer_get_next_token(data->lexer, data->token);
+    		printf ("TOKEN(%d, %s)\n", data->token->e_type, data->token->value);
 			free(entry);
 		}
 		else
