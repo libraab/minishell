@@ -79,16 +79,14 @@ t_token* lexer_get_next_token(t_lexer* lexer, t_token *token)
         }
         else if (lexer->c == '$' && ft_char_is_inhibited(lexer, lexer->index) == false)
         {
-            lexer_advance(lexer);
-            if (lexer->c == '$' || lexer->c == ' ')
+            if (lexer->content[lexer->index + 1] == '$' || lexer->content[lexer->index + 1] == ' ')
                 init_token(token, CMD, ft_collect_cmd(lexer));
+                // still needs to handle $\$    $ with sp    and $ with sp and blabla
             else
                 init_token(token, DOLLAR, ft_collect_flous(lexer));
         }
         else
-        {
             init_token(token, CMD, ft_collect_cmd(lexer));
-        }
         lexer_advance(lexer);
     }
     return (token);
