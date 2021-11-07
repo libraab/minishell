@@ -36,7 +36,7 @@ void	*ft_memccpy(void *dst, const void *src, int c, size_t n)
 int main()
 {
 	const char * text = "bla bla bla. bidule";
-	size_t len = strlen(text);
+	size_t len = ft_strlen(text);
 
 	char y[len];
 	char * res = ft_memccpy(y, text, '.', len);

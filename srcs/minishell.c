@@ -14,9 +14,9 @@
 
 void	alloc_init(t_data *data)
 {
+    data->lexer = malloc (sizeof(t_lexer));
 	data->token = malloc (sizeof (t_token));
 	data->cmd = NULL;
-	data->lexer = NULL;
 }
 
 int main (void)
@@ -31,7 +31,7 @@ int main (void)
 		entry = readline("\033[30;47m[minishell] >\033[0m ");
 		if (entry)
 		{
-			data->lexer = init_lexer(entry);
+			data->lexer = init_lexer(data->lexer, entry);
 			data->token = lexer_get_next_token(data->lexer, data->token);
     		printf ("TOKEN(%d, %s)\n", data->token->e_type, data->token->value);
 			free(entry);

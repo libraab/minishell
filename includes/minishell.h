@@ -68,17 +68,17 @@ typedef struct s_data
 	t_lexer	*lexer;
 	t_cmd	*cmd;
 	t_token	*token;
-}				t_data;
+}			t_data;
 
-t_token* init_token(t_token *token, int type, char* value);
-t_lexer* init_lexer(char* content);
-void lexer_skip_whitespace(t_lexer* lexer);
-t_token* lexer_get_next_token(t_lexer* lexer, t_token *token);
-int lexer_advance(t_lexer* lexer);
-char* ft_collect_double_cot(t_lexer* lexer);
-char* ft_collect_simple_cot(t_lexer* lexer);
-char* ft_collect_flous(t_lexer* lexer);
-char* ft_collect_cmd(t_lexer* lexer);
-bool    ft_char_is_inhibited(t_lexer *lexer, int i);
+t_token*	init_token(t_token *token, int type, char* value);
+t_lexer*	init_lexer(t_lexer *lexer, char* content);
+void		lexer_skip_whitespace(t_lexer* lexer);
+t_token*	lexer_get_next_token(t_lexer* lexer, t_token *token);
+int			lexer_advance(t_lexer* lexer);
+char*		ft_collect_double_cot(t_lexer* lexer);
+char*		ft_collect_simple_cot(t_lexer* lexer);
+char*		ft_collect_flous(t_lexer* lexer);
+char*		ft_collect_cmd(t_lexer* lexer);
+bool		ft_char_is_inhibited(t_lexer *lexer, int i);
 
 #endif

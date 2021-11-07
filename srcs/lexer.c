@@ -14,27 +14,13 @@
 
 t_token* init_token(t_token *token, int type, char* value)
 {
-    //t_token *token;
-    
-    //=====================================
-    //=====================================
-
-    token->e_type = type;
     token->value = ft_strdup(value);
-    printf("type is --> %d\n", token->e_type);
-    printf("type is --> %s\n", token->value);
-    //exit(EXIT_SUCCESS);
+    token->e_type = type;
     return (token);
 }
 
-t_lexer* init_lexer(char* content)
+t_lexer* init_lexer(t_lexer *lexer, char* content)
 {
-    t_lexer *lexer;
-    
-    //=====================================
-    lexer = ft_calloc(1, sizeof(t_lexer));
-    //=====================================
-
     lexer->content = content;
     lexer->index = 0;
     lexer->c = content[lexer->index];
@@ -67,7 +53,7 @@ bool    ft_char_is_inhibited(t_lexer *lexer, int i)
 
 t_token* lexer_get_next_token(t_lexer* lexer, t_token *token)
 {
-    while (lexer->c != '\0' && lexer->index <= strlen(lexer->content))
+    while (lexer->c != '\0' && lexer->index <= ft_strlen(lexer->content) && ft_char_is_inhibited(lexer, lexer->index) == false)
     {
         if (lexer->c == ' ' || lexer->c == 10)
             lexer_skip_whitespace(lexer);
@@ -91,7 +77,7 @@ t_token* lexer_get_next_token(t_lexer* lexer, t_token *token)
             else
                 init_token(token, R_REDIR, "> ");
         }
-        else if (lexer->c == '$')
+        else if (lexer->c == '$' && ft_char_is_inhibited(lexer, lexer->index) == false)
         {
             lexer_advance(lexer);
             if (lexer->c == '$' || lexer->c == ' ')
@@ -101,7 +87,7 @@ t_token* lexer_get_next_token(t_lexer* lexer, t_token *token)
         }
         else
         {
-            //init_token(CMD, ft_collect_cmd(lexer));
+            init_token(token, CMD, ft_collect_cmd(lexer));
         }
         lexer_advance(lexer);
     }
@@ -169,9 +155,8 @@ char* ft_collect_flous(t_lexer* lexer)
     int end;
     int i;
 
-    lexer_advance(lexer);
     start = lexer->index;
-    while (lexer->c != ' ' || lexer->c != '$')
+    while ((lexer->c != ' ' || lexer->c != '$') && lexer->c != '\0' && lexer->index < ft_strlen(lexer->content))
         lexer_advance(lexer);
     end = lexer->index;
 
@@ -195,7 +180,7 @@ char* ft_collect_cmd(t_lexer* lexer)
 
     lexer_advance(lexer);
     start = lexer->index;
-    while (lexer->c != '<' && lexer->c != '$' && lexer->c != '>' && lexer->c != '"' && lexer->c != '\'')
+    while (lexer->c != '<' && lexer->c != '$' && lexer->c != '>' && lexer->c != '"' && lexer->c != '\'' && lexer->c != ' ')
         lexer_advance(lexer);
     end = lexer->index;
 
