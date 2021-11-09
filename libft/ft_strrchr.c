@@ -12,6 +12,7 @@
 
 #include "libft.h"
 #include <stdio.h>
+
 char	*ft_strrchr(const char *s, int c)
 {
 	int	i;
@@ -25,10 +26,4 @@ char	*ft_strrchr(const char *s, int c)
 	}
 	return (NULL);
 }
-/*int main()
-{
-	char b[] ="hellb world";
-	int c = 99 ;
-	printf("%s\n\n", ft_strrchr(b, c));
-	printf("%s", strrchr(b, c));
-}*/
+

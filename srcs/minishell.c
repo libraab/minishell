@@ -14,16 +14,18 @@
 
 void	alloc_init(t_data *data)
 {
-    data->lexer = malloc (sizeof(t_lexer));
+	data->lexer = malloc (sizeof(t_lexer));
 	data->token = malloc (sizeof (t_token));
+	data->token_tab = malloc (sizeof (t_token));
 	data->cmd = NULL;
 }
 
-int main (void)
+int	main(void)
 {
 	char	*entry;
-	t_data *data;
-	
+	t_data	*data;
+	char **content;
+
 	data = malloc(sizeof(t_data));
 	alloc_init(data);
 	while (1)
@@ -31,9 +33,11 @@ int main (void)
 		entry = readline("\033[30;47m[minishell] >\033[0m ");
 		if (entry)
 		{
-			data->lexer = init_lexer(data->lexer, entry);
-			data->token = lexer_get_next_token(data->lexer, data->token);
-    		printf ("TOKEN(%d, %s)\n", data->token->e_type, data->token->value);
+			add_history(entry);
+			content = ft_split(entry, '|');
+			data->lexer = init_lexer(data->lexer, content);
+			data->token = lexer_get_next_token(data, data->lexer, data->token);
+			printf ("TOKEN(%d, %s)\n", data->token->e_type, data->token->value);
 			free(entry);
 		}
 		else
@@ -44,4 +48,3 @@ int main (void)
 	}
 	return (0);
 }
-

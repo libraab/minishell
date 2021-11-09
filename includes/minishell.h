@@ -46,6 +46,7 @@ typedef struct s_token
 		DR_REDIR,
 		DL_REDIR,
 		DOLLAR,
+		//FILE_NAME,
 		CMD,
 	} e_type;
 	char	*value;
@@ -54,7 +55,7 @@ typedef struct s_lexer
 {
 	char			c;
 	unsigned int	index;
-	char			*content;
+	char			**content;
 }					t_lexer;
 typedef struct s_cmd
 {
@@ -68,12 +69,13 @@ typedef struct s_data
 	t_lexer	*lexer;
 	t_cmd	*cmd;
 	t_token	*token;
+	t_token	**token_tab;
 }			t_data;
 
-t_token*	init_token(t_token *token, int type, char* value);
-t_lexer*	init_lexer(t_lexer *lexer, char* content);
+t_token*	init_token(t_data *data, t_token *token, int type, char* value);
+t_lexer*	init_lexer(t_lexer *lexer, char **content);
 void		lexer_skip_whitespace(t_lexer* lexer);
-t_token*	lexer_get_next_token(t_lexer* lexer, t_token *token);
+t_token*	lexer_get_next_token(t_data *data, t_lexer* lexer, t_token *token);
 int			lexer_advance(t_lexer* lexer);
 char*		ft_collect_double_cot(t_lexer* lexer);
 char*		ft_collect_simple_cot(t_lexer* lexer);
