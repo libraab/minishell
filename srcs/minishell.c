@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:58:24 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/09 19:06:43 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/10 15:16:39 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,21 +20,31 @@ void	alloc_init(t_data *data)
 	data->cmd = NULL;
 }
 
-int	ft_check_double_pipe(char *str)
+int	ft_check_cmdless_pipe(char *str)
 {
 	int i;
+	int cmd;
 	
 	i = 0;
+	cmd = 0;
 	while (str[i] != '\0') 
 	{
-		if (str[i] == ' ')
-			i++;
-		else if (str[i] == '|')
-			return (1);
+		if (str[i] == '|')
+		{
+			if (cmd == 0)
+				return(1);
+			else
+				cmd = 0;
+		}
 		else if (str[i] != '|' && str[i] != ' ')
-			return (0); // there is a command between the pipes
+		{
+			cmd++;
+		}
+		i++;
 	}
-	return (1); //in case " cmd |         "
+	if (cmd == 0)
+		return (1);
+	return (0);
 }
 int	ft_count_pipes(char *str)
 {
@@ -46,11 +56,8 @@ int	ft_count_pipes(char *str)
 	count = 0;
 	while (str[i] != '\0')
 	{
-		if (str[0] == '|' || str[ft_strlen(str) - 1] == '|' || ft_check_double_pipe(str) == 1)
-		{
-			printf("ERROR\n");
-			exit(EXIT_FAILURE);
-		}
+		if (str[0] == '|' || str[ft_strlen(str) - 1] == '|' || ft_check_cmdless_pipe(str) == 1)
+			ft_error();
 		if (str[i] == '\'' || str[i] == '"')
 		{
 			c = str[i];
@@ -64,48 +71,49 @@ int	ft_count_pipes(char *str)
 	return (count);
 }
 
-// void	ft_free(t_data *data)
-// {
-// 	if (data->lexer->content != NULL)
-// 		free (data->lexer->content);
-// 	if (data->token->value != NULL)
-// 		free (data->token->value);
-// 	if (data->lexer != NULL)
-// 		free (data->lexer);
-// 	if (data->token != NULL)
-// 		free (data->token);
-// }
+void	ft_free(t_data *data)
+{
+	if (data->lexer->content != NULL)
+		free (data->lexer->content);
+	if (data->token->value != NULL)
+		free (data->token->value);
+	if (data->lexer != NULL)
+		free (data->lexer);
+	if (data->token != NULL)
+		free (data->token);
+}
 
 int	main(void)
 {
-	char	*entry;
 	t_data	*data;
+	char	*entry;
 	char **content;
-	int i = 0;
+	int i ;
 
 	data = malloc(sizeof(t_data));
 	alloc_init(data);
 	while (1)
 	{
+		i = 0;
 		entry = readline("\033[30;47m[minishell] >\033[0m ");
 		if (entry)
 		{
 			add_history(entry);
-			content = ft_split(entry, '|'); //mettre le split custom ici
+			//int tot = ft_count_pipes(entry);
+			content = ft_split_pipe(entry, '|');
+			// for (int j = 0; j <= tot; j++)
+			// 	printf("%s\n", content[j]);
 			while (i <= ft_count_pipes(entry))
 			{
 				data->lexer = init_lexer(data->lexer, content[i]);
 				data->token = lexer_get_next_token(data, data->lexer, data->token);
 				i++;
 			}
-			//ft_free(data);
+			ft_free(data);
 			free(entry);
 		}
 		else
-		{
-			ft_putendl_fd("Error", 2);
-			exit(EXIT_FAILURE);
-		}
+			ft_error();
 	}
 	return (0);
 }

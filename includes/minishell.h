@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:56:46 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/09 18:55:56 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/10 10:57:56 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,12 @@ t_lexer		*init_lexer(t_lexer *lexer, char *content);
 void		lexer_skip_whitespace(t_lexer* lexer);
 t_token		*lexer_get_next_token(t_data *data, t_lexer* lexer, t_token *token);
 int			lexer_advance(t_lexer* lexer);
-char		*ft_collect_double_cot(t_lexer* lexer);
-char		*ft_collect_simple_cot(t_lexer* lexer);
 char		*ft_collect_flous(t_lexer* lexer);
 char		*ft_collect_cmd(t_lexer* lexer);
 char		*ft_collect_file_name(t_lexer *lexer);
 void		ft_free(t_data *data);
+void		ft_error(void);
+int			ft_check_cmdless_pipe(char *str);
+char		**ft_split_pipe(char	const *s, char c);
 
 #endif
