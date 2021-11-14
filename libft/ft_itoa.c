@@ -14,13 +14,13 @@
 static	int	ft_itoa_size(int n)
 {
 	int	size;
-	int	neg;
+	//int	neg;
 
 	size = 0;
-	neg = 0;
+	//neg = 0;
 	if (n < 0 && n > -2147483648)
 	{
-		neg = 1;
+		//neg = 1;
 		size++;
 		n = -n;
 	}

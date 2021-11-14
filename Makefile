@@ -6,7 +6,7 @@
 #    By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/25 10:50:15 by abouhlel          #+#    #+#              #
-#    Updated: 2021/11/10 10:55:34 by abouhlel         ###   ########.fr        #
+#    Updated: 2021/11/14 17:40:12 by abouhlel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,8 @@ SRCS				= minishell.c \
 						lexer.c \
 						ft_error.c \
 						ft_split_pipe.c \
+						ft_memory.c \
+						ft_collect.c \
 
 SRC					= $(addprefix ${FOLDER},${SRCS})
 HEADERS				= $(addprefix ${FOLDER_HEADER},${HEADER_FILE})
@@ -31,7 +33,7 @@ OBJS				= ${SRC:.c=.o}
 
 #################### * C O M P I L A T I O N * #################################
 CC					= gcc
-CFLAGS  			= -Wall -Wextra -Werror
+CFLAGS  			= 
 RM					= rm -rf
 MAKE_EXT			= @make -s --no-print-directory -C
 
