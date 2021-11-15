@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:56:46 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/14 17:32:58 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/15 15:17:15 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,28 +51,30 @@ typedef struct s_token
 		CMD,
 		ARG,
 	} e_type;
-	char	*value;
+	char	*value; ////malloc'd via strdup in lexer.c line 17
 }			t_token;
 typedef struct s_lexer
 {
+	int				tkn_nbr;
 	char			c;
 	unsigned int	index;
-	char			*content;
-}					t_lexer;
+	char			*content; //malloc'd via strdup in lexer.c line 25
+}					t_lexer; 
 typedef struct s_cmd
 {
 	char	*cmd;
-	char	*full_cmd;
+	char	**full_cmd;
 	char	**redir;
 }			t_cmd;
 
 typedef struct s_data
 {
-	t_lexer	*lexer;
-	t_cmd	*cmd;
-	t_token	*token;
+	t_lexer	*lexer; //malloc'd in memory.c line 17
+	t_token	*token; //malloc'd in memory.c line 18
+	t_cmd	**cmd; //malloc'd in minishell.c line 61
 	t_token	**token_tab;
-}			t_data;
+	int		tot;
+}			t_data; // malloc'd in minishell.c line 49
 
 t_token		*lexer_get_next_token(t_data *data, t_lexer* lexer, t_token *token);
 t_token		*init_token(t_data *data, t_token *token, int type, char* value);
@@ -88,5 +90,7 @@ void		ft_error(void);
 int			ft_check_cmdless_pipe(char *str);
 char		**ft_split_pipe(char	const *s, char c);
 void		ft_alloc_init(t_data *data);
+void		ft_check_invalid_chars(char *str);
+int			ft_count_tkn_nbr(char *str);
 
 #endif

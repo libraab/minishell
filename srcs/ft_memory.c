@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/14 17:35:43 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/14 17:36:32 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/15 13:15:15 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,8 @@
 
 void	ft_alloc_init(t_data *data)
 {
-	data->lexer = malloc (sizeof(t_lexer));
-	data->token = malloc (sizeof (t_token));
-	data->token_tab = malloc (sizeof (t_token));
-	data->cmd = NULL;
+	data->lexer = ft_calloc (sizeof(t_lexer), 1);
+	data->token = ft_calloc (sizeof (t_token), 1);
 }
 
 void	ft_free(t_data *data)
