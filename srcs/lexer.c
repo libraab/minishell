@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 11:01:58 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/15 15:18:00 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/15 17:16:01 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int		ft_count_tkn_nbr(char *str)
 {
-	int	i;
-	int	x;
+	int		i;
+	int		x;
 	char	c;
 
 	i = 0;
@@ -40,19 +40,23 @@ int		ft_count_tkn_nbr(char *str)
 
 t_token	*init_token(t_data *data, t_token *token, int type, char *value)
 {
+	static int	i = 0;
+	
 	token->value = ft_strdup(value);
 	token->e_type = type;
-	printf("tkn type is %d && his value is %s\n", data->token->e_type, data->token->value);
+	printf("tkn type [%d] && his value is [%s]\n", data->token->e_type, data->token->value);
+	data->token_tab[i++]= token;
+	//printf("the tkn index is --> [%d]\n", i);
 	return (token);
 }
 
-t_lexer	*init_lexer(t_lexer *lexer, char *content)
+void	init_lexer(t_data *data, char *content)
 {
-	lexer->content = ft_strdup(content);
-	lexer->index = 0;
-	lexer->c = content[lexer->index];
-	lexer->tkn_nbr = ft_count_tkn_nbr(content);
-	return (lexer);
+	data->lexer->content = ft_strdup(content);
+	data->lexer->index = 0;
+	data->lexer->c = content[0];
+	data->token->nb = ft_count_tkn_nbr(content);
+	data->token_tab = ft_calloc (sizeof (t_token *), data->token->nb); // uncertain if the * is necessary
 }
 
 int	lexer_advance(t_lexer *lexer)
@@ -110,7 +114,7 @@ t_token	*lexer_get_next_token(t_data *data, t_lexer *lexer, t_token *token)
 				init_token(data, token, CMD, ft_collect_cmd(lexer));
 				cmd = 1;
 			}
-			else if (lexer->c != '>' && lexer->c != '<' && lexer->c != '$' && lexer->c != '\0' && cmd > 0)
+			else if (!ft_strchr(OP, lexer->c) && lexer->c != '\0' && cmd > 0)
 				init_token(data, token, ARG, ft_collect_arg(lexer));
 		}
 		lexer_advance(lexer);

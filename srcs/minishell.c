@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:58:24 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/15 14:48:59 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/15 17:08:54 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,15 @@ int	main(void)
 			{
 				if (!content[i]) // why ??
 					break ;
-				data->lexer = init_lexer(data->lexer, content[i]);
+				init_lexer(data, content[i]);
 				lexer_get_next_token(data, data->lexer, data->token);
 				i++;
 			}
+			// for (int j = 0; j < data->token->nb; j++)
+			// {
+			// 	//printf("the index is --> %d\n", j);
+			// 	printf("[%d]  [%s]  \n", data->token_tab[j]->e_type, data->token_tab[j]->value);
+			// }
 			ft_free(data);
 			free(entry);
 		}

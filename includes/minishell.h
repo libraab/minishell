@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:56:46 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/15 15:17:15 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/15 15:30:34 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,10 @@ typedef struct s_token
 		ARG,
 	} e_type;
 	char	*value; ////malloc'd via strdup in lexer.c line 17
+	int		nb;
 }			t_token;
 typedef struct s_lexer
 {
-	int				tkn_nbr;
 	char			c;
 	unsigned int	index;
 	char			*content; //malloc'd via strdup in lexer.c line 25
@@ -78,7 +78,7 @@ typedef struct s_data
 
 t_token		*lexer_get_next_token(t_data *data, t_lexer* lexer, t_token *token);
 t_token		*init_token(t_data *data, t_token *token, int type, char* value);
-t_lexer		*init_lexer(t_lexer *lexer, char *content);
+void		init_lexer(t_data *data, char *content);
 char		*ft_collect_file_name(t_lexer *lexer);
 void		lexer_skip_whitespace(t_lexer* lexer);
 char		*ft_collect_flous(t_lexer* lexer);
