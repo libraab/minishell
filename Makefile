@@ -6,7 +6,7 @@
 #    By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/25 10:50:15 by abouhlel          #+#    #+#              #
-#    Updated: 2021/11/14 17:40:12 by abouhlel         ###   ########.fr        #
+#    Updated: 2021/11/15 19:59:53 by abouhlel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,13 +22,16 @@ SRCS				= minishell.c \
 						lexer.c \
 						ft_error.c \
 						ft_split_pipe.c \
+						ft_split_pipe_utils.c \
 						ft_memory.c \
 						ft_collect.c \
+						ft_tokenize.c \
 
 SRC					= $(addprefix ${FOLDER},${SRCS})
 HEADERS				= $(addprefix ${FOLDER_HEADER},${HEADER_FILE})
 
 OBJS				= ${SRC:.c=.o}
+
 ################################################################################
 
 #################### * C O M P I L A T I O N * #################################
@@ -49,9 +52,11 @@ ifeq ($(UNAME_S),Darwin)
 endif
 
 COMPIL	= $(CC) $(CFLAGS) ${OBJ} $(LIBS) -o $(NAME)
+
 ################################################################################
 
 ######################### * R U L E S * ########################################
+
 $(NAME):	${OBJ}
 			@printf $(blue)
 			@printf "\n"
@@ -85,9 +90,11 @@ fclean:		clean
 			@printf $(reset)
 
 .PHONY: 	all clean fclean re
+
 #################################################################################
 
 #################### * C O L O R *** S E T T I N G * ############################
+
 black 				=	"[1;30m"
 red 				=	"[1;31m"
 green 				=	"[1;32m"

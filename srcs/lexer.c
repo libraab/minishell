@@ -6,13 +6,13 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 11:01:58 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/15 17:16:01 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/15 20:05:16 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int		ft_count_tkn_nbr(char *str)
+int	ft_count_tkn_nbr(char *str)
 {
 	int		i;
 	int		x;
@@ -20,7 +20,7 @@ int		ft_count_tkn_nbr(char *str)
 
 	i = 0;
 	x = 0;
-	while(str[i])
+	while (str[i])
 	{
 		if (str[i] == '\'' || str[i] == '"')
 		{
@@ -38,16 +38,18 @@ int		ft_count_tkn_nbr(char *str)
 	return (x);
 }
 
-t_token	*init_token(t_data *data, t_token *token, int type, char *value)
+void	init_token(t_data *data, int type, char *value)
 {
 	static int	i = 0;
-	
+	t_token		*token;
+
+	token = ft_calloc (sizeof (t_token), 1);
 	token->value = ft_strdup(value);
 	token->e_type = type;
-	printf("tkn type [%d] && his value is [%s]\n", data->token->e_type, data->token->value);
-	data->token_tab[i++]= token;
-	//printf("the tkn index is --> [%d]\n", i);
-	return (token);
+	data->token_tab[i] = token;
+	i++;
+	if (i == data->token->nb)
+		i = 0;
 }
 
 void	init_lexer(t_data *data, char *content)
@@ -56,7 +58,7 @@ void	init_lexer(t_data *data, char *content)
 	data->lexer->index = 0;
 	data->lexer->c = content[0];
 	data->token->nb = ft_count_tkn_nbr(content);
-	data->token_tab = ft_calloc (sizeof (t_token *), data->token->nb); // uncertain if the * is necessary
+	data->token_tab = ft_calloc (sizeof (t_token), data->token->nb);
 }
 
 int	lexer_advance(t_lexer *lexer)
@@ -78,45 +80,13 @@ t_token	*lexer_get_next_token(t_data *data, t_lexer *lexer, t_token *token)
 	while (lexer->c != '\0' && lexer->index < ft_strlen(lexer->content))
 	{
 		if (lexer->c == '<')
-		{
-			if (lexer->content[lexer->index + 1] == '<')
-			{
-				init_token(data, token, DL_REDIR, "<<");
-				lexer_advance(lexer);
-			}
-			else
-				init_token(data, token, L_REDIR, "<");
-			init_token(data, token, FILE_NAME, ft_collect_file_name(lexer));
-		}
+			ft_tokenize_l_redir(data, lexer, token);
 		else if (lexer->c == '>')
-		{
-			if (lexer->content[lexer->index + 1] == '>')
-			{
-				init_token(data, token, DR_REDIR, ">>");
-				lexer_advance(lexer);
-			}
-			else
-				init_token(data, token, R_REDIR, ">");
-			init_token(data, token, FILE_NAME, ft_collect_file_name(lexer));
-		}
+			ft_tokenize_r_redir(data, lexer, token);
 		else if (lexer->c == '$')
-		{
-			if (lexer->content[lexer->index + 1] == '$' || lexer->content[lexer->index + 1] == ' ')
-				init_token(data, token, CMD, ft_collect_cmd(lexer));
-			else
-				init_token(data, token, DOLLAR, ft_collect_flous(lexer));
-		
-		}
+			ft_tokenize_dollar(data, lexer, token);
 		else
-		{
-			if (cmd == 0)
-			{
-				init_token(data, token, CMD, ft_collect_cmd(lexer));
-				cmd = 1;
-			}
-			else if (!ft_strchr(OP, lexer->c) && lexer->c != '\0' && cmd > 0)
-				init_token(data, token, ARG, ft_collect_arg(lexer));
-		}
+			cmd = ft_tokenise_c_a(data, lexer, token, cmd);
 		lexer_advance(lexer);
 	}
 	return (token);

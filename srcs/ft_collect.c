@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/14 17:39:02 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/15 12:36:28 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/15 17:20:48 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ char	*ft_collect_cmd(t_lexer *lexer)
 	int		i;
 
 	start = lexer->index;
-	while (!ft_strchr(OP, lexer->c) && lexer->c != '\0' && lexer->c != '"' && lexer->c != '\'')
+	while (!ft_strchr(OP, lexer->c) && lexer->c != '\0'
+		&& lexer->c != '"' && lexer->c != '\'')
 		lexer_advance(lexer);
 	end = lexer->index;
 	cmd = ft_calloc((end - start), sizeof(char));

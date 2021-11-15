@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:58:24 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/15 17:08:54 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/15 19:28:25 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,35 @@ int	ft_count_pipes(char *str)
 	return (count);
 }
 
+int	ft_prompt(char *entry, char **content, t_data *data, int i)
+{
+	add_history(entry);
+	ft_check_invalid_chars(entry);
+	content = ft_split_pipe(entry, '|');
+	data->tot = ft_count_pipes(entry) + 1;
+	data->cmd = ft_calloc (sizeof (t_cmd), data->tot);
+	while (i < data->tot)
+	{
+		if (!content[i])
+			break ;
+		init_lexer(data, content[i]);
+		lexer_get_next_token(data, data->lexer, data->token);
+		i++;
+	}
+	// for (int j = 0; j < data->token->nb ; j++)
+	// 	printf("[%d][%s]\n", data->token_tab[j]->e_type,
+	// 	data->token_tab[j]->value);
+	ft_free(data);
+	free(entry);
+	return (1);
+}
+
 int	main(void)
 {
+	int		i ;
 	t_data	*data;
 	char	*entry;
-	char	**content;//not malloc'd
-	int		i ;
+	char	**content;
 
 	data = ft_calloc (sizeof(t_data), 1);
 	while (1)
@@ -53,28 +76,7 @@ int	main(void)
 		i = 0;
 		entry = readline("\033[30;47m[minishell] >\033[0m ");
 		if (entry)
-		{
-			add_history(entry);
-			ft_check_invalid_chars(entry);
-			content = ft_split_pipe(entry, '|');
-			data->tot = ft_count_pipes(entry) + 1; // + 1 car nb de cmd = nb de pipe + 1
-			data->cmd = ft_calloc (sizeof (t_cmd *), data->tot); //doesnt seem to complain if the * is removed
-			while (i < data->tot)
-			{
-				if (!content[i]) // why ??
-					break ;
-				init_lexer(data, content[i]);
-				lexer_get_next_token(data, data->lexer, data->token);
-				i++;
-			}
-			// for (int j = 0; j < data->token->nb; j++)
-			// {
-			// 	//printf("the index is --> %d\n", j);
-			// 	printf("[%d]  [%s]  \n", data->token_tab[j]->e_type, data->token_tab[j]->value);
-			// }
-			ft_free(data);
-			free(entry);
-		}
+			ft_prompt(entry, content, data, i);
 		else
 			ft_error();
 	}
