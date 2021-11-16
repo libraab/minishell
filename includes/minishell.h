@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:56:46 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/16 10:31:07 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/16 10:51:27 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ void		ft_tokenize_dollar(t_data *data, t_lexer *lexer, t_token *token);
 int			ft_tokenise_ca(t_data *data, t_lexer *lexer, t_token *token, int x);
 void		ft_stock_cmd(t_data *data);
 int			ft_count_arg(t_data *data);
+int			ft_count_redir(t_data *data);
 
 //================================================================
 //						* S P L I T *							//
