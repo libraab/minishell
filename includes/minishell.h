@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:56:46 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/16 12:32:06 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/16 18:26:17 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,7 @@
 
 # define OP "<>$ "
 
-typedef struct s_token
-{
-	enum
+typedef enum
 	{
 		R_REDIR,
 		L_REDIR,
@@ -50,7 +48,10 @@ typedef struct s_token
 		DOLLAR,
 		CMD,
 		ARG,
-	} e_type;
+	} TYPE;
+typedef struct s_token
+{
+	TYPE	e_type;	
 	char	*value; ////malloc'd via strdup in lexer.c line 17
 	int		nb;
 }			t_token;
@@ -105,6 +106,7 @@ int			ft_tokenise_ca(t_data *data, t_lexer *lexer, t_token *token, int x);
 void		ft_stock_cmd(t_data *data);
 int			ft_count_arg(t_data *data);
 int			ft_count_redir(t_data *data);
+bool		is_entry_valid(char *s);
 
 //================================================================
 //						* S P L I T *							//

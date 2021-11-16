@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:58:24 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/16 12:30:06 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/16 18:26:23 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,6 +147,15 @@ int	ft_prompt(char *entry, char **content, t_data *data, int i)
 	return (1);
 }
 
+bool	is_entry_valid(char *s)
+{
+	if (ft_strlen(s) == 0)
+		return false;
+	if (!s)
+		return (false);
+	return (true);
+}
+
 int	main(void)
 {
 	int		i ;
@@ -160,8 +169,10 @@ int	main(void)
 		ft_alloc_init(data);
 		i = 0;
 		entry = readline("\033[30;47m[minishell] >\033[0m ");
-		if (entry)
-			ft_prompt(entry, content, data, i);
+		if (is_entry_valid(entry)){
+			if (entry)
+				ft_prompt(entry, content, data, i);
+		}
 		else
 			ft_error();
 	}
