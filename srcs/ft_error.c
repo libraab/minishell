@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 09:09:32 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/15 12:50:11 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/16 19:15:36 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,21 @@ void	ft_check_invalid_chars(char *str)
 
 int	ft_check_cmdless_pipe(char *str)
 {
-	int	i;
-	int	cmd;
+	int		i;
+	int		cmd;
+	char	c;
 
 	i = 0;
 	cmd = 0;
 	while (str[i] != '\0')
 	{
-		if (str[i] == '|')
+		if (str[i] == '\'' || str[i] == '"')
+		{
+			c = str[i++];
+			while (str[i] != c)
+				i++;
+		}
+		else if (str[i] == '|')
 		{
 			if (cmd == 0)
 				return (1);

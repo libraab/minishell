@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:58:24 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/16 18:26:23 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/16 19:40:53 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,25 @@ int	ft_count_pipes(char *str)
 
 	i = 0;
 	count = 0;
+	//printf("[%s]\n", str);
 	while (str[i] != '\0')
 	{
+		printf("%d\n", count);
 		if (str[0] == '|' || str[ft_strlen(str) - 1] == '|')
 			ft_error();
 		if (ft_check_cmdless_pipe(str) == 1)
 			ft_error();
+		printf("[%c]\n", str[i]);
 		if (str[i] == '\'' || str[i] == '"')
 		{
 			c = str[i];
-			while (str[i] != c)
+			i++;
+			while (str[i] != c && str[i])
+				i++;
+			if (str[i] == 'c')
 				i++;
 		}
-		if (str[i] == '|')
+		else if (str[i] == '|')
 			count++;
 		i++;
 	}
@@ -112,9 +118,11 @@ int	ft_prompt(char *entry, char **content, t_data *data, int i)
 	add_history(entry);
 	ft_check_invalid_chars(entry);
 	content = ft_split_pipe(entry, '|');
+	// for (int i = 0; i < ft_count_pipes(entry); i++) 
+	// 	printf("[%s]\n", content[i]);
 	data->tot = ft_count_pipes(entry) + 1;
+	//printf("i have %d\n", data->tot);
 	data->cmd = ft_calloc (sizeof (t_cmd), data->tot);
-	data->cmd_index = 0;
 	while (i < data->tot)
 	{
 		if (!content[i])
@@ -143,6 +151,7 @@ int	ft_prompt(char *entry, char **content, t_data *data, int i)
 	}
 	//*******************************************************************************
 	ft_free(data);
+	printf("out\n");
 	free(entry);
 	return (1);
 }
