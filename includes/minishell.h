@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:56:46 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/16 10:51:27 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/16 12:32:06 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ typedef struct s_token
 		L_REDIR,
 		DR_REDIR,
 		DL_REDIR,
-		DOLLAR,
 		FILE_NAME,
+		DOLLAR,
 		CMD,
 		ARG,
 	} e_type;

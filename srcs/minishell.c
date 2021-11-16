@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:58:24 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/16 12:21:04 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/16 12:30:06 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,15 +130,15 @@ int	ft_prompt(char *entry, char **content, t_data *data, int i)
 	//*******************************************************************************
 	for (int k = 0; k < data->tot; k++)
 	{
-		printf("\nprinting cmd_struct\n");
+		printf("\n *{printing cmd_struct}*   \n");
 		printf("__________________________\n");
-		printf("cmd        |   [%s]\n", data->cmd[k]->cmd);
+		printf("| cmd        |   [%s]\n", data->cmd[k]->cmd);
 		printf("__________________________\n");
 		for (int m = 0; data->cmd[k]->full_cmd[m]; m++)
-			printf("full cmd   |   [%s]\n", data->cmd[k]->full_cmd[m]);
+			printf("| full cmd   |   [%s]\n", data->cmd[k]->full_cmd[m]);
 		printf("__________________________\n");
 		for (int n = 0; data->cmd[k]->redir[n]; n++)
-			printf("redir      |   [%s]\n", data->cmd[k]->redir[n]);
+			printf("| redir      |   [%s]\n", data->cmd[k]->redir[n]);
 		printf("__________________________\n");
 	}
 	//*******************************************************************************
