@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 08:59:19 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/03/30 16:15:37 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/16 08:59:24 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,3 @@ void	*ft_memchr(const void *s, int c, size_t n)
 	}
 	return (NULL);
 }
-/*#include <stdio.h>
-int main() 
-{
-
-    char x[] = { 10, 20, 30, 40, 50, 60, 70, 80, 90, 100 };
-    const unsigned int size = 10;
-
-    void * y = ft_memchr(x, 50, size);
-    printf("%s\n", y);
-    y = memchr(x, 50, size);
-    printf("%s\n", y);
-}*/

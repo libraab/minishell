@@ -3,24 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 16:23:46 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/04/02 17:20:40 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/16 09:02:41 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
 static	int	ft_itoa_size(int n)
 {
 	int	size;
-	//int	neg;
 
 	size = 0;
-	//neg = 0;
 	if (n < 0 && n > -2147483648)
 	{
-		//neg = 1;
 		size++;
 		n = -n;
 	}
@@ -80,10 +78,3 @@ char	*ft_itoa(int n)
 	s[size] = '\0';
 	return (s);
 }
-/*
-#include <stdio.h>
-int main()
-{
-	long int x = -2147483647;
-	printf("%s", ft_itoa(x));
-}*/

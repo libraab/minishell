@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   split_pipes_utils.c                                :+:      :+:    :+:   */
+/*   ft_split_pipe_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 19:38:09 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/15 19:47:26 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/16 09:24:37 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,14 @@ void	find_qs(const char c, int *q, int *sq)
 		*q += 1;
 	if (c == 39)
 		*sq += 1;
+}
+
+void	init_vars(int *a, int *b, int *c, int *d)
+{
+	*a = 0;
+	*b = 0;
+	*c = 0;
+	*d = 0;
 }
 
 int	skip_qs(const char *s, int i, int *q, int *sq)
@@ -85,17 +93,13 @@ void	find_next_sq(char const *s, int *i, int *len, int *sq)
 
 char	**delet_spaces(char **newtab)
 {
-	int		i;
-	int		j;
-	char	**newtab_sp;
+	int	i;
 
-	j = tab_len(newtab);
-	newtab_sp = (char **) malloc (sizeof(char *) * j);
-	newtab_sp[j] = 0;
 	i = 0;
 	while (newtab[i])
 	{
-		newtab_sp[i] = ft_strtrim(newtab[i], " ");
+		newtab[i] = ft_strtrim(newtab[i], " ");
 		i++;
 	}
+	return (newtab);
 }

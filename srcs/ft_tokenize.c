@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 19:52:01 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/15 20:04:47 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/16 08:57:53 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,14 @@ void	ft_tokenize_dollar(t_data *data, t_lexer *lexer, t_token *token)
 		init_token(data, DOLLAR, ft_collect_flous(lexer));
 }
 
-int	ft_tokenise_c_a(t_data *data, t_lexer *lexer, t_token *token, int cmd)
+int	ft_tokenise_ca(t_data *data, t_lexer *lexer, t_token *token, int x)
 {
-	if (cmd == 0)
+	if (x == 0)
 	{
 		init_token(data, CMD, ft_collect_cmd(lexer));
-		cmd = 1;
+		x = 1;
 	}
-	else if (!ft_strchr(OP, lexer->c) && lexer->c != '\0' && cmd > 0)
+	else if (!ft_strchr(OP, lexer->c) && lexer->c != '\0' && x > 0)
 		init_token(data, ARG, ft_collect_arg(lexer));
-	return (cmd);
+	return (x);
 }

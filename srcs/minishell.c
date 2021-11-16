@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:58:24 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/15 19:28:25 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/16 10:43:22 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,57 @@ int	ft_count_pipes(char *str)
 	return (count);
 }
 
+int	ft_count_arg(t_data *data)
+{
+	int	i;
+	int	count;
+	
+	i = 0;
+	count = 0;
+	while (i < data->token->nb)
+	{
+		if (data->token_tab[i]->e_type == 7)
+			count++;
+		i++;
+	}
+	return (count);
+}
+
+void	ft_stock_cmd(t_data *data)
+{
+	int	i;
+	int	j;
+	
+	i = 0;
+	j = 0;
+	data->cmd[data->cmd_index] = ft_calloc (sizeof(t_cmd), 1);
+	while (i < data->token->nb)
+	{
+		if (data->token_tab[i]->e_type == 6)
+		{
+			data->cmd[data->cmd_index]->cmd = ft_calloc (sizeof(char), ft_strlen(data->token_tab[i]->value));
+			data->cmd[data->cmd_index]->cmd = data->token_tab[i]->value;
+		}
+		if (data->token_tab[i]->e_type == 7)
+		{
+			data->cmd[data->cmd_index]->full_cmd = ft_calloc (sizeof(char *), ft_count_arg(data) + 1);
+			while (j < ft_count_arg(data))
+			{
+				data->cmd[data->cmd_index]->full_cmd[j] = ft_calloc (sizeof(char), ft_strlen(data->token_tab[i]->value));
+				data->cmd[data->cmd_index]->full_cmd[j] = data->token_tab[i]->value;
+				j++;
+				i++;
+			}
+		}
+		if (data->token_tab[i]->e_type >= 0 && data->token_tab[i]->e_type < 6)
+		{
+			
+		}
+		i++;
+	}
+	data->cmd_index++;
+}
+
 int	ft_prompt(char *entry, char **content, t_data *data, int i)
 {
 	add_history(entry);
@@ -46,17 +97,20 @@ int	ft_prompt(char *entry, char **content, t_data *data, int i)
 	content = ft_split_pipe(entry, '|');
 	data->tot = ft_count_pipes(entry) + 1;
 	data->cmd = ft_calloc (sizeof (t_cmd), data->tot);
+	data->cmd_index = 0;
 	while (i < data->tot)
 	{
 		if (!content[i])
 			break ;
 		init_lexer(data, content[i]);
 		lexer_get_next_token(data, data->lexer, data->token);
+		ft_stock_cmd(data);
 		i++;
 	}
-	// for (int j = 0; j < data->token->nb ; j++)
-	// 	printf("[%d][%s]\n", data->token_tab[j]->e_type,
-	// 	data->token_tab[j]->value);
+	//*******************************************************************************
+	for (int j = 0; j < data->token->nb ; j++)
+		printf("[%d][%s]\n", data->token_tab[j]->e_type, data->token_tab[j]->value);
+	//*******************************************************************************
 	ft_free(data);
 	free(entry);
 	return (1);

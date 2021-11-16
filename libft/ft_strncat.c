@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strncat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 17:22:07 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/03/30 17:05:08 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/16 09:00:44 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,3 @@ char	*ft_strncat(char *s1, const char *s2, size_t n)
 	s1[j + i] = '\0';
 	return (s1);
 }
-/*#include <stdio.h>
-int main()
-{
-	char a[] = "hello";
-	char b[] = "bonjour";
-	printf("%s",ft_strncat(a, b, 3));
-}*/

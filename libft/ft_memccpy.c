@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memccpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 08:59:03 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/03/30 16:56:57 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/16 08:59:29 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,22 +32,3 @@ void	*ft_memccpy(void *dst, const void *src, int c, size_t n)
 	}
 	return (NULL);
 }
-/*#include <stdio.h>
-int main()
-{
-	const char * text = "bla bla bla. bidule";
-	size_t len = ft_strlen(text);
-
-	char y[len];
-	char * res = ft_memccpy(y, text, '.', len);
-
-	if (res != NULL)
-	{
-		printf("%s\n", y);
-	}
-	else
-	{
-        	printf( "nothing\n" );
-	}
-	return EXIT_SUCCESS;
-}*/

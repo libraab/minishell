@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:56:46 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/15 20:05:54 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/16 10:31:07 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ typedef struct s_data
 	t_token	*token; //malloc'd in memory.c line 18
 	t_cmd	**cmd; //malloc'd in minishell.c line 61
 	t_token	**token_tab;
+	int		cmd_index;
 	int		tot;
 }			t_data; // malloc'd in minishell.c line 49
 
@@ -100,7 +101,9 @@ int			ft_count_tkn_nbr(char *str);
 void		ft_tokenize_l_redir(t_data *data, t_lexer *lexer, t_token *token);
 void		ft_tokenize_r_redir(t_data *data, t_lexer *lexer, t_token *token);
 void		ft_tokenize_dollar(t_data *data, t_lexer *lexer, t_token *token);
-int			ft_tokenise_c_a(t_data *data, t_lexer *lexer, t_token *token, int cmd);
+int			ft_tokenise_ca(t_data *data, t_lexer *lexer, t_token *token, int x);
+void		ft_stock_cmd(t_data *data);
+int			ft_count_arg(t_data *data);
 
 //================================================================
 //						* S P L I T *							//
@@ -112,5 +115,6 @@ int			skip_qs(const char *s, int i, int *q, int *sq);
 void		find_next_q(char const *s, int *i, int *len, int *q);
 void		find_next_sq(char const *s, int *i, int *len, int *sq);
 char		**delet_spaces(char **newtab);
+void		init_vars(int *a, int *b, int *c, int *d);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 11:01:58 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/15 20:05:16 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/16 08:57:44 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ t_token	*lexer_get_next_token(t_data *data, t_lexer *lexer, t_token *token)
 		else if (lexer->c == '$')
 			ft_tokenize_dollar(data, lexer, token);
 		else
-			cmd = ft_tokenise_c_a(data, lexer, token, cmd);
+			cmd = ft_tokenise_ca(data, lexer, token, cmd);
 		lexer_advance(lexer);
 	}
 	return (token);
