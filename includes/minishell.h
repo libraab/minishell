@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:56:46 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/17 12:02:43 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/17 18:17:38 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ typedef struct s_data
 void		lexer_get_next_token(t_data *data, t_lexer *lexer);
 void		init_token(t_data *data, int type, char *value);
 void		init_lexer(t_data *data, char *content);
+int			ft_prompt(char *entry, char **content, t_data *data);
 char		*ft_collect_file_name(t_lexer *lexer);
 void		lexer_skip_whitespace(t_lexer *lexer);
 char		*ft_collect_flous(t_lexer *lexer);
@@ -93,6 +94,7 @@ char		*ft_collect_arg(t_lexer *lexer);
 int			lexer_advance(t_lexer *lexer);
 void		ft_free(t_data *data);
 void		ft_error(void);
+int			ft_entry_is_only_sp(char *str);
 int			ft_check_cmdless_pipe(char *str);
 char		**ft_split_pipe(char const *s, char c);
 void		ft_alloc_init(t_data *data);

@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:58:24 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/17 17:39:58 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/17 18:23:41 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int	ft_count_cmd_nbr(char **str)
 {
 	int	i;
+	
 	i = 0;
 	while (str[i])
 		i++;
@@ -83,8 +84,11 @@ void	ft_stock_cmd(t_data *data)
 	data->cmd_index++;
 }
 
-int	ft_prompt(char *entry, char **content, t_data *data, int i)
+int	ft_prompt(char *entry, char **content, t_data *data)
 {
+	int	i;
+
+	i = 0;
 	add_history(entry);
 	ft_check_invalid_chars(entry);
 	content = ft_split_pipe(entry, '|');
@@ -120,7 +124,6 @@ int	ft_prompt(char *entry, char **content, t_data *data, int i)
 		printf("_________________________\n");
 	}
 	//*******************************************************************************
-	
 	ft_free(data);
 	free(entry);
 	return (1);
@@ -128,7 +131,6 @@ int	ft_prompt(char *entry, char **content, t_data *data, int i)
 
 int	main(void)
 {
-	int		i ;
 	t_data	*data;
 	char	*entry;
 	char	**content;
@@ -138,12 +140,11 @@ int	main(void)
 	while (1)
 	{
 		ft_alloc_init(data);
-		i = 0;
 		entry = readline("\033[30;47m[minishell] >\033[0m ");
-		if (!entry)
+		if (!entry || ft_entry_is_only_sp(entry))
 			continue ;
 		else if (entry)
-			ft_prompt(entry, content, data, i);
+			ft_prompt(entry, content, data);
 		else
 			ft_error();
 	}
