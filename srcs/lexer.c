@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 11:01:58 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/16 08:57:44 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/17 08:14:01 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,14 @@ int	lexer_advance(t_lexer *lexer)
 	return (0);
 }
 
+void	lexer_skip_whitespace(t_lexer *lexer)
+{
+    while (lexer->c == 32 || lexer->c == '\n')
+    {
+        lexer_advance(lexer);
+    }
+}
+
 t_token	*lexer_get_next_token(t_data *data, t_lexer *lexer, t_token *token)
 {
 	int	cmd;
@@ -79,6 +87,8 @@ t_token	*lexer_get_next_token(t_data *data, t_lexer *lexer, t_token *token)
 	cmd = 0;
 	while (lexer->c != '\0' && lexer->index < ft_strlen(lexer->content))
 	{
+		if (lexer->c == ' ')
+			lexer_skip_whitespace(lexer);
 		if (lexer->c == '<')
 			ft_tokenize_l_redir(data, lexer, token);
 		else if (lexer->c == '>')

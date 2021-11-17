@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:56:46 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/16 18:26:17 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/17 08:59:24 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,16 @@
 # define OP "<>$ "
 
 typedef enum
-	{
-		R_REDIR,
-		L_REDIR,
-		DR_REDIR,
-		DL_REDIR,
-		FILE_NAME,
-		DOLLAR,
-		CMD,
-		ARG,
-	} TYPE;
+{
+	R_REDIR,
+	L_REDIR,
+	DR_REDIR,
+	DL_REDIR,
+	FILE_NAME,
+	DOLLAR,
+	CMD,
+	ARG,
+}	TYPE;
 typedef struct s_token
 {
 	TYPE	e_type;	
@@ -99,6 +99,7 @@ char		**ft_split_pipe(char const *s, char c);
 void		ft_alloc_init(t_data *data);
 void		ft_check_invalid_chars(char *str);
 int			ft_count_tkn_nbr(char *str);
+void		lexer_skip_whitespace(t_lexer *lexer);
 void		ft_tokenize_l_redir(t_data *data, t_lexer *lexer, t_token *token);
 void		ft_tokenize_r_redir(t_data *data, t_lexer *lexer, t_token *token);
 void		ft_tokenize_dollar(t_data *data, t_lexer *lexer, t_token *token);
@@ -106,7 +107,7 @@ int			ft_tokenise_ca(t_data *data, t_lexer *lexer, t_token *token, int x);
 void		ft_stock_cmd(t_data *data);
 int			ft_count_arg(t_data *data);
 int			ft_count_redir(t_data *data);
-bool		is_entry_valid(char *s);
+int			ft_count_cmd_nbr(char **str);
 
 //================================================================
 //						* S P L I T *							//
