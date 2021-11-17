@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:56:46 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/17 08:59:24 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/17 12:02:43 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ typedef struct s_token
 {
 	TYPE	e_type;	
 	char	*value; ////malloc'd via strdup in lexer.c line 17
-	int		nb;
 }			t_token;
 
 typedef struct s_lexer
@@ -72,18 +71,18 @@ typedef struct s_cmd
 typedef struct s_data
 {
 	t_lexer	*lexer; //malloc'd in memory.c line 17
-	t_token	*token; //malloc'd in memory.c line 18
-	t_cmd	**cmd; //malloc'd in minishell.c line 61
-	t_token	**token_tab;
+	t_cmd	*cmd; //malloc'd in minishell.c line 61
+	t_token	*token_tab;
 	int		cmd_index;
 	int		tot;
+	int		nb;
 }			t_data; // malloc'd in minishell.c line 49
 
 //================================================================
 //						* L E X E R *							//
 //================================================================
 
-t_token		*lexer_get_next_token(t_data *data, t_lexer *lexer, t_token *token);
+void		lexer_get_next_token(t_data *data, t_lexer *lexer);
 void		init_token(t_data *data, int type, char *value);
 void		init_lexer(t_data *data, char *content);
 char		*ft_collect_file_name(t_lexer *lexer);
@@ -100,10 +99,10 @@ void		ft_alloc_init(t_data *data);
 void		ft_check_invalid_chars(char *str);
 int			ft_count_tkn_nbr(char *str);
 void		lexer_skip_whitespace(t_lexer *lexer);
-void		ft_tokenize_l_redir(t_data *data, t_lexer *lexer, t_token *token);
-void		ft_tokenize_r_redir(t_data *data, t_lexer *lexer, t_token *token);
-void		ft_tokenize_dollar(t_data *data, t_lexer *lexer, t_token *token);
-int			ft_tokenise_ca(t_data *data, t_lexer *lexer, t_token *token, int x);
+void		ft_tokenize_l_redir(t_data *data, t_lexer *lexer);
+void		ft_tokenize_r_redir(t_data *data, t_lexer *lexer);
+void		ft_tokenize_dollar(t_data *data, t_lexer *lexer);
+int			ft_tokenise_ca(t_data *data, t_lexer *lexer, int x);
 void		ft_stock_cmd(t_data *data);
 int			ft_count_arg(t_data *data);
 int			ft_count_redir(t_data *data);

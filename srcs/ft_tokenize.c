@@ -6,13 +6,13 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 19:52:01 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/16 08:57:53 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/17 11:59:25 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	ft_tokenize_l_redir(t_data *data, t_lexer *lexer, t_token *token)
+void	ft_tokenize_l_redir(t_data *data, t_lexer *lexer)
 {
 	if (lexer->content[lexer->index + 1] == '<')
 	{
@@ -24,7 +24,7 @@ void	ft_tokenize_l_redir(t_data *data, t_lexer *lexer, t_token *token)
 	init_token(data, FILE_NAME, ft_collect_file_name(lexer));
 }
 
-void	ft_tokenize_r_redir(t_data *data, t_lexer *lexer, t_token *token)
+void	ft_tokenize_r_redir(t_data *data, t_lexer *lexer)
 {
 	if (lexer->content[lexer->index + 1] == '>')
 	{
@@ -36,7 +36,7 @@ void	ft_tokenize_r_redir(t_data *data, t_lexer *lexer, t_token *token)
 	init_token(data, FILE_NAME, ft_collect_file_name(lexer));
 }
 
-void	ft_tokenize_dollar(t_data *data, t_lexer *lexer, t_token *token)
+void	ft_tokenize_dollar(t_data *data, t_lexer *lexer)
 {
 	if (lexer->content[lexer->index + 1] == '$'
 		|| lexer->content[lexer->index + 1] == ' ')
@@ -45,7 +45,7 @@ void	ft_tokenize_dollar(t_data *data, t_lexer *lexer, t_token *token)
 		init_token(data, DOLLAR, ft_collect_flous(lexer));
 }
 
-int	ft_tokenise_ca(t_data *data, t_lexer *lexer, t_token *token, int x)
+int	ft_tokenise_ca(t_data *data, t_lexer *lexer, int x)
 {
 	if (x == 0)
 	{

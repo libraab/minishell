@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/14 17:39:02 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/15 17:20:48 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/17 17:31:04 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ char	*ft_collect_file_name(t_lexer *lexer)
 	end = lexer->index;
 	str = ft_calloc((end - start), sizeof(char));
 	i = 0;
-	while (start <= end)
+	while (start < end)
 		str[i++] = lexer->content[start++];
 	return (str);
 }
