@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 18:17:55 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/17 11:18:31 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/18 12:24:03 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ char	*ft_strdup(const char *src)
 
 	x = 0;
 	i = 0;
+	if (!src)
+		return (NULL);
 	while (src[x])
 		x++;
 	dst = ft_calloc(sizeof(char), x + 1);

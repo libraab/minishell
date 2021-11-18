@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:56:46 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/17 18:17:38 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/18 16:04:56 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ void		ft_stock_cmd(t_data *data);
 int			ft_count_arg(t_data *data);
 int			ft_count_redir(t_data *data);
 int			ft_count_cmd_nbr(char **str);
+
 
 //================================================================
 //						* S P L I T *							//

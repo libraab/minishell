@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 19:52:01 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/17 11:59:25 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/18 11:29:37 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	ft_tokenise_ca(t_data *data, t_lexer *lexer, int x)
 		init_token(data, CMD, ft_collect_cmd(lexer));
 		x = 1;
 	}
-	else if (!ft_strchr(OP, lexer->c) && lexer->c != '\0' && x > 0)
+	else if (!ft_strchr(OP, lexer->c) && lexer->c != '\0' && x != 0)
 		init_token(data, ARG, ft_collect_arg(lexer));
 	return (x);
 }

@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:58:24 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/17 18:23:41 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/18 14:25:00 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,12 +63,14 @@ void	ft_stock_cmd(t_data *data)
 	i = 0;
 	j = 0;
 	k = 0;
+	//data->cmd[data->cmd_index].full_cmd = NULL;
+	//data->cmd[data->cmd_index].redir = NULL;
 	data->cmd[data->cmd_index].full_cmd = ft_calloc (sizeof(char *), ft_count_arg(data) + 1);
 	data->cmd[data->cmd_index].redir = ft_calloc (sizeof(char *), ft_count_redir(data) + 1);
 	while (i < data->nb)
 	{
 		if (data->token_tab[i].e_type == 6)
-			data->cmd[data->cmd_index].cmd = ft_strdup (data->token_tab[i].value);
+			data->cmd[data->cmd_index].cmd = ft_strdup(data->token_tab[i].value);
 		else if (data->token_tab[i].e_type == 7)
 		{
 			data->cmd[data->cmd_index].full_cmd[j] = ft_strdup(data->token_tab[i].value);
@@ -107,8 +109,8 @@ int	ft_prompt(char *entry, char **content, t_data *data)
 		i++;
 	}
 	//*******************************************************************************
-	// for (int j = 0; j < data->token->nb ; j++)
-	// 	printf("[%d][%s]\n", data->token_tab[j]->e_type, data->token_tab[j]->value);
+	for (int j = 0; j < data->nb ; j++)
+		printf("[%d][%s]\n", data->token_tab[j].e_type, data->token_tab[j].value);
 	//*******************************************************************************
 	for (int k = 0; k < data->tot; k++)
 	{
