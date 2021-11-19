@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 10:53:14 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/17 17:30:19 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/19 14:59:28 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,6 @@ char	**ft_split_pipe(char const *s, char c)
 	char	**newtab;
 	char	**newtab_sp;
 	int		words;
-	//int		i;
 
 	if (!s)
 		return (NULL);

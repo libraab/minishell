@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/14 17:35:43 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/17 17:15:10 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/19 14:58:55 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,8 @@ void	ft_free(t_data *data)
 	int	i;
 
 	i = 0;
-	while (i < data->nb)
-	{
-		if (data->token_tab[i].value != NULL)
-			free(data->token_tab[i].value);
-		i++;
-	}
 	if (data->token_tab != NULL)
 		free (data->token_tab);
 	if (data->lexer != NULL)
 		free (data->lexer);
-	
 }

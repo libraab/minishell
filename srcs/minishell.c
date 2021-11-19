@@ -6,65 +6,21 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:58:24 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/18 14:25:00 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/19 15:35:49 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-int	ft_count_cmd_nbr(char **str)
-{
-	int	i;
-	
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}
-
-int	ft_count_arg(t_data *data)
-{
-	int	i;
-	int	count;
-	
-	i = 0;
-	count = 0;
-	while (i < data->nb)
-	{
-		if (data->token_tab[i].e_type == 7)
-			count++;
-		i++;
-	}
-	return (count);
-}
-
-int	ft_count_redir(t_data *data)
-{
-	int	i;
-	int	count;
-	
-	i = 0;
-	count = 0;
-	while (i < data->nb)
-	{
-		if (data->token_tab[i].e_type < 6)
-			count++;
-		i++;
-	}
-	return (count);
-}
 
 void	ft_stock_cmd(t_data *data)
 {
 	int	i;
 	int	j;
 	int	k;
-	
+
 	i = 0;
 	j = 0;
 	k = 0;
-	//data->cmd[data->cmd_index].full_cmd = NULL;
-	//data->cmd[data->cmd_index].redir = NULL;
 	data->cmd[data->cmd_index].full_cmd = ft_calloc (sizeof(char *), ft_count_arg(data) + 1);
 	data->cmd[data->cmd_index].redir = ft_calloc (sizeof(char *), ft_count_redir(data) + 1);
 	while (i < data->nb)
@@ -109,12 +65,13 @@ int	ft_prompt(char *entry, char **content, t_data *data)
 		i++;
 	}
 	//*******************************************************************************
-	for (int j = 0; j < data->nb ; j++)
-		printf("[%d][%s]\n", data->token_tab[j].e_type, data->token_tab[j].value);
+	// printf("\n{MY TOKENS}\n");
+	// for (int j = 0; j < data->nb ; j++)
+	// 	printf("[%d][%s]\n", data->token_tab[j].e_type, data->token_tab[j].value);
 	//*******************************************************************************
 	for (int k = 0; k < data->tot; k++)
 	{
-		printf("         {C M D}   \n");
+		printf("\n         {C M D}   \n");
 		printf("_________________________\n");
 		printf("| cmd        |   [%s]\n", data->cmd[k].cmd);
 		printf("_________________________\n");
@@ -136,8 +93,8 @@ int	main(void)
 	t_data	*data;
 	char	*entry;
 	char	**content;
-	content = NULL;
 
+	content = NULL;
 	data = ft_calloc (sizeof(t_data), 1);
 	while (1)
 	{
