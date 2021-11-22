@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:56:46 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/19 16:00:45 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/22 18:35:05 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,9 @@ int			ft_count_arg(t_data *data);
 int			ft_count_redir(t_data *data);
 int			ft_count_cmd_nbr(char **str);
 int			ft_char_is_sep(char c);
+char		*get_path(char **env);
+char		**take_env(char **env);
+//void		ft_change_flous(t_data *data);
 
 //================================================================
 //						* S P L I T *							//

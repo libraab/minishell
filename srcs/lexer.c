@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 11:01:58 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/19 15:50:22 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/22 19:02:32 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,10 @@ void	init_token(t_data *data, int type, char *value)
 		j++;
 	}
 	tmp[j].e_type = type;
-	tmp[j].value = value;
+	// if (type == 5)
+	// 	tmp[j].value = ft_strdup(ft_change_flous(data));
+	// else
+		tmp[j].value = ft_strdup(value);
 	free (data->token_tab);
 	data->token_tab = tmp;
 	data->nb++;

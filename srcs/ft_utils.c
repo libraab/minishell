@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 08:01:35 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/19 15:10:25 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/22 19:00:27 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	ft_count_arg(t_data *data)
 	count = 0;
 	while (i < data->nb)
 	{
-		if (data->token_tab[i].e_type == 7)
+		if (data->token_tab[i].e_type >= 5)
 			count++;
 		i++;
 	}
@@ -90,4 +90,66 @@ int	ft_count_redir(t_data *data)
 		i++;
 	}
 	return (count);
+}
+//************************************
+char	*ft_change_flous(t_data *data)
+{
+	int		i;
+	char	*str;
+	
+	i = 0;
+	if (variable == 0)
+		str[0] = 0;
+	return (str);
+}
+//************************************
+
+
+char *get_path(char **env)
+{
+    int     i;
+    char    *s;
+
+    i = 0;
+    while (env[i])
+    {
+        if (ft_strncmp(env[i], "PATH=", 5) == 0)
+            s = env[i];
+        i++;
+    }
+    return(&s[5]);
+}
+
+char    **take_env(char **env)
+{
+    char    *s;
+    char    **path_split;
+    int     i;
+
+    s = get_path(env);
+    path_split = ft_split(s, ':');
+    i = 0;
+    while(path_split[i])
+    {
+        path_split[i] = ft_strjoin((const char *)path_split[i], "/");
+        i++;
+    }
+    return (path_split);
+}
+
+
+char    *find_cmd(char *agmt, char **path_split)
+{
+    int i;
+    char **full_cmd;
+
+    i = 0;
+    full_cmd = ft_split(agmt, ' ');;
+    while(path_split[i])
+    {
+        if(access(ft_strjoin(path_split[i], full_cmd[0]), F_OK) == 0)
+            return (ft_strjoin(path_split[i], full_cmd[0]));
+        i++;
+    }
+    return(0);
 }
