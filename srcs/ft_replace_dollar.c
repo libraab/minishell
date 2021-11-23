@@ -6,11 +6,43 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 17:27:38 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/23 17:48:36 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/23 18:10:21 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+char *get_env_var(char **env, char *str)
+{
+    int     i;
+    char    *s;
+
+    i = 0;
+    while (env[i])
+    {
+        if (ft_strncmp(env[i], ft_strcat(str, "="), 5) == 0)
+            s = env[i];
+        i++;
+    }
+    return(&s[5]);
+}
+
+char    **take_env(char **env)
+{
+    char    *s;
+    char    **path_split;
+    int     i;
+
+    s = get_path(env);
+    path_split = ft_split(s, ':');
+    i = 0;
+    while(path_split[i])
+    {
+        path_split[i] = ft_strjoin((const char *)path_split[i], "/");
+        i++;
+    }
+    return (path_split);
+}
 
 char	*ft_get_env_var(char *str, int start, int end)
 {

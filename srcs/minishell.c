@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:58:24 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/23 18:01:55 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/23 18:08:02 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,9 @@ int	main(const int ac, const char **av, const char **envp)
 	char	*entry;
 	char	**content;
 
+	(void) ac;
+	(void) av;
+	data->env = envp;
 	content = NULL;
 	data = ft_calloc (sizeof(t_data), 1);
 	while (1)
