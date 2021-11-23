@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:58:24 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/22 15:27:37 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/23 11:39:54 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,9 @@ int	ft_prompt(char *entry, char **content, t_data *data)
 		i++;
 	}
 	//*******************************************************************************
-	printf("\n{MY TOKENS}\n");
-	for (int j = 0; j < data->nb ; j++)
-		printf("[%d][%s]\n", data->token_tab[j].e_type, data->token_tab[j].value);
+	// printf("\n{MY TOKENS}\n");
+	// for (int j = 0; j < data->nb ; j++)
+	// 	printf("[%d][%s]\n", data->token_tab[j].e_type, data->token_tab[j].value);
 	//*******************************************************************************
 	for (int k = 0; k < data->tot; k++)
 	{

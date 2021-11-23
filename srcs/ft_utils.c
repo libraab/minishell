@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 08:01:35 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/22 19:00:27 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/23 13:00:38 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,19 +91,78 @@ int	ft_count_redir(t_data *data)
 	}
 	return (count);
 }
-//************************************
-char	*ft_change_flous(t_data *data)
+char	*ft_replace(char *str, int start, int end)
 {
-	int		i;
-	char	*str;
-	
+	int	i;
+	int	j;
+	char *newstr;
+	char *newstr2;
+
 	i = 0;
-	if (variable == 0)
-		str[0] = 0;
+	j = 0;
+	newstr = ft_calloc(sizeof(char *), start);
+	newstr2 = ft_calloc(sizeof(char *), ft_strlen(str) - end + 1);
+	while (i < start)
+	{
+		newstr[i] = str[i];
+		i++;
+	}
+	while (str[end + j])
+	{
+		newstr2[j] = str[end + j];
+		j++;
+	}
+	newstr = ft_strjoin(newstr, "ABOUHLEL");//duplicate ft_collect command
+	newstr = ft_strjoin(newstr, newstr2);
+	if (str != NULL)
+		free (str);
+	str = newstr;
 	return (str);
 }
-//************************************
 
+int	ft_find_end(char *str, int i, int x)
+{
+	if (x == 0)
+	{
+		while (str[i] && str[i] != ' ' && str[i] != '$')
+		i++;	
+	}
+	if (x == 1)
+	{
+		while (str[i] && str[i] != ' ' && str[i] != '$' && str[i] != '"')// need stuff
+		i++;	
+	}
+	return (i);
+}
+
+char	*ft_change_flous(char *str)
+{
+	int		i;
+	char	c;
+	int		dq = 0;
+	
+	i = 0;
+	while (str[i])
+	{
+		
+		if (str[i] == '\'' && !dq)
+		{
+			c = str[i++];
+			while (str[i] && str[i] != c)
+				i++;
+			if (str[i + 1] && str[i] == c)
+				i++;
+		}
+		if (str[i] == '"')
+			dq = !dq;
+		if (str[i] == '$' && str[i + 1] != ' ' && str[i + 1] && !dq)
+			str = (ft_replace(str, i, ft_find_end(str, i + 1, 0)));
+		if (str[i] == '$' && str[i + 1] != ' ' && str[i + 1] && dq)
+			str = (ft_replace(str, i, ft_find_end(str, i + 1, 1)));
+		i++;
+	}
+	return (str);
+}
 
 char *get_path(char **env)
 {
