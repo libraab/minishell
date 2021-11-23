@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:58:24 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/23 13:54:38 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/23 18:01:55 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int	ft_prompt(char *entry, char **content, t_data *data)
 	return (1);
 }
 
-int	main(void)
+int	main(const int ac, const char **av, const char **envp)
 {
 	t_data	*data;
 	char	*entry;
