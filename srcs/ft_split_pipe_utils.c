@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 19:38:09 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/16 09:24:37 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/23 13:35:10 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ char	**delet_spaces(char **newtab)
 	i = 0;
 	while (newtab[i])
 	{
-		newtab[i] = ft_strtrim(newtab[i], " ");
+		//newtab[i] = ft_strtrim(newtab[i], " ");
 		i++;
 	}
 	return (newtab);

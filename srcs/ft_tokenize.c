@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 19:52:01 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/22 15:21:41 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/23 14:05:02 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ char	*ft_collect_file_name(t_lexer *lexer)
 
 	i = 0;
 	lexer_advance(lexer);
+	while (lexer->c == ' ')
+		lexer_advance(lexer);
 	start = lexer->index;
 	while (!ft_char_is_sep(lexer->c))
 		lexer_advance(lexer);

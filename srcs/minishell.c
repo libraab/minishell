@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:58:24 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/23 11:39:54 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/23 13:54:38 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ int	main(void)
 			continue ;
 		else if (entry)
 			ft_prompt(entry, content, data);
+			
 		else
 			ft_error();
 	}

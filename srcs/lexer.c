@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 11:01:58 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/23 11:39:43 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/23 16:10:20 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,61 @@ void	lexer_skip_whitespace(t_lexer *lexer)
 		lexer_advance(lexer);
 }
 
+char	*ft_remove_quote(char *str, int x, int y)
+{
+	int		i;
+	int		j;
+	char	*newstr;
+
+	i = 0;
+	j = 0;
+	newstr = ft_calloc(sizeof(char *), ft_strlen(str) - 2);
+	while (str[i])
+	{
+		if (i != x && i != y)
+		{
+			newstr[j] = str[i];
+			j++;
+		}
+		i++;
+	}
+	newstr[j] = '\0';
+	return (newstr);
+}
+
+void	ft_clean_quote(t_data *data)
+{
+	int		i;
+	int		j;
+	char	c;
+	int		start;
+	int		end;
+
+	i = 0;
+	while (i < data->nb)
+	{
+		j = 0;
+		if (data->token_tab[i].e_type == 7)
+		{
+			while (data->token_tab[i].value[j])
+			{
+				if (data->token_tab[i].value[j] == '\'' || data->token_tab[i].value[j] == '"')
+				{
+					c = data->token_tab[i].value[j];
+					start = j;
+					j++;
+					while (data->token_tab[i].value[j] && data->token_tab[i].value[j] != c)
+						j++;
+					end = j;
+					data->token_tab[i].value = ft_remove_quote(data->token_tab[i].value, start, end);
+				}
+				j++;
+			}
+		}
+		i++;
+	}	
+}
+
 void	lexer_get_next_token(t_data *data, t_lexer *lexer)
 {
 	int	cmd;
@@ -74,4 +129,5 @@ void	lexer_get_next_token(t_data *data, t_lexer *lexer)
 		else
 			cmd = ft_tokenise_ca(data, lexer, cmd);
 	}
+	ft_clean_quote(data);
 }

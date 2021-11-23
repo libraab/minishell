@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 08:01:35 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/23 13:00:38 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/23 17:23:45 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,12 @@ int	ft_find_end(char *str, int i, int x)
 	}
 	if (x == 1)
 	{
-		while (str[i] && str[i] != ' ' && str[i] != '$' && str[i] != '"')// need stuff
+		while (str[i] && str[i] != ' ' && str[i] != '$' && str[i] != '"')
+		i++;	
+	}
+	if (x == 2)
+	{
+		while (str[i] && str[i] != ' ' && str[i] != '$' && str[i] != '\'')
 		i++;	
 	}
 	return (i);
@@ -140,11 +145,11 @@ char	*ft_change_flous(char *str)
 	int		i;
 	char	c;
 	int		dq = 0;
+	int		sq = 0;
 	
 	i = 0;
 	while (str[i])
 	{
-		
 		if (str[i] == '\'' && !dq)
 		{
 			c = str[i++];
@@ -153,12 +158,16 @@ char	*ft_change_flous(char *str)
 			if (str[i + 1] && str[i] == c)
 				i++;
 		}
+		if (str[i] == '\'')
+			sq = !sq;
 		if (str[i] == '"')
 			dq = !dq;
 		if (str[i] == '$' && str[i + 1] != ' ' && str[i + 1] && !dq)
 			str = (ft_replace(str, i, ft_find_end(str, i + 1, 0)));
-		if (str[i] == '$' && str[i + 1] != ' ' && str[i + 1] && dq)
+		if (str[i] == '$' && str[i + 1] != ' ' && str[i + 1] && dq && !sq)
 			str = (ft_replace(str, i, ft_find_end(str, i + 1, 1)));
+		if (str[i] == '$' && str[i + 1] != ' ' && str[i + 1] && dq && sq)
+			str = (ft_replace(str, i, ft_find_end(str, i + 1, 2)));
 		i++;
 	}
 	return (str);
@@ -173,7 +182,7 @@ char *get_path(char **env)
     while (env[i])
     {
         if (ft_strncmp(env[i], "PATH=", 5) == 0)
-            s = env[i];
+            s = ft_strdup(env[i]); // <----------- not necessary
         i++;
     }
     return(&s[5]);
