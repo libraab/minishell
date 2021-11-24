@@ -6,70 +6,54 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 17:27:38 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/23 18:10:21 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/24 17:42:13 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-char *get_env_var(char **env, char *str)
+char	*ft_get_env_var(t_data *data, char *str, int start, int end)
 {
-    int     i;
-    char    *s;
-
-    i = 0;
-    while (env[i])
-    {
-        if (ft_strncmp(env[i], ft_strcat(str, "="), 5) == 0)
-            s = env[i];
-        i++;
-    }
-    return(&s[5]);
-}
-
-char    **take_env(char **env)
-{
-    char    *s;
-    char    **path_split;
-    int     i;
-
-    s = get_path(env);
-    path_split = ft_split(s, ':');
-    i = 0;
-    while(path_split[i])
-    {
-        path_split[i] = ft_strjoin((const char *)path_split[i], "/");
-        i++;
-    }
-    return (path_split);
-}
-
-char	*ft_get_env_var(char *str, int start, int end)
-{
+	char 	*dollar_value;
+	char	*newstr;
 	int		i;
-	char 	*var_dst;
-	char	*var_src;
 
 	i = 0;
-	var_src = ft_calloc(sizeof(char *), end - start + 1);
+	newstr = NULL;
+	dollar_value = ft_calloc(sizeof(char *), end - start + 1);
 	while (i < (end - start))
 	{
-		var_src[i] = str[start + i];
+		dollar_value[i] = str[start + i];
 		i++;
 	}
-	var_dst = getenv(var_src);
-	return (str);
+	dollar_value = ft_strcat(dollar_value, "=");
+	i = 0;
+	while (data->env[i])
+    {
+        if (ft_strncmp(data->env[i], dollar_value, ft_strlen(dollar_value)) == 0)
+            newstr = data->env[i];
+        i++;
+    }
+	if (newstr == NULL)
+	{
+		newstr = ft_calloc(sizeof(char), 2);
+		newstr = " ";
+		return (newstr);
+	}
+	return (&newstr[ft_strlen(dollar_value)]);
 }
 
-char	*ft_replace(char *str, int start, int end)
+char	*ft_replace(t_data *data, char *str, int start, int end)
 {
 	int	i;
 	int	j;
 	char *newstr;
 	char *newstr2;
+	char	*s;
 
 	i = 0;
 	j = 0;
+	(void) data;
 	newstr = ft_calloc(sizeof(char *), start);
 	newstr2 = ft_calloc(sizeof(char *), ft_strlen(str) - end + 1);
 	while (i < start)
@@ -77,40 +61,45 @@ char	*ft_replace(char *str, int start, int end)
 		newstr[i] = str[i];
 		i++;
 	}
+	newstr[i] = 0;
 	while (str[end + j])
 	{
 		newstr2[j] = str[end + j];
 		j++;
 	}
-	newstr = ft_strjoin(newstr, "ABOUHLEL"); //ft_get_env_var(str, start, end));
-	newstr = ft_strjoin(newstr, newstr2);
-	if (str != NULL)
-		free (str);
-	str = newstr;
-	return (str);
+	newstr2[j] = 0;
+	s = ft_strdup(newstr);
+	newstr = ft_strjoin(newstr, ft_get_env_var(data, str, start + 1, end));
+	if (newstr == NULL && newstr2 != NULL)
+		newstr = ft_strjoin(s, newstr2);
+	else if (newstr == NULL && newstr2 == NULL)
+		newstr = s;
+	else
+		newstr = ft_strjoin(newstr, newstr2);
+	return (newstr);
 }
 
 int	ft_find_end(char *str, int i, int x)
 {
 	if (x == 0)
 	{
-		while (str[i] && str[i] != ' ' && str[i] != '$')
-		i++;	
+		while (str[i] && (ft_isalpha(str[i]) || str[i] == '_') && str[i] != ' ' && str[i] != '$')
+			i++;	
 	}
 	if (x == 1)
 	{
-		while (str[i] && str[i] != ' ' && str[i] != '$' && str[i] != '"')
-		i++;	
+		while (str[i] && (ft_isalpha(str[i]) || str[i] == '_') && str[i] != ' ' && str[i] != '$' && str[i] != '"')
+			i++;	
 	}
 	if (x == 2)
 	{
-		while (str[i] && str[i] != ' ' && str[i] != '$' && str[i] != '\'')
-		i++;	
+		while (str[i] && (ft_isalpha(str[i]) || str[i] == '_') && str[i] != ' ' && str[i] != '$' && str[i] != '\'')
+			i++;	
 	}
 	return (i);
 }
 
-char	*ft_change_flous(char *str)
+char	*ft_change_flous(t_data *data, char *str)
 {
 	int		i;
 	char	c;
@@ -133,11 +122,11 @@ char	*ft_change_flous(char *str)
 		if (str[i] == '"')
 			dq = !dq;
 		if (str[i] == '$' && str[i + 1] != ' ' && str[i + 1] && !dq)
-			str = (ft_replace(str, i, ft_find_end(str, i + 1, 0)));
+			str = (ft_replace(data, str, i, ft_find_end(str, i + 1, 0)));
 		if (str[i] == '$' && str[i + 1] != ' ' && str[i + 1] && dq && !sq)
-			str = (ft_replace(str, i, ft_find_end(str, i + 1, 1)));
+			str = (ft_replace(data, str, i, ft_find_end(str, i + 1, 1)));
 		if (str[i] == '$' && str[i + 1] != ' ' && str[i + 1] && dq && sq)
-			str = (ft_replace(str, i, ft_find_end(str, i + 1, 2)));
+			str = (ft_replace(data, str, i, ft_find_end(str, i + 1, 2)));
 		i++;
 	}
 	return (str);

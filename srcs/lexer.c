@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 11:01:58 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/23 16:10:20 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/24 17:36:29 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	init_token(t_data *data, int type, char *value)
 	int		j;
 
 	j = 0;
+	
 	tmp = malloc(sizeof(t_token) * (data->nb + 1));
 	while (j < data->nb)
 	{
@@ -34,7 +35,7 @@ void	init_token(t_data *data, int type, char *value)
 
 void	init_lexer(t_data *data, char *content)
 {
-	data->lexer->content = ft_change_flous(content);
+	data->lexer->content = ft_change_flous(data, content);
 	data->lexer->index = 0;
 	data->lexer->c = data->lexer->content[0];
 	data->nb = 0;
@@ -54,7 +55,7 @@ int	lexer_advance(t_lexer *lexer)
 
 void	lexer_skip_whitespace(t_lexer *lexer)
 {
-	while (lexer->c == ' ' || lexer->c == '\0')
+	while (lexer->c == ' ' && lexer->c != '\0')
 		lexer_advance(lexer);
 }
 
@@ -115,6 +116,7 @@ void	ft_clean_quote(t_data *data)
 
 void	lexer_get_next_token(t_data *data, t_lexer *lexer)
 {
+	
 	int	cmd;
 
 	cmd = 0;

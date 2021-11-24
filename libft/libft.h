@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 09:43:16 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/23 13:36:16 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/24 09:23:30 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	ft_putchar_fd(char c, int fd);
 void	ft_putstr_fd(char *s, int fd);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strrchr(const char *s, int c);
-char	*ft_strcat(char *s1, const char *s2);
+char	*ft_strcat(char *s1, char *s2);
 char	*ft_strncat(char *s1, const char *s2, size_t n);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*ft_strncpy(char *dst, const char *src, size_t len);

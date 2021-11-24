@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:56:46 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/23 18:07:47 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/24 11:03:35 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,11 +108,11 @@ int			ft_count_cmd_nbr(char **str);
 int			ft_char_is_sep(char c);
 char		*get_path(char **env);
 char		**take_env(char **env);
-char		*ft_change_flous(char *str);
-char		*ft_replace(char *str, int start, int end);
+char		*ft_change_flous(t_data *data, char *str);
+char		*ft_replace(t_data *data, char *str, int start, int end);
 int			ft_find_end(char *str, int i, int x);
-char		*ft_change_flous(char *str);
-char	*ft_get_env_var(char *str, int start, int end);
+char		*ft_change_flous(t_data *data, char *str);
+char		*ft_get_env_var(t_data *data, char *str, int start, int end);
 
 //================================================================
 //						* S P L I T *							//

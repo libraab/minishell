@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 19:52:01 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/23 14:05:02 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/24 16:31:58 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	*ft_collect_arg(t_lexer *lexer)
 
 	i = 0;
 	start = lexer->index;
-	while (!ft_char_is_sep(lexer->c))
+	while (!ft_char_is_sep(lexer->c) && lexer->content)
 	{
 		if (lexer->c != '\'' && lexer->c != '"')
 			lexer_advance(lexer);
@@ -116,7 +116,7 @@ int	ft_tokenise_ca(t_data *data, t_lexer *lexer, int x)
 		init_token(data, CMD, ft_collect_cmd(lexer));
 		x = 1;
 	}
-	else if (!ft_char_is_sep(lexer->c) && lexer->c == '$' && x != 0)
+	else if (lexer->c == '$' && x != 0)
 		init_token(data, DOLLAR, ft_collect_cmd(lexer));
 	else if (!ft_char_is_sep(lexer->c) && x != 0)
 		init_token(data, ARG, ft_collect_arg(lexer));
