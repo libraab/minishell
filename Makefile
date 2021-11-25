@@ -6,7 +6,7 @@
 #    By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/25 10:50:15 by abouhlel          #+#    #+#              #
-#    Updated: 2021/11/23 17:28:19 by abouhlel         ###   ########.fr        #
+#    Updated: 2021/11/25 15:10:57 by abouhlel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ SRCS				= minishell.c \
 						ft_memory.c \
 						ft_utils.c \
 						ft_tokenize.c \
+						ft_collect.c \
 						ft_replace_dollar.c \
 
 SRC					= $(addprefix ${FOLDER},${SRCS})

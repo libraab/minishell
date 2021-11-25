@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 17:27:38 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/24 17:42:13 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/25 15:06:29 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,42 +14,42 @@
 
 char	*ft_get_env_var(t_data *data, char *str, int start, int end)
 {
-	char 	*dollar_value;
+	char	*dol_value;
 	char	*newstr;
 	int		i;
 
 	i = 0;
 	newstr = NULL;
-	dollar_value = ft_calloc(sizeof(char *), end - start + 1);
+	dol_value = ft_calloc(sizeof(char *), end - start + 1);
 	while (i < (end - start))
 	{
-		dollar_value[i] = str[start + i];
+		dol_value[i] = str[start + i];
 		i++;
 	}
-	dollar_value = ft_strcat(dollar_value, "=");
+	dol_value = ft_strcat(dol_value, "=");
 	i = 0;
 	while (data->env[i])
-    {
-        if (ft_strncmp(data->env[i], dollar_value, ft_strlen(dollar_value)) == 0)
-            newstr = data->env[i];
-        i++;
-    }
+	{
+		if (ft_strncmp(data->env[i], dol_value, ft_strlen(dol_value)) == 0)
+			newstr = data->env[i];
+		i++;
+	}
 	if (newstr == NULL)
 	{
 		newstr = ft_calloc(sizeof(char), 2);
 		newstr = " ";
 		return (newstr);
 	}
-	return (&newstr[ft_strlen(dollar_value)]);
+	return (&newstr[ft_strlen(dol_value)]);
 }
 
 char	*ft_replace(t_data *data, char *str, int start, int end)
 {
-	int	i;
-	int	j;
-	char *newstr;
-	char *newstr2;
+	char	*newstr;
+	char	*newstr2;
 	char	*s;
+	int		i;
+	int		j;
 
 	i = 0;
 	j = 0;
@@ -83,18 +83,21 @@ int	ft_find_end(char *str, int i, int x)
 {
 	if (x == 0)
 	{
-		while (str[i] && (ft_isalpha(str[i]) || str[i] == '_') && str[i] != ' ' && str[i] != '$')
-			i++;	
+		while (str[i] && (ft_isalpha(str[i]) || str[i] == '_')
+			&& str[i] != ' ' && str[i] != '$')
+			i++;
 	}
 	if (x == 1)
 	{
-		while (str[i] && (ft_isalpha(str[i]) || str[i] == '_') && str[i] != ' ' && str[i] != '$' && str[i] != '"')
-			i++;	
+		while (str[i] && (ft_isalpha(str[i]) || str[i] == '_')
+			&& str[i] != ' ' && str[i] != '$' && str[i] != '"')
+			i++;
 	}
 	if (x == 2)
 	{
-		while (str[i] && (ft_isalpha(str[i]) || str[i] == '_') && str[i] != ' ' && str[i] != '$' && str[i] != '\'')
-			i++;	
+		while (str[i] && (ft_isalpha(str[i]) || str[i] == '_')
+			&& str[i] != ' ' && str[i] != '$' && str[i] != '\'')
+			i++;
 	}
 	return (i);
 }
@@ -103,10 +106,12 @@ char	*ft_change_flous(t_data *data, char *str)
 {
 	int		i;
 	char	c;
-	int		dq = 0;
-	int		sq = 0;
-	
+	int		dq;
+	int		sq;
+
 	i = 0;
+	dq = 0;
+	sq = 0;
 	while (str[i])
 	{
 		if (str[i] == '\'' && !dq)
@@ -121,6 +126,8 @@ char	*ft_change_flous(t_data *data, char *str)
 			sq = !sq;
 		if (str[i] == '"')
 			dq = !dq;
+		if (str[i] == '$' && str[i + 1] == '?')
+			i++;
 		if (str[i] == '$' && str[i + 1] != ' ' && str[i + 1] && !dq)
 			str = (ft_replace(data, str, i, ft_find_end(str, i + 1, 0)));
 		if (str[i] == '$' && str[i + 1] != ' ' && str[i + 1] && dq && !sq)

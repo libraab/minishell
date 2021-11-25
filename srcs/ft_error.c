@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 09:09:32 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/17 19:13:04 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/25 15:01:09 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,18 +61,16 @@ int	ft_check_cmdless_pipe(char *str)
 {
 	int		i;
 	int		cmd;
-	int		pipe;
 	char	c;
 
 	i = 0;
 	cmd = 0;
-	pipe = 0;
 	while (str[i] != '\0')
 	{
 		if (str[i] == '\'' || str[i] == '"')
 		{
 			c = str[i++];
-			while (str[i] != c && str[i])
+			while (str[i] && str[i] != c)
 				i++;
 			if (str[i] == c)
 				i++;
@@ -84,11 +82,8 @@ int	ft_check_cmdless_pipe(char *str)
 		{
 			if (cmd == 0)
 				ft_error();
-			else
-			{
-				cmd = 0;
-				i++;
-			}
+			cmd = 0;
+			i++;
 		}
 		i++;
 	}
