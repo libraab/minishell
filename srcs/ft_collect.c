@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 15:10:14 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/25 15:18:55 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/25 17:47:06 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*ft_collect_cmd(t_lexer *lexer)
 
 	i = 0;
 	start = lexer->index;
-	while (!ft_char_is_sep(lexer->c))
+	while (!ft_char_is_sep(lexer->c) && lexer->content)
 		lexer_advance(lexer);
 	end = lexer->index;
 	cmd = ft_calloc((end - start) + 1, sizeof(char));
@@ -31,13 +31,13 @@ char	*ft_collect_cmd(t_lexer *lexer)
 	return (cmd);
 }
 
-char	*ft_collect_arg(t_lexer *lexer)
+char	*ft_collect_str(t_lexer *lexer)
 {
-	char	*arg;
+	char	*str;
+	char	quote;
 	int		start;
 	int		end;
 	int		i;
-	char	c;
 
 	i = 0;
 	start = lexer->index;
@@ -45,19 +45,19 @@ char	*ft_collect_arg(t_lexer *lexer)
 	{
 		if (lexer->c == '\'' || lexer->c == '"')
 		{
-			c = lexer->c;
+			quote = lexer->c;
 			lexer_advance(lexer);
-			while (lexer->content && lexer->c != c)
+			while (lexer->content && lexer->c != quote)
 				lexer_advance(lexer);
 		}
 		lexer_advance(lexer);
 	}
 	end = lexer->index;
-	arg = ft_calloc((end - start) + 1, sizeof(char));
+	str = ft_calloc((end - start) + 1, sizeof(char));
 	while (start < end)
-		arg[i++] = lexer->content[start++];
-	arg[i] = 0;
-	return (arg);
+		str[i++] = lexer->content[start++];
+	str[i] = 0;
+	return (str);
 }
 
 char	*ft_collect_file_name(t_lexer *lexer)
@@ -69,7 +69,7 @@ char	*ft_collect_file_name(t_lexer *lexer)
 
 	i = 0;
 	lexer_advance(lexer);
-	while (lexer->c == ' ')
+	while (lexer->content && lexer->c == ' ')
 		lexer_advance(lexer);
 	start = lexer->index;
 	while (!ft_char_is_sep(lexer->c))
@@ -116,22 +116,19 @@ void	ft_clean_quote(t_data *data)
 	while (i < data->nb)
 	{
 		j = 0;
-		if (data->token_tab[i].e_type == 7)
+		while (data->token_tab[i].value[j])
 		{
-			while (data->token_tab[i].value[j])
+			if (data->token_tab[i].value[j] == '\'' || data->token_tab[i].value[j] == '"')
 			{
-				if (data->token_tab[i].value[j] == '\'' || data->token_tab[i].value[j] == '"')
-				{
-					c = data->token_tab[i].value[j];
-					start = j;
-					j++;
-					while (data->token_tab[i].value[j] && data->token_tab[i].value[j] != c)
-						j++;
-					end = j;
-					data->token_tab[i].value = ft_remove_quote(data->token_tab[i].value, start, end);
-				}
+				c = data->token_tab[i].value[j];
+				start = j;
 				j++;
+				while (data->token_tab[i].value[j] && data->token_tab[i].value[j] != c)
+					j++;
+				end = j;
+				data->token_tab[i].value = ft_remove_quote(data->token_tab[i].value, start, end);
 			}
+			j++;
 		}
 		i++;
 	}	
