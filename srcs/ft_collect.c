@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 15:10:14 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/25 17:47:06 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/25 19:21:53 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ char	*ft_remove_quote(char *str, int x, int y)
 		i++;
 	}
 	newstr[j] = '\0';
+	printf("%s", newstr);
 	return (newstr);
 }
 
@@ -111,7 +112,7 @@ void	ft_clean_quote(t_data *data)
 	char	c;
 	int		start;
 	int		end;
-
+	
 	i = 0;
 	while (i < data->nb)
 	{
@@ -127,6 +128,7 @@ void	ft_clean_quote(t_data *data)
 					j++;
 				end = j;
 				data->token_tab[i].value = ft_remove_quote(data->token_tab[i].value, start, end);
+				j -= 2;
 			}
 			j++;
 		}

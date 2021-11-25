@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 19:38:09 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/23 13:35:10 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/25 18:19:22 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,4 +102,24 @@ char	**delet_spaces(char **newtab)
 		i++;
 	}
 	return (newtab);
+}
+
+void	ft_check_unclosed_quote(char *str)
+{
+	int	i;
+	int	sq;
+	int	dq;
+
+	i = 0;
+	sq = 0;
+	dq = 0;
+	while (str[i++])
+	{
+		if (str[i] == '\'')
+			sq = !sq;
+		if (str[i] == '"')
+			dq = !dq;
+	}
+	if (sq || dq)
+		ft_error();
 }
