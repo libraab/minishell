@@ -6,7 +6,7 @@
 #    By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/25 10:50:15 by abouhlel          #+#    #+#              #
-#    Updated: 2021/11/26 12:14:42 by abouhlel         ###   ########.fr        #
+#    Updated: 2021/11/26 14:08:17 by abouhlel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,7 @@ CC					= gcc
 CFLAGS  			= -Wall -Wextra -Werror -g -fsanitize=address
 RM					= rm -rf
 MAKE_EXT			= @make -s --no-print-directory -C
-
+LIBR				= libreadline.a
 OBJ					= ${OBJS}
 
 UNAME_S				= $(shell uname -s)
@@ -53,7 +53,7 @@ ifeq ($(UNAME_S),Darwin)
 	LIBS 			= -L ./libft -lft -lreadline
 endif
 
-COMPIL	= $(CC) $(CFLAGS) ${OBJ} libreadline.a -lncurses $(LIBS) -o $(NAME)
+COMPIL	= $(CC) $(CFLAGS) ${OBJ} ${LIBR} -lncurses $(LIBS) -o $(NAME)
 
 ################################################################################
 
@@ -65,6 +65,8 @@ $(NAME):	${OBJ}
 			@printf $(magenta)
 			$(MAKE_EXT) ./libft
 			@$(COMPIL)
+			@printf $(green)
+			@printf "💚 YOUR MINISHELL IS READY 💚 \n"
 			@printf $(reset)
 
 all:		${NAME}
@@ -73,8 +75,6 @@ all:		${NAME}
 			@printf $(yellow)
 			@printf " Generating minishell objects... %-33.33s\r" $@
 			@$(CC) -c $(CFLAGS) -o $@ $<
-			@printf $(green)
-			@printf "💚 YOUR MINISHELL IS READY 💚                                          \r"
 			@printf $(reset)
 
 re: 		fclean all

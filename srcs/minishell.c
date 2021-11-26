@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:58:24 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/26 12:34:52 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/26 15:07:37 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,20 @@
 
 void	ft_signals(int sig)
 {
-	if (sig == SIGINT)
+	if (sig == SIGINT) // ctrl-c
 	{
+		printf("\e[2K");
 		rl_on_new_line();
-		rl_replace_line("\e[3", 1);
+		rl_redisplay();
+		printf("\n");
 		rl_on_new_line();
-		rl_replace_line("\n", 2);
+		rl_replace_line("", 0);
 		rl_redisplay();
 	}
-	if (sig == SIGQUIT)
+	if (sig == SIGQUIT) //ctrl back slash
 	{
+		printf("\e[2K");
 		rl_on_new_line();
-		rl_replace_line("\n", 0);
 		rl_redisplay();
 	}
 }
