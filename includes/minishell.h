@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:56:46 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/26 09:31:37 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/26 12:13:00 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@
 # include <readline/history.h>
 # include "../libft/libft.h"
 
-typedef enum
+typedef enum e_type
 {
 	R_REDIR,
 	L_REDIR,
@@ -46,10 +46,10 @@ typedef enum
 	DOLLAR,
 	CMD,
 	ARG,
-}	TYPE;
+}	t_TYPE;
 typedef struct s_token
 {
-	TYPE	e_type;	
+	t_TYPE	e_type;	
 	char	*value;
 }			t_token;
 
@@ -71,7 +71,7 @@ typedef struct s_data
 	t_lexer	*lexer;
 	t_cmd	*cmd;
 	t_token	*token_tab;
-	int		cmd_index;
+	int		i;
 	int		tot;
 	int		nb;
 	char	**env;
@@ -82,6 +82,7 @@ typedef struct s_data
 //================================================================
 
 void		lexer_get_next_token(t_data *data, t_lexer *lexer);
+void		rl_replace_line(const char *text, int clear_undo);
 void		init_token(t_data *data, int type, char *value);
 void		init_lexer(t_data *data, char *content);
 int			ft_prompt(char *entry, char **content, t_data *data);

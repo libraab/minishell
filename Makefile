@@ -6,7 +6,7 @@
 #    By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/25 10:50:15 by abouhlel          #+#    #+#              #
-#    Updated: 2021/11/25 15:10:57 by abouhlel         ###   ########.fr        #
+#    Updated: 2021/11/26 12:14:42 by abouhlel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,7 +53,7 @@ ifeq ($(UNAME_S),Darwin)
 	LIBS 			= -L ./libft -lft -lreadline
 endif
 
-COMPIL	= $(CC) $(CFLAGS) ${OBJ} $(LIBS) -o $(NAME)
+COMPIL	= $(CC) $(CFLAGS) ${OBJ} libreadline.a -lncurses $(LIBS) -o $(NAME)
 
 ################################################################################
 
@@ -71,8 +71,10 @@ all:		${NAME}
 
 %.o: %.c	$(HEADERS)
 			@printf $(yellow)
-			@printf "Generating minishell objects... %-33.33s\r" $@
+			@printf " Generating minishell objects... %-33.33s\r" $@
 			@$(CC) -c $(CFLAGS) -o $@ $<
+			@printf $(green)
+			@printf "💚 YOUR MINISHELL IS READY 💚                                          \r"
 			@printf $(reset)
 
 re: 		fclean all

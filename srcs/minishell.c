@@ -6,11 +6,31 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:58:24 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/26 09:32:26 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/26 12:34:52 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+//static int	g_exit_status;
+
+void	ft_signals(int sig)
+{
+	if (sig == SIGINT)
+	{
+		rl_on_new_line();
+		rl_replace_line("\e[3", 1);
+		rl_on_new_line();
+		rl_replace_line("\n", 2);
+		rl_redisplay();
+	}
+	if (sig == SIGQUIT)
+	{
+		rl_on_new_line();
+		rl_replace_line("\n", 0);
+		rl_redisplay();
+	}
+}
 
 void	ft_stock_cmd(t_data *data)
 {
@@ -21,29 +41,29 @@ void	ft_stock_cmd(t_data *data)
 	i = 0;
 	j = 0;
 	k = 0;
-	data->cmd[data->cmd_index].full_cmd = ft_calloc (sizeof(char *), ft_count_arg(data) + 1);
-	data->cmd[data->cmd_index].redir = ft_calloc (sizeof(char *), ft_count_redir(data) + 1);
+	data->cmd[data->i].full_cmd = ft_calloc (sizeof(char *), ft_count_arg(data) + 1);
+	data->cmd[data->i].redir = ft_calloc (sizeof(char *), ft_count_redir(data) + 1);
 	while (i < data->nb)
 	{
 		if (data->token_tab[i].e_type == 6)
 		{
-			data->cmd[data->cmd_index].cmd = ft_strdup(data->token_tab[i].value);
-			data->cmd[data->cmd_index].full_cmd[j] = ft_strdup(data->token_tab[i].value);
+			data->cmd[data->i].cmd = ft_strdup(data->token_tab[i].value);
+			data->cmd[data->i].full_cmd[j] = ft_strdup(data->token_tab[i].value);
 			j++;
 		}
 		else if (data->token_tab[i].e_type == 7 || data->token_tab[i].e_type == 5)
 		{
-			data->cmd[data->cmd_index].full_cmd[j] = ft_strdup(data->token_tab[i].value);
+			data->cmd[data->i].full_cmd[j] = ft_strdup(data->token_tab[i].value);
 			j++;
 		}
 		else if (data->token_tab[i].e_type < 5)
 		{
-			data->cmd[data->cmd_index].redir[k] = ft_strdup(data->token_tab[i].value);
+			data->cmd[data->i].redir[k] = ft_strdup(data->token_tab[i].value);
 			k++;
 		}
 		i++;
 	}
-	data->cmd_index++;
+	data->i++;
 }
 
 int	ft_prompt(char *entry, char **content, t_data *data)
@@ -56,7 +76,7 @@ int	ft_prompt(char *entry, char **content, t_data *data)
 	content = ft_split_pipe(entry, '|');
 	data->tot = ft_count_cmd_nbr(content);
 	data->cmd = ft_calloc (sizeof(t_cmd), data->tot);
-	data->cmd_index = 0;
+	data->i = 0;
 	while (i < data->tot)
 	{
 		if (!content[i])
@@ -105,9 +125,16 @@ int	main(const int ac, const char **av, const char **envp)
 	data->env = (char **)envp;
 	while (1)
 	{
+		signal (SIGINT, ft_signals);
+		signal (SIGQUIT, ft_signals);
 		ft_alloc_init(data);
 		entry = readline("\033[30;47m[minishell] >\033[0m ");
-		if (!entry || ft_entry_is_only_sp(entry))
+		if (!entry)
+		{
+			write(2, "Exit\n", 5);
+			exit(0);
+		}
+		if (ft_entry_is_only_sp(entry))
 			continue ;
 		else if (entry)
 			ft_prompt(entry, content, data);
