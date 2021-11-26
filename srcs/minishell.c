@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:58:24 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/26 15:20:58 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/26 19:14:42 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,9 @@ void	ft_stock_cmd(t_data *data)
 	data->i++;
 }
 
-int	ft_prompt(char *entry, char **content, t_data *data)
+int	ft_prompt(char *entry, t_data *data)
 {
+	char	**content;
 	int	i;
 
 	i = 0;
@@ -95,19 +96,19 @@ int	ft_prompt(char *entry, char **content, t_data *data)
 	// for (int j = 0; j < data->nb ; j++)
 	// 	printf("[%d][%s]\n", data->token_tab[j].e_type, data->token_tab[j].value);
 	//******************************************************************
-	for (int k = 0; k < data->tot; k++)
-	{
-		printf("\n         {C M D}   \n");
-		printf("_________________________\n");
-		printf("| cmd        |   [%s]\n", data->cmd[k].cmd);
-		printf("_________________________\n");
-		for (int n = 0; data->cmd[k].full_cmd[n]; n++)
-			printf("| full cmd   |   [%s]\n", data->cmd[k].full_cmd[n]);
-		printf("_________________________\n");
-		for (int m = 0; data->cmd[k].redir[m]; m++)
-			printf("| redir      |   [%s]\n", data->cmd[k].redir[m]);
-		printf("_________________________\n");
-	}
+	// for (int k = 0; k < data->tot; k++)
+	// {
+	// 	printf("\n         {C M D}   \n");
+	// 	printf("_________________________\n");
+	// 	printf("| cmd        |   [%s]\n", data->cmd[k].cmd);
+	// 	printf("_________________________\n");
+	// 	for (int n = 0; data->cmd[k].full_cmd[n]; n++)
+	// 		printf("| full cmd   |   [%s]\n", data->cmd[k].full_cmd[n]);
+	// 	printf("_________________________\n");
+	// 	for (int m = 0; data->cmd[k].redir[m]; m++)
+	// 		printf("| redir      |   [%s]\n", data->cmd[k].redir[m]);
+	// 	printf("_________________________\n");
+	// }
 	//*****************************************************************
 	ft_free(data);
 	free(entry);
@@ -118,11 +119,9 @@ int	main(const int ac, const char **av, const char **envp)
 {
 	t_data	*data;
 	char	*entry;
-	char	**content;
 
 	(void) ac;
 	(void) av;
-	content = NULL;
 	data = ft_calloc (sizeof(t_data), 1);
 	data->env = (char **)envp;
 	while (1)
@@ -139,7 +138,7 @@ int	main(const int ac, const char **av, const char **envp)
 		if (ft_entry_is_only_sp(entry))
 			continue ;
 		else if (entry)
-			ft_prompt(entry, content, data);
+			ft_prompt(entry, data);
 		else
 			ft_error(3);
 	}
