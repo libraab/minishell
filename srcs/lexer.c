@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 11:01:58 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/25 17:05:47 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/25 19:27:09 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	init_token(t_data *data, int type, char *value)
 	int		j;
 
 	j = 0;
-	tmp = malloc(sizeof(t_token) * (data->nb + 1));
+	tmp = ft_calloc(sizeof(t_token), (data->nb + 1));
 	while (j < data->nb)
 	{
 		tmp[j].e_type = data->token_tab[j].e_type;

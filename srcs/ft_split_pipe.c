@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 10:53:14 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/23 14:09:57 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/25 19:26:33 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ static char	**creat_new_tab(char const *s, int words, char c, char **newtab)
 		while (*s == c)
 			s++;
 		len = words_len(s, c);
-		newtab[i] = (char *)malloc(sizeof(char) * (len + 1));
+		newtab[i] = ft_calloc(sizeof(char), len + 1);
 		if (!newtab[i])
 			return (freememory(newtab, i));
 		j = 0;

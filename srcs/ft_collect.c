@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 15:10:14 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/25 19:21:53 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/26 09:41:11 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,12 +107,12 @@ char	*ft_remove_quote(char *str, int x, int y)
 
 void	ft_clean_quote(t_data *data)
 {
+	int		start;
+	int		end;
 	int		i;
 	int		j;
 	char	c;
-	int		start;
-	int		end;
-	
+
 	i = 0;
 	while (i < data->nb)
 	{

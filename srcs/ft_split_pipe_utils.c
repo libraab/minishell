@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 19:38:09 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/25 18:19:22 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/26 09:52:36 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,13 +113,14 @@ void	ft_check_unclosed_quote(char *str)
 	i = 0;
 	sq = 0;
 	dq = 0;
-	while (str[i++])
+	while (str[i])
 	{
-		if (str[i] == '\'')
+		if (str[i] == '\'' && !dq)
 			sq = !sq;
-		if (str[i] == '"')
+		if (str[i] == '"' && !sq)
 			dq = !dq;
+		i++;
 	}
 	if (sq || dq)
-		ft_error();
+		ft_error(2);
 }

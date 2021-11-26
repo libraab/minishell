@@ -6,15 +6,22 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 09:09:32 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/25 15:01:09 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/26 09:35:51 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	ft_error(void)
+void	ft_error(int x)
 {
-	write(2, "ERROR\n", 6);
+	if (x == 0)
+		write(2, "Syntax error\n", 13);
+	if (x == 1)
+		write(2, "ERROR\nInvalid char\n", 19);
+	if (x == 2)
+		write(2, "ERROR\nUnclosed quote\n", 21);
+	else
+		write(2, "ERROR\n", 6);
 	exit(EXIT_FAILURE);
 }
 
@@ -38,6 +45,7 @@ void	ft_check_invalid_chars(char *str)
 	char	c;
 
 	i = 0;
+	ft_check_unclosed_quote(str);
 	while (str[i])
 	{
 		if (str[i] == '\'' || str[i] == '"')
@@ -50,11 +58,11 @@ void	ft_check_invalid_chars(char *str)
 				i++;
 		}
 		else if (str[i] == ';' || str[i] == '\\')
-			ft_error();
+			ft_error(1);
 		i++;
 	}
 	if (ft_check_cmdless_pipe(str))
-		ft_error();
+		ft_error(0);
 }
 
 int	ft_check_cmdless_pipe(char *str)
@@ -81,7 +89,7 @@ int	ft_check_cmdless_pipe(char *str)
 		else if (str[i] == '|')
 		{
 			if (cmd == 0)
-				ft_error();
+				ft_error(0);
 			cmd = 0;
 			i++;
 		}

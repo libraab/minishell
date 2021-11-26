@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:58:24 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/25 19:22:03 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/26 09:32:26 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ int	ft_prompt(char *entry, char **content, t_data *data)
 
 	i = 0;
 	add_history(entry);
-	ft_check_unclosed_quote(entry);
 	ft_check_invalid_chars(entry);
 	content = ft_split_pipe(entry, '|');
 	data->tot = ft_count_cmd_nbr(content);
@@ -70,24 +69,24 @@ int	ft_prompt(char *entry, char **content, t_data *data)
 		i++;
 	}
 	//****************************************************************
-	printf("\n{MY TOKENS}\n");
-	for (int j = 0; j < data->nb ; j++)
-		printf("[%d][%s]\n", data->token_tab[j].e_type, data->token_tab[j].value);
+	// printf("\n{MY TOKENS}\n");
+	// for (int j = 0; j < data->nb ; j++)
+	// 	printf("[%d][%s]\n", data->token_tab[j].e_type, data->token_tab[j].value);
+	//******************************************************************
+	for (int k = 0; k < data->tot; k++)
+	{
+		printf("\n         {C M D}   \n");
+		printf("_________________________\n");
+		printf("| cmd        |   [%s]\n", data->cmd[k].cmd);
+		printf("_________________________\n");
+		for (int n = 0; data->cmd[k].full_cmd[n]; n++)
+			printf("| full cmd   |   [%s]\n", data->cmd[k].full_cmd[n]);
+		printf("_________________________\n");
+		for (int m = 0; data->cmd[k].redir[m]; m++)
+			printf("| redir      |   [%s]\n", data->cmd[k].redir[m]);
+		printf("_________________________\n");
+	}
 	//*****************************************************************
-	// for (int k = 0; k < data->tot; k++)
-	// {
-	// 	printf("\n         {C M D}   \n");
-	// 	printf("_________________________\n");
-	// 	printf("| cmd        |   [%s]\n", data->cmd[k].cmd);
-	// 	printf("_________________________\n");
-	// 	for (int n = 0; data->cmd[k].full_cmd[n]; n++)
-	// 		printf("| full cmd   |   [%s]\n", data->cmd[k].full_cmd[n]);
-	// 	printf("_________________________\n");
-	// 	for (int m = 0; data->cmd[k].redir[m]; m++)
-	// 		printf("| redir      |   [%s]\n", data->cmd[k].redir[m]);
-	// 	printf("_________________________\n");
-	// }
-	//**************************************************************
 	ft_free(data);
 	free(entry);
 	return (1);
@@ -113,7 +112,7 @@ int	main(const int ac, const char **av, const char **envp)
 		else if (entry)
 			ft_prompt(entry, content, data);
 		else
-			ft_error();
+			ft_error(3);
 	}
 	return (0);
 }
