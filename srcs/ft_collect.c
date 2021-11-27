@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 15:10:14 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/26 09:41:11 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/27 11:59:46 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ char	*ft_collect_file_name(t_lexer *lexer)
 	return (str);
 }
 
-char	*ft_remove_quote(char *str, int x, int y)
+char	*ft_delete(char *str, int x, int y)
 {
 	int		i;
 	int		j;
@@ -101,33 +101,29 @@ char	*ft_remove_quote(char *str, int x, int y)
 		i++;
 	}
 	newstr[j] = '\0';
-	printf("%s", newstr);
 	return (newstr);
 }
 
-void	ft_clean_quote(t_data *data)
+void	ft_clean_quote(t_data *d, int i, int j)
 {
 	int		start;
 	int		end;
-	int		i;
-	int		j;
 	char	c;
 
-	i = 0;
-	while (i < data->nb)
+	while (i < d->nb)
 	{
 		j = 0;
-		while (data->token_tab[i].value[j])
+		while (d->t_tab[i].value[j])
 		{
-			if (data->token_tab[i].value[j] == '\'' || data->token_tab[i].value[j] == '"')
+			if (d->t_tab[i].value[j] == '\'' || d->t_tab[i].value[j] == '"')
 			{
-				c = data->token_tab[i].value[j];
+				c = d->t_tab[i].value[j];
 				start = j;
 				j++;
-				while (data->token_tab[i].value[j] && data->token_tab[i].value[j] != c)
+				while (d->t_tab[i].value[j] && d->t_tab[i].value[j] != c)
 					j++;
 				end = j;
-				data->token_tab[i].value = ft_remove_quote(data->token_tab[i].value, start, end);
+				d->t_tab[i].value = ft_delete(d->t_tab[i].value, start, end);
 				j -= 2;
 			}
 			j++;

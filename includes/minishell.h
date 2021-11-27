@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:56:46 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/26 19:06:17 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/27 12:11:38 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ typedef struct s_data
 {
 	t_lexer	*lexer;
 	t_cmd	*cmd;
-	t_token	*token_tab;
+	t_token	*t_tab;
 	int		i;
 	int		tot;
 	int		nb;
@@ -94,7 +94,7 @@ int			lexer_advance(t_lexer *lexer);
 void		ft_free(t_data *data);
 void		ft_error(int x);
 int			ft_entry_is_only_sp(char *str);
-int			ft_check_cmdless_pipe(char *str);
+int			ft_check_cmdless_pipe(char *str, int i, int cmd);
 char		**ft_split_pipe(char const *s, char c);
 void		ft_alloc_init(t_data *data);
 void		ft_check_invalid_chars(char *str);
@@ -102,7 +102,7 @@ void		lexer_skip_whitespace(t_lexer *lexer);
 void		ft_tokenize_l_redir(t_data *data, t_lexer *lexer);
 void		ft_tokenize_r_redir(t_data *data, t_lexer *lexer);
 int			ft_tokenise_ca(t_data *data, t_lexer *lexer, int x);
-void		ft_stock_cmd(t_data *data);
+void		ft_stock_cmd(t_data *data, int i, int j, int k);
 int			ft_count_arg(t_data *data);
 int			ft_count_redir(t_data *data);
 int			ft_count_cmd_nbr(char **str);
@@ -113,7 +113,7 @@ void		ft_check_unclosed_quote(char *str);
 char		*ft_change_flous(t_data *data, char *str);
 char		*ft_replace(t_data *data, char *str, int start, int end);
 int			ft_find_end(char *str, int i, int x);
-void		ft_clean_quote(t_data *data);
+void		ft_clean_quote(t_data *data, int i, int j);
 char		*ft_change_flous(t_data *data, char *str);
 char		*ft_get_env_var(t_data *data, char *str, int start, int end);
 

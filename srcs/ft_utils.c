@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 08:01:35 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/24 10:25:34 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/27 11:46:51 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	ft_count_arg(t_data *data)
 	count = 0;
 	while (i < data->nb)
 	{
-		if (data->token_tab[i].e_type >= 5)
+		if (data->t_tab[i].e_type >= 5)
 			count++;
 		i++;
 	}
@@ -57,7 +57,7 @@ int	ft_count_redir(t_data *data)
 	count = 0;
 	while (i < data->nb)
 	{
-		if (data->token_tab[i].e_type < 6)
+		if (data->t_tab[i].e_type < 6)
 			count++;
 		i++;
 	}

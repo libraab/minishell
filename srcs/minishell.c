@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:58:24 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/26 19:14:42 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/27 12:25:44 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 void	ft_signals(int sig)
 {
-	if (sig == SIGINT) // ctrl-c
+	if (sig == SIGINT)
 	{
 		printf("\e[2K");
 		rl_on_new_line();
@@ -26,7 +26,7 @@ void	ft_signals(int sig)
 		rl_replace_line("", 0);
 		rl_redisplay();
 	}
-	if (sig == SIGQUIT) //ctrl back slash
+	if (sig == SIGQUIT)
 	{
 		printf("\e[2K");
 		rl_on_new_line();
@@ -34,44 +34,37 @@ void	ft_signals(int sig)
 	}
 }
 
-void	ft_stock_cmd(t_data *data)
+void	ft_stock_cmd(t_data *d, int i, int j, int k)
 {
-	int	i;
-	int	j;
-	int	k;
-
-	i = 0;
-	j = 0;
-	k = 0;
-	data->cmd[data->i].full_cmd = ft_calloc (sizeof(char *), ft_count_arg(data) + 1);
-	data->cmd[data->i].redir = ft_calloc (sizeof(char *), ft_count_redir(data) + 1);
-	while (i < data->nb)
+	d->cmd[d->i].full_cmd = ft_calloc (sizeof(char *), ft_count_arg(d) + 1);
+	d->cmd[d->i].redir = ft_calloc (sizeof(char *), ft_count_redir(d) + 1);
+	while (i < d->nb)
 	{
-		if (data->token_tab[i].e_type == 6)
+		if (d->t_tab[i].e_type == 6)
 		{
-			data->cmd[data->i].cmd = ft_strdup(data->token_tab[i].value);
-			data->cmd[data->i].full_cmd[j] = ft_strdup(data->token_tab[i].value);
+			d->cmd[d->i].cmd = ft_strdup(d->t_tab[i].value);
+			d->cmd[d->i].full_cmd[j] = ft_strdup(d->t_tab[i].value);
 			j++;
 		}
-		else if (data->token_tab[i].e_type == 7 || data->token_tab[i].e_type == 5)
+		else if (d->t_tab[i].e_type == 7 || d->t_tab[i].e_type == 5)
 		{
-			data->cmd[data->i].full_cmd[j] = ft_strdup(data->token_tab[i].value);
+			d->cmd[d->i].full_cmd[j] = ft_strdup(d->t_tab[i].value);
 			j++;
 		}
-		else if (data->token_tab[i].e_type < 5)
+		else if (d->t_tab[i].e_type < 5)
 		{
-			data->cmd[data->i].redir[k] = ft_strdup(data->token_tab[i].value);
+			d->cmd[d->i].redir[k] = ft_strdup(d->t_tab[i].value);
 			k++;
 		}
 		i++;
 	}
-	data->i++;
+	d->i++;
 }
 
 int	ft_prompt(char *entry, t_data *data)
 {
 	char	**content;
-	int	i;
+	int		i;
 
 	i = 0;
 	add_history(entry);
@@ -86,29 +79,29 @@ int	ft_prompt(char *entry, t_data *data)
 			break ;
 		init_lexer(data, content[i]);
 		lexer_get_next_token(data, data->lexer);
-		ft_stock_cmd(data);
+		ft_stock_cmd(data, 0, 0, 0);
 		if (data->lexer->content != NULL)
 			free (data->lexer->content);
 		i++;
 	}
 	//****************************************************************
-	// printf("\n{MY TOKENS}\n");
-	// for (int j = 0; j < data->nb ; j++)
-	// 	printf("[%d][%s]\n", data->token_tab[j].e_type, data->token_tab[j].value);
+	printf("\n{MY TOKENS}\n");
+	for (int j = 0; j < data->nb ; j++)
+		printf("[%d][%s]\n", data->t_tab[j].e_type, data->t_tab[j].value);
 	//******************************************************************
-	// for (int k = 0; k < data->tot; k++)
-	// {
-	// 	printf("\n         {C M D}   \n");
-	// 	printf("_________________________\n");
-	// 	printf("| cmd        |   [%s]\n", data->cmd[k].cmd);
-	// 	printf("_________________________\n");
-	// 	for (int n = 0; data->cmd[k].full_cmd[n]; n++)
-	// 		printf("| full cmd   |   [%s]\n", data->cmd[k].full_cmd[n]);
-	// 	printf("_________________________\n");
-	// 	for (int m = 0; data->cmd[k].redir[m]; m++)
-	// 		printf("| redir      |   [%s]\n", data->cmd[k].redir[m]);
-	// 	printf("_________________________\n");
-	// }
+	for (int k = 0; k < data->tot; k++)
+	{
+		printf("\n         {C M D}   \n");
+		printf("_________________________\n");
+		printf("| cmd        |   [%s]\n", data->cmd[k].cmd);
+		printf("_________________________\n");
+		for (int n = 0; data->cmd[k].full_cmd[n]; n++)
+			printf("| full cmd   |   [%s]\n", data->cmd[k].full_cmd[n]);
+		printf("_________________________\n");
+		for (int m = 0; data->cmd[k].redir[m]; m++)
+			printf("| redir      |   [%s]\n", data->cmd[k].redir[m]);
+		printf("_________________________\n");
+	}
 	//*****************************************************************
 	ft_free(data);
 	free(entry);
@@ -137,10 +130,8 @@ int	main(const int ac, const char **av, const char **envp)
 		}
 		if (ft_entry_is_only_sp(entry))
 			continue ;
-		else if (entry)
+		if (entry)
 			ft_prompt(entry, data);
-		else
-			ft_error(3);
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 11:01:58 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/25 19:27:09 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/27 11:59:21 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@ void	init_token(t_data *data, int type, char *value)
 	tmp = ft_calloc(sizeof(t_token), (data->nb + 1));
 	while (j < data->nb)
 	{
-		tmp[j].e_type = data->token_tab[j].e_type;
-		tmp[j].value = data->token_tab[j].value;
+		tmp[j].e_type = data->t_tab[j].e_type;
+		tmp[j].value = data->t_tab[j].value;
 		j++;
 	}
 	tmp[j].e_type = type;
 	tmp[j].value = ft_strdup(value);
-	free (data->token_tab);
-	data->token_tab = tmp;
+	free (data->t_tab);
+	data->t_tab = tmp;
 	data->nb++;
 }
 
@@ -38,7 +38,7 @@ void	init_lexer(t_data *data, char *content)
 	data->lexer->index = 0;
 	data->lexer->c = data->lexer->content[0];
 	data->nb = 0;
-	data->token_tab = ft_calloc (sizeof(t_token), 1);
+	data->t_tab = ft_calloc (sizeof(t_token), 1);
 }
 
 int	lexer_advance(t_lexer *lexer)
@@ -74,5 +74,5 @@ void	lexer_get_next_token(t_data *data, t_lexer *lexer)
 		else
 			cmd = ft_tokenise_ca(data, lexer, cmd);
 	}
-	ft_clean_quote(data);
+	ft_clean_quote(data, 0, 0);
 }

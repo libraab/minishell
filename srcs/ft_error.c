@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 09:09:32 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/26 09:35:51 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/27 12:15:12 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,32 @@ void	ft_error(int x)
 		write(2, "ERROR\nInvalid char\n", 19);
 	if (x == 2)
 		write(2, "ERROR\nUnclosed quote\n", 21);
+	if (x == 3)
+		write(2, "ERROR\nCommandless pipe\n", 23);
 	else
 		write(2, "ERROR\n", 6);
 	exit(EXIT_FAILURE);
+}
+
+void	ft_check_unclosed_quote(char *str)
+{
+	int	i;
+	int	sq;
+	int	dq;
+
+	i = 0;
+	sq = 0;
+	dq = 0;
+	while (str[i])
+	{
+		if (str[i] == '\'' && !dq)
+			sq = !sq;
+		if (str[i] == '"' && !sq)
+			dq = !dq;
+		i++;
+	}
+	if (sq || dq)
+		ft_error(2);
 }
 
 int	ft_entry_is_only_sp(char *str)
@@ -37,6 +60,32 @@ int	ft_entry_is_only_sp(char *str)
 		i++;
 	}
 	return (1);
+}
+
+int	ft_check_cmdless_pipe(char *str, int i, int cmd)
+{
+	char	c;
+
+	while (str[i] != '\0')
+	{
+		if (str[i] == '\'' || str[i] == '"')
+		{
+			c = str[i++];
+			while (str[i] && str[i] != c)
+				i++;
+			cmd = 1;
+		}
+		else if (str[i] != '|' && str[i] != ' ')
+			cmd = 1;
+		else if (str[i] == '|')
+		{
+			if (cmd == 0)
+				ft_error(0);
+			cmd = 0;
+		}
+		i++;
+	}
+	return (cmd);
 }
 
 void	ft_check_invalid_chars(char *str)
@@ -54,48 +103,11 @@ void	ft_check_invalid_chars(char *str)
 			i++;
 			while (str[i] != c && str[i])
 				i++;
-			if (str[i] == c)
-				i++;
 		}
 		else if (str[i] == ';' || str[i] == '\\')
 			ft_error(1);
 		i++;
 	}
-	if (ft_check_cmdless_pipe(str))
-		ft_error(0);
-}
-
-int	ft_check_cmdless_pipe(char *str)
-{
-	int		i;
-	int		cmd;
-	char	c;
-
-	i = 0;
-	cmd = 0;
-	while (str[i] != '\0')
-	{
-		if (str[i] == '\'' || str[i] == '"')
-		{
-			c = str[i++];
-			while (str[i] && str[i] != c)
-				i++;
-			if (str[i] == c)
-				i++;
-			cmd = 1;
-		}
-		else if (str[i] != '|' && str[i] != ' ')
-			cmd = 1;
-		else if (str[i] == '|')
-		{
-			if (cmd == 0)
-				ft_error(0);
-			cmd = 0;
-			i++;
-		}
-		i++;
-	}
-	if (cmd == 0)
-		return (1);
-	return (0);
+	if (ft_check_cmdless_pipe(str, 0, 0) == 0)
+		ft_error(3);
 }

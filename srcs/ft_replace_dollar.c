@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 17:27:38 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/25 15:06:29 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/27 12:46:16 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,20 +119,18 @@ char	*ft_change_flous(t_data *data, char *str)
 			c = str[i++];
 			while (str[i] && str[i] != c)
 				i++;
-			if (str[i + 1] && str[i] == c)
-				i++;
 		}
-		if (str[i] == '\'')
+		else if (str[i] == '\'')
 			sq = !sq;
-		if (str[i] == '"')
+		else if (str[i] == '"')
 			dq = !dq;
-		if (str[i] == '$' && str[i + 1] == '?')
+		else if (str[i] == '$' && str[i + 1] == '?')
 			i++;
-		if (str[i] == '$' && str[i + 1] != ' ' && str[i + 1] && !dq)
+		else if (str[i] == '$' && str[i + 1] != ' ' && str[i + 1] && !dq)
 			str = (ft_replace(data, str, i, ft_find_end(str, i + 1, 0)));
-		if (str[i] == '$' && str[i + 1] != ' ' && str[i + 1] && dq && !sq)
+		else if (str[i] == '$' && str[i + 1] != ' ' && str[i + 1] && dq && !sq)
 			str = (ft_replace(data, str, i, ft_find_end(str, i + 1, 1)));
-		if (str[i] == '$' && str[i + 1] != ' ' && str[i + 1] && dq && sq)
+		else if (str[i] == '$' && str[i + 1] != ' ' && str[i + 1] && dq && sq)
 			str = (ft_replace(data, str, i, ft_find_end(str, i + 1, 2)));
 		i++;
 	}
