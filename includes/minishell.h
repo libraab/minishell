@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:56:46 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/27 18:01:16 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/27 18:06:00 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,6 @@ int			ft_skip_quote(char *str, int i, int dq, int sq);
 char		*ft_copy_string1(char *str, int start);
 char		*ft_copy_string2(char *str, int end);
 char		*ft_check_null(char *newstr);
-
 
 //================================================================
 //						* S P L I T *							//

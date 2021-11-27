@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 09:05:29 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/23 13:36:37 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/27 18:05:37 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ char	*ft_strtrim(char *s1, char *set)
 	size_t	start;
 	size_t	end;
 
-	
 	if (!s1 || !set)
 		return (NULL);
 	start = 0;
