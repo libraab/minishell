@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 17:27:38 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/27 12:46:16 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/27 18:01:41 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,9 @@ char	*ft_get_env_var(t_data *data, char *str, int start, int end)
 			newstr = data->env[i];
 		i++;
 	}
-	if (newstr == NULL)
-	{
-		newstr = ft_calloc(sizeof(char), 2);
-		newstr = " ";
-		return (newstr);
-	}
-	return (&newstr[ft_strlen(dol_value)]);
+	if (ft_check_null(newstr) == 0)
+		return (&newstr[ft_strlen(dol_value)]);
+	return (newstr);
 }
 
 char	*ft_replace(t_data *data, char *str, int start, int end)
@@ -48,26 +44,9 @@ char	*ft_replace(t_data *data, char *str, int start, int end)
 	char	*newstr;
 	char	*newstr2;
 	char	*s;
-	int		i;
-	int		j;
 
-	i = 0;
-	j = 0;
-	(void) data;
-	newstr = ft_calloc(sizeof(char *), start);
-	newstr2 = ft_calloc(sizeof(char *), ft_strlen(str) - end + 1);
-	while (i < start)
-	{
-		newstr[i] = str[i];
-		i++;
-	}
-	newstr[i] = 0;
-	while (str[end + j])
-	{
-		newstr2[j] = str[end + j];
-		j++;
-	}
-	newstr2[j] = 0;
+	newstr = ft_copy_string1(str, start);
+	newstr2 = ft_copy_string2(str, end);
 	s = ft_strdup(newstr);
 	newstr = ft_strjoin(newstr, ft_get_env_var(data, str, start + 1, end));
 	if (newstr == NULL && newstr2 != NULL)
@@ -102,29 +81,19 @@ int	ft_find_end(char *str, int i, int x)
 	return (i);
 }
 
-char	*ft_change_flous(t_data *data, char *str)
+char	*ft_change_flous(t_data *data, char *str, int sq, int dq)
 {
 	int		i;
-	char	c;
-	int		dq;
-	int		sq;
 
 	i = 0;
-	dq = 0;
-	sq = 0;
 	while (str[i])
 	{
-		if (str[i] == '\'' && !dq)
-		{
-			c = str[i++];
-			while (str[i] && str[i] != c)
-				i++;
-		}
-		else if (str[i] == '\'')
+		i = ft_skip_quote(str, i, dq, sq);
+		if (str[i] == '\'')
 			sq = !sq;
 		else if (str[i] == '"')
 			dq = !dq;
-		else if (str[i] == '$' && str[i + 1] == '?')
+		else if (str[i] == '$' && (str[i + 1] == '?' || str[i + 1] == '$'))
 			i++;
 		else if (str[i] == '$' && str[i + 1] != ' ' && str[i + 1] && !dq)
 			str = (ft_replace(data, str, i, ft_find_end(str, i + 1, 0)));

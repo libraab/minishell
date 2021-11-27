@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 09:09:32 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/27 12:15:12 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/27 14:53:00 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	ft_check_cmdless_pipe(char *str, int i, int cmd)
 		else if (str[i] == '|')
 		{
 			if (cmd == 0)
-				ft_error(0);
+				ft_error(3);
 			cmd = 0;
 		}
 		i++;

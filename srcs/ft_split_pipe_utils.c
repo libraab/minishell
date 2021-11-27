@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 19:38:09 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/27 12:15:02 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/27 14:55:31 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,17 +89,4 @@ void	find_next_sq(char const *s, int *i, int *len, int *sq)
 	*i = j;
 	*len = l;
 	*sq = 0;
-}
-
-char	**delet_spaces(char **newtab)
-{
-	int	i;
-
-	i = 0;
-	while (newtab[i])
-	{
-		//newtab[i] = ft_strtrim(newtab[i], " ");
-		i++;
-	}
-	return (newtab);
 }

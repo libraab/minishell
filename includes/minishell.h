@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:56:46 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/27 12:11:38 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/27 18:01:16 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ typedef struct s_data
 	int		i;
 	int		tot;
 	int		nb;
+	char	c;
 	char	**env;
 }			t_data;
 
@@ -110,12 +111,16 @@ int			ft_char_is_sep(char c);
 char		*get_path(char **env);
 char		**take_env(char **env);
 void		ft_check_unclosed_quote(char *str);
-char		*ft_change_flous(t_data *data, char *str);
+char		*ft_change_flous(t_data *data, char *str, int sq, int dq);
 char		*ft_replace(t_data *data, char *str, int start, int end);
 int			ft_find_end(char *str, int i, int x);
 void		ft_clean_quote(t_data *data, int i, int j);
-char		*ft_change_flous(t_data *data, char *str);
 char		*ft_get_env_var(t_data *data, char *str, int start, int end);
+int			ft_skip_quote(char *str, int i, int dq, int sq);
+char		*ft_copy_string1(char *str, int start);
+char		*ft_copy_string2(char *str, int end);
+char		*ft_check_null(char *newstr);
+
 
 //================================================================
 //						* S P L I T *							//
