@@ -6,12 +6,16 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 17:27:38 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/27 18:01:41 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/28 08:13:04 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+/*
+	int test = 10;
+	char coucou[test]
 
+*/
 char	*ft_get_env_var(t_data *data, char *str, int start, int end)
 {
 	char	*dol_value;

@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:58:24 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/27 12:25:44 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/28 09:33:08 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,8 +125,8 @@ int	main(const int ac, const char **av, const char **envp)
 		entry = readline("\033[30;47m[minishell] >\033[0m ");
 		if (!entry)
 		{
-			write(2, "exit\n", 5);
-			exit(0);
+			write(1, "exit\n", 4);
+			return (0);
 		}
 		if (ft_entry_is_only_sp(entry))
 			continue ;
