@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:56:46 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/29 10:58:13 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/29 15:25:32 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void		lexer_skip_whitespace(t_lexer *lexer);
 char		*ft_collect_cmd(t_lexer *lexer);
 char		*ft_collect_str(t_lexer *lexer);
 int			lexer_advance(t_lexer *lexer);
-void		ft_free(t_data *data);
+void		ft_free(t_data *data, int x);
 void		ft_error(int x);
 int			ft_entry_is_only_sp(char *str);
 int			ft_check_cmdless_pipe(char *str, int i, int cmd);

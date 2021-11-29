@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 16:23:46 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/16 09:02:41 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/29 14:06:11 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ char	*ft_itoa(int n)
 	size = ft_itoa_size(n);
 	neg = ft_isneg(n);
 	tmp = ft_makepos(n);
-	s = (char *)malloc(sizeof(char) * ft_itoa_size(n) + 1);
+	s = ft_calloc(sizeof(char), ft_itoa_size(n) + 1);
 	if (!s)
 		return (NULL);
 	if (tmp == 0)

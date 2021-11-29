@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 08:01:35 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/27 17:16:22 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/29 12:01:50 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,14 @@ int	ft_count_redir(t_data *data)
 char	**delet_spaces(char **newtab)
 {
 	int	i;
+	char *tmp;
 
 	i = 0;
 	while (newtab[i])
 	{
-		newtab[i] = ft_strtrim(newtab[i], " ");
+		tmp = ft_strtrim(newtab[i], " ");
+		free (newtab[i]);
+		newtab[i] = tmp;
 		i++;
 	}
 	return (newtab);

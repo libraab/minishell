@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 09:05:29 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/27 18:05:37 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/29 14:10:14 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char	*ft_strtrim(char *s1, char *set)
 	end = ft_strlen(s1);
 	while (end > start && ft_strchr2(set, s1[end - 1]))
 		end--;
-	str = (char *)malloc(sizeof(*s1) * (end - start + 1));
+	str = ft_calloc(sizeof(char), (end - start + 1));
 	if (!str)
 		return (NULL);
 	i = 0;

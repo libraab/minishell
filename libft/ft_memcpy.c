@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 18:03:03 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/16 08:59:49 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/29 14:06:40 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,21 +28,3 @@ void	*ft_memcpy(void *dst, const void *src, size_t n)
 	}
 	return (origin);
 }
-/*#include <stdio.h>
-int main() {
-
-    int array [] = { 54, 85, 20, 63, 21 };
-    int * copy = NULL;
-    int length = sizeof( int ) * 5;
-    int i = 0;   
-    copy = (int *) malloc( length );
-    ft_memcpy( copy, array, length );
-        
-    while (i < 5)
-	{
-        printf( "%d ", copy[i] );
-		i++;
-    }
-    printf( "\n" );
-    free( copy );
-}*/

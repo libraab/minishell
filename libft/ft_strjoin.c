@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 09:20:00 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/16 09:00:22 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/29 14:07:29 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 
 	if (!s1 || !s2)
 		return (NULL);
-	all = malloc (sizeof (char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	all = ft_calloc (sizeof (char), (ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (!all)
 		return (NULL);
 	i = 0;

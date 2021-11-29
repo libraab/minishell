@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 15:10:14 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/27 11:59:46 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/29 15:20:13 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ char	*ft_delete(char *str, int x, int y)
 		}
 		i++;
 	}
-	newstr[j] = '\0';
+	newstr[i] = '\0';
 	return (newstr);
 }
 

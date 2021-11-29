@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 10:53:14 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/25 19:26:33 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/29 16:20:18 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,11 +106,13 @@ char	**ft_split_pipe(char const *s, char c)
 	char	**newtab;
 	char	**newtab_sp;
 	int		words;
+	int i;
+	i = 0;
 
 	if (!s)
 		return (NULL);
 	words = count_words(s, c);
-	newtab = (char **)malloc(sizeof(char *) * (words + 1));
+	newtab = ft_calloc(sizeof(char *), (words + 1));
 	if (!newtab)
 		return (NULL);
 	newtab = creat_new_tab(s, words, c, newtab);
