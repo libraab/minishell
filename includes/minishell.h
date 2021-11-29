@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:56:46 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/28 09:01:56 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/29 10:58:13 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,7 @@
 # include <sys/wait.h>
 # include <sys/time.h>
 # include <sys/resource.h>
-// # include <readline/readline.h>
-//  # include <readline/history.h>
 # include "../libft/libft.h"
-
 
 typedef enum e_type
 {
@@ -83,11 +80,11 @@ typedef struct s_data
 //						* R E A D L I N E *						//
 //================================================================
 
-char	*readline(const char *prompt);
-int		add_history(const char *string_for_history);
-int		rl_on_new_line(void);
-void	rl_redisplay(void);
-void	rl_replace_line(const char *buffer, int something);
+char		*readline(const char *prompt);
+int			add_history(const char *string_for_history);
+int			rl_on_new_line(void);
+void		rl_redisplay(void);
+void		rl_replace_line(const char *buffer, int something);
 
 //================================================================
 //						* L E X E R *							//

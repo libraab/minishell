@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 11:53:42 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/16 09:06:37 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/29 11:23:42 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,7 @@ int	ft_atoi(const char *str)
 	}
 	while (str[i] >= '0' && str[i] <= '9')
 	{
-		a = a * 10 + (str[i] - 48);
-		i++;
+		a = a * 10 + (str[i++] - 48);
 		if (a >= 922337203685477587)
 			return (ft_isneg(b));
 	}
