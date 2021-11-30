@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:58:24 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/29 18:55:30 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/30 10:04:52 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,14 @@ int	ft_prompt(char *entry, t_data *data)
 	}
 	//*****************************************************************
 	//ft_free(data, 0);
+	int j =0;
+	while (j < data->tot)
+	{
+		if (content[j] != NULL)
+			free (content[j]);
+		j++;
+	}
+	free(content);
 	free(entry);
 	//while(1);
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/14 17:35:43 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/29 18:54:25 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/30 10:02:14 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@ void	ft_free(t_data *data, int x)
 	{
 		// if (data != NULL)
 		// 	free (data);
-		if (data->lexer != NULL)
-			free (data->lexer);
 	}
 	if (x == 1)
 	{
