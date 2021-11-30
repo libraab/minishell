@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:58:24 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/30 11:09:50 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/30 11:18:42 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,22 +88,23 @@ int	ft_prompt(char *entry, t_data *data)
 	// for (int j = 0; j < data->nb ; j++)
 	// 	printf("[%d][%s]\n", data->t_tab[j].e_type, data->t_tab[j].value);
 	// //******************************************************************
-	for (int k = 0; k < data->tot; k++)
-	{
-		printf("\n         {C M D}   \n");
-		printf("_________________________\n");
-		printf("| cmd        |   [%s]\n", data->cmd[k].cmd);
-		printf("_________________________\n");
-		for (int n = 0; data->cmd[k].full_cmd[n]; n++)
-			printf("| full cmd   |   [%s]\n", data->cmd[k].full_cmd[n]);
-		printf("_________________________\n");
-		for (int m = 0; data->cmd[k].redir[m]; m++)
-			printf("| redir      |   [%s]\n", data->cmd[k].redir[m]);
-		printf("_________________________\n");
-	}
+	// for (int k = 0; k < data->tot; k++)
+	// {
+	// 	printf("\n         {C M D}   \n");
+	// 	printf("_________________________\n");
+	// 	printf("| cmd        |   [%s]\n", data->cmd[k].cmd);
+	// 	printf("_________________________\n");
+	// 	for (int n = 0; data->cmd[k].full_cmd[n]; n++)
+	// 		printf("| full cmd   |   [%s]\n", data->cmd[k].full_cmd[n]);
+	// 	printf("_________________________\n");
+	// 	for (int m = 0; data->cmd[k].redir[m]; m++)
+	// 		printf("| redir      |   [%s]\n", data->cmd[k].redir[m]);
+	// 	printf("_________________________\n");
+	// }
 	//*****************************************************************
-	//ft_free(data, 0);
-	int j = 0;
+	int		j;
+
+	j = 0;
 	while (j < data->tot)
 	{
 		if (content[j] != NULL)
@@ -122,7 +123,7 @@ int	main(const int ac, const char **av, const char **envp)
 
 	(void) ac;
 	(void) av;
-	data = ft_calloc (sizeof(t_data), 1);//must be freed
+	data = ft_calloc (sizeof(t_data), 1);
 	data->env = (char **)envp;
 	while (1)
 	{
@@ -139,11 +140,10 @@ int	main(const int ac, const char **av, const char **envp)
 		{
 			free (data->lexer);
 			free (entry);
-			//continue ;
+			continue ;
 		}
 		if (entry)
 			ft_prompt(entry, data);
-		//system("leaks minishell");
 		if (data->lexer != NULL)
 			free (data->lexer);
 	}

@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/14 17:35:43 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/30 11:07:35 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/30 11:15:36 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,25 @@
 
 void	ft_alloc_init(t_data *data)
 {
-	data->lexer = ft_calloc (sizeof(t_lexer), 1); //must be freed
+	data->lexer = ft_calloc (sizeof(t_lexer), 1);
 	data->t_tab = NULL;
 }
 
 void	ft_free(t_data *data, int x)
 {
-	int i;
+	int	i;
+	int	j;
+	int	k;
 
 	i = 0;
 	if (x == 0)
 	{
-		// if (data != NULL)
-		// 	free (data);
 	}
 	if (x == 1)
 	{
-		// if (data->lexer->content != NULL)
-		// 	free (data->lexer->content);
 		while (i < data->nb)
 		{
-			if(data->t_tab[i].value != NULL)
+			if (data->t_tab[i].value != NULL)
 				free (data->t_tab[i].value);
 			i++;
 		}
@@ -43,9 +41,6 @@ void	ft_free(t_data *data, int x)
 	}
 	if (x == 2)
 	{
-		int i = 0;
-		int j;
-		int k;
 		while (i < data->tot)
 		{
 			if (data->cmd[i].cmd != NULL)
@@ -70,11 +65,8 @@ void	ft_free(t_data *data, int x)
 				}
 			}
 			free (data->cmd[i].redir);
-			i++;	
+			i++;
 		}
 		free (data->cmd);
 	}
-		// if (data->lexer != NULL)
-		// 	free (data->lexer);
-	
 }
