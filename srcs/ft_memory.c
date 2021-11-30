@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/14 17:35:43 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/30 10:02:14 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/30 11:07:35 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_alloc_init(t_data *data)
 {
-	data->lexer = ft_calloc (sizeof(t_lexer), 1);
+	data->lexer = ft_calloc (sizeof(t_lexer), 1); //must be freed
 	data->t_tab = NULL;
 }
 
@@ -30,6 +30,8 @@ void	ft_free(t_data *data, int x)
 	}
 	if (x == 1)
 	{
+		// if (data->lexer->content != NULL)
+		// 	free (data->lexer->content);
 		while (i < data->nb)
 		{
 			if(data->t_tab[i].value != NULL)
@@ -38,8 +40,6 @@ void	ft_free(t_data *data, int x)
 		}
 		if (data->t_tab != NULL)
 			free (data->t_tab);
-		// if (data->lexer->content != NULL)
-		// 	free (data->lexer->content);
 	}
 	if (x == 2)
 	{
@@ -50,23 +50,31 @@ void	ft_free(t_data *data, int x)
 		{
 			if (data->cmd[i].cmd != NULL)
 				free (data->cmd[i].cmd);
-			j = 0;
-			while (data->cmd[i].full_cmd != NULL)
+			if (data->cmd[i].full_cmd != NULL)
 			{
-				free (data->cmd[i].full_cmd[j]);
-				j++;			
+				j = 0;
+				while (data->cmd[i].full_cmd[j])
+				{
+					free (data->cmd[i].full_cmd[j]);
+					j++;
+				}			
 			}
 			free (data->cmd[i].full_cmd);
-			k = 0;
-			while (data->cmd[i].redir != NULL)
+			if (data->cmd[i].redir != NULL)
 			{
-				free (data->cmd[i].redir[k]);
-				k++;
+				k = 0;
+				while (data->cmd[i].redir[k])
+				{
+					free (data->cmd[i].redir[k]);
+					k++;
+				}
 			}
-			free (data->cmd[i].full_cmd);
-			free (data->cmd);
-			i++;
-			
+			free (data->cmd[i].redir);
+			i++;	
 		}
+		free (data->cmd);
 	}
+		// if (data->lexer != NULL)
+		// 	free (data->lexer);
+	
 }

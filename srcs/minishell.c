@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:58:24 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/30 10:04:52 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/11/30 11:09:50 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ void	ft_stock_cmd(t_data *d, int i, int j, int k)
 	{
 		if (d->t_tab[i].e_type == 6)
 		{
-		rl_redisplay();
 			d->cmd[d->i].cmd = ft_strdup(d->t_tab[i].value);
 			d->cmd[d->i].full_cmd[j] = ft_strdup(d->t_tab[i].value);
 			j++;
@@ -104,7 +103,7 @@ int	ft_prompt(char *entry, t_data *data)
 	}
 	//*****************************************************************
 	//ft_free(data, 0);
-	int j =0;
+	int j = 0;
 	while (j < data->tot)
 	{
 		if (content[j] != NULL)
@@ -113,7 +112,6 @@ int	ft_prompt(char *entry, t_data *data)
 	}
 	free(content);
 	free(entry);
-	//while(1);
 	return (1);
 }
 
@@ -124,7 +122,7 @@ int	main(const int ac, const char **av, const char **envp)
 
 	(void) ac;
 	(void) av;
-	data = ft_calloc (sizeof(t_data), 1);
+	data = ft_calloc (sizeof(t_data), 1);//must be freed
 	data->env = (char **)envp;
 	while (1)
 	{
@@ -145,10 +143,12 @@ int	main(const int ac, const char **av, const char **envp)
 		}
 		if (entry)
 			ft_prompt(entry, data);
-		//ft_free(data, 0); /// tte la sutruycte cmd avec tab et ttt
-		
 		//system("leaks minishell");
+		if (data->lexer != NULL)
+			free (data->lexer);
 	}
 	ft_free (data, 2);
+	if (data != NULL)
+		free (data);
 	return (0);
 }
