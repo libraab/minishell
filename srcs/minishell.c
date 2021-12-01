@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:58:24 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/30 15:57:03 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/12/01 18:38:25 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,27 +80,27 @@ int	ft_prompt(char *entry, t_data *data)
 		init_lexer(data, content[i]);
 		lexer_get_next_token(data, data->lexer);
 		ft_stock_cmd(data, 0, 0, 0);
-		ft_free(data, 1);
+		//ft_free(data, 1);
 		i++;
 	}
 	//****************************************************************
-	// printf("\n{MY TOKENS}\n");
-	// for (int j = 0; j < data->nb ; j++)
-	// 	printf("[%d][%s]\n", data->t_tab[j].e_type, data->t_tab[j].value);
-	// //******************************************************************
-	// for (int k = 0; k < data->tot; k++)
-	// {
-	// 	printf("\n         {C M D}   \n");
-	// 	printf("_________________________\n");
-	// 	printf("| cmd        |   [%s]\n", data->cmd[k].cmd);
-	// 	printf("_________________________\n");
-	// 	for (int n = 0; data->cmd[k].full_cmd[n]; n++)
-	// 		printf("| full cmd   |   [%s]\n", data->cmd[k].full_cmd[n]);
-	// 	printf("_________________________\n");
-	// 	for (int m = 0; data->cmd[k].redir[m]; m++)
-	// 		printf("| redir      |   [%s]\n", data->cmd[k].redir[m]);
-	// 	printf("_________________________\n");
-	// }
+	printf("\n{MY TOKENS}\n");
+	for (int j = 0; j < data->nb ; j++)
+		printf("[%d][%s]\n", data->t_tab[j].e_type, data->t_tab[j].value);
+	//******************************************************************
+	for (int k = 0; k < data->tot; k++)
+	{
+		printf("\n         {C M D}   \n");
+		printf("_________________________\n");
+		printf("| cmd        |   [%s]\n", data->cmd[k].cmd);
+		printf("_________________________\n");
+		for (int n = 0; data->cmd[k].full_cmd[n]; n++)
+			printf("| full cmd   |   [%s]\n", data->cmd[k].full_cmd[n]);
+		printf("_________________________\n");
+		for (int m = 0; data->cmd[k].redir[m]; m++)
+			printf("| redir      |   [%s]\n", data->cmd[k].redir[m]);
+		printf("_________________________\n");
+	}
 	//*****************************************************************
 	int		j;
 
