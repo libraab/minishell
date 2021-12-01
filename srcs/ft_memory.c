@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/14 17:35:43 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/30 15:46:15 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/12/01 18:48:03 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,6 @@ void	ft_free(t_data *data, int x)
 			free (data->cmd[i].redir);
 			i++;
 		}
-		free (data->cmd);
+		free (&data->cmd[i]);
 	}
 }

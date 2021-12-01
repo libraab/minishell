@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:58:24 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/12/01 18:38:25 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/12/01 18:48:53 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,7 @@ int	main(const int ac, const char **av, const char **envp)
 			free (data->lexer);
 	}
 	ft_free (data, 2);
+	free (data->cmd);
 	if (data != NULL)
 		free (data);
 	return (0);
