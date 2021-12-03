@@ -6,67 +6,73 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/14 17:35:43 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/12/01 18:48:03 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/12/03 18:23:50 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	ft_alloc_init(t_data *data)
+void ft_free_token_tab(t_data *data)
 {
-	data->lexer = ft_calloc (sizeof(t_lexer), 1);
-	data->t_tab = NULL;
+	int	i;
+
+	i = 0;
+	while (i < data->nb)
+	{
+		if (data->t_tab[i].value != NULL)
+			free (data->t_tab[i].value);
+		i++;
+	}
+	if (data->t_tab != NULL)
+		free (data->t_tab);
 }
 
-void	ft_free(t_data *data, int x)
+void ft_free_content(t_data *data, char **content)
+{
+	int		i;
+
+	i = 0;
+	while (i < data->tot)
+	{
+		if (content[i] != NULL)
+			free (content[i]);
+		i++;
+	}
+	free(content);
+}
+
+void ft_free_cmd_struct(t_data *data)
 {
 	int	i;
 	int	j;
 	int	k;
 
 	i = 0;
-	if (x == 0)
+	while (i < data->tot)
 	{
-	}
-	if (x == 1)
-	{
-		while (i < data->nb)
+		if (data->cmd[i].cmd != NULL)
+			free (data->cmd[i].cmd);
+		if (data->cmd[i].full_cmd != NULL)
 		{
-			if (data->t_tab[i].value != NULL)
-				free (data->t_tab[i].value);
-			i++;
+			j = 0;
+			while (data->cmd[i].full_cmd[j])
+			{
+				free (data->cmd[i].full_cmd[j]);
+				j++;
+			}			
 		}
-		if (data->t_tab != NULL)
-			free (data->t_tab);
-	}
-	if (x == 2)
-	{
-		while (i < data->tot)
+		free (data->cmd[i].full_cmd);
+		if (data->cmd[i].redir != NULL)
 		{
-			if (data->cmd[i].cmd != NULL)
-				free (data->cmd[i].cmd);
-			if (data->cmd[i].full_cmd != NULL)
+			k = 0;
+			while (data->cmd[i].redir[k])
 			{
-				j = 0;
-				while (data->cmd[i].full_cmd[j])
-				{
-					free (data->cmd[i].full_cmd[j]);
-					j++;
-				}			
+				free (data->cmd[i].redir[k]);
+				k++;
 			}
-			free (data->cmd[i].full_cmd);
-			if (data->cmd[i].redir != NULL)
-			{
-				k = 0;
-				while (data->cmd[i].redir[k])
-				{
-					free (data->cmd[i].redir[k]);
-					k++;
-				}
-			}
-			free (data->cmd[i].redir);
-			i++;
 		}
-		free (&data->cmd[i]);
+		free (data->cmd[i].redir);
+		//free (&data->cmd[i]);
+		i++;
 	}
 }

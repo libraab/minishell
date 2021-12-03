@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:56:46 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/29 15:25:32 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/12/03 17:21:25 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,6 @@ void		lexer_skip_whitespace(t_lexer *lexer);
 char		*ft_collect_cmd(t_lexer *lexer);
 char		*ft_collect_str(t_lexer *lexer);
 int			lexer_advance(t_lexer *lexer);
-void		ft_free(t_data *data, int x);
 void		ft_error(int x);
 int			ft_entry_is_only_sp(char *str);
 int			ft_check_cmdless_pipe(char *str, int i, int cmd);
@@ -128,6 +127,7 @@ char		*ft_copy_string1(char *str, int start);
 char		*ft_copy_string2(char *str, int end);
 char		*ft_check_null(char *newstr);
 
+
 //================================================================
 //						* S P L I T *							//
 //================================================================
@@ -139,5 +139,14 @@ void		find_next_q(char const *s, int *i, int *len, int *q);
 void		find_next_sq(char const *s, int *i, int *len, int *sq);
 char		**delet_spaces(char **newtab);
 void		init_vars(int *a, int *b, int *c, int *d);
+
+//================================================================
+//						* F R E E *							//
+//================================================================
+
+void		ft_free_content(t_data *data, char **content);
+void		ft_free_cmd_struct(t_data *data);
+void		ft_free_token_tab(t_data *data);
+void		ft_free_cmd_struct(t_data *data);
 
 #endif

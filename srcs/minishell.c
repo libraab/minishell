@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:58:24 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/12/01 18:48:53 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/12/03 18:27:55 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	ft_prompt(char *entry, t_data *data)
 		init_lexer(data, content[i]);
 		lexer_get_next_token(data, data->lexer);
 		ft_stock_cmd(data, 0, 0, 0);
-		//ft_free(data, 1);
+		//ft_free_token_tab(data);
 		i++;
 	}
 	//****************************************************************
@@ -102,16 +102,7 @@ int	ft_prompt(char *entry, t_data *data)
 		printf("_________________________\n");
 	}
 	//*****************************************************************
-	int		j;
-
-	j = 0;
-	while (j < data->tot)
-	{
-		if (content[j] != NULL)
-			free (content[j]);
-		j++;
-	}
-	free(content);
+	ft_free_content(data, content);
 	free(entry);
 	return (1);
 }
@@ -129,7 +120,7 @@ int	main(const int ac, const char **av, const char **envp)
 	{
 		signal (SIGINT, ft_signals);
 		signal (SIGQUIT, ft_signals);
-		ft_alloc_init(data);
+		data->lexer = ft_calloc (sizeof(t_lexer), 1);
 		entry = readline("\033[30;47m[minishell] >\033[0m ");
 		if (!entry)
 		{
@@ -146,9 +137,8 @@ int	main(const int ac, const char **av, const char **envp)
 			ft_prompt(entry, data);
 		if (data->lexer != NULL)
 			free (data->lexer);
+		ft_free_cmd_struct(data);
 	}
-	ft_free (data, 2);
-	free (data->cmd);
 	if (data != NULL)
 		free (data);
 	return (0);
