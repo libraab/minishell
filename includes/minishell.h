@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bledda <bledda@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:56:46 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/12/03 17:21:25 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/12/07 10:35:56 by bledda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,11 @@ typedef struct s_cmd
 
 typedef struct s_data
 {
-	t_lexer	*lexer;
+	t_lexer	lexer;
 	t_cmd	*cmd;
 	t_token	*t_tab;
 	int		i;
-	int		tot;
+	int		tot;// cmd
 	int		nb;
 	char	c;
 	char	**env;

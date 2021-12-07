@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:58:24 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/12/03 18:27:55 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/12/07 13:27:05 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,15 +78,11 @@ int	ft_prompt(char *entry, t_data *data)
 		if (!content[i])
 			break ;
 		init_lexer(data, content[i]);
-		lexer_get_next_token(data, data->lexer);
+		lexer_get_next_token(data, &data->lexer);
 		ft_stock_cmd(data, 0, 0, 0);
-		//ft_free_token_tab(data);
+		ft_free_token_tab(data);
 		i++;
 	}
-	//****************************************************************
-	printf("\n{MY TOKENS}\n");
-	for (int j = 0; j < data->nb ; j++)
-		printf("[%d][%s]\n", data->t_tab[j].e_type, data->t_tab[j].value);
 	//******************************************************************
 	for (int k = 0; k < data->tot; k++)
 	{
@@ -102,6 +98,7 @@ int	ft_prompt(char *entry, t_data *data)
 		printf("_________________________\n");
 	}
 	//*****************************************************************
+	
 	ft_free_content(data, content);
 	free(entry);
 	return (1);
@@ -109,18 +106,17 @@ int	ft_prompt(char *entry, t_data *data)
 
 int	main(const int ac, const char **av, const char **envp)
 {
-	t_data	*data;
+	t_data	data;
 	char	*entry;
 
 	(void) ac;
 	(void) av;
-	data = ft_calloc (sizeof(t_data), 1);
-	data->env = (char **)envp;
+	data = (t_data){0};
+	data.env = (char **)envp;
 	while (1)
 	{
 		signal (SIGINT, ft_signals);
 		signal (SIGQUIT, ft_signals);
-		data->lexer = ft_calloc (sizeof(t_lexer), 1);
 		entry = readline("\033[30;47m[minishell] >\033[0m ");
 		if (!entry)
 		{
@@ -129,17 +125,12 @@ int	main(const int ac, const char **av, const char **envp)
 		}
 		if (ft_entry_is_only_sp(entry))
 		{
-			free (data->lexer);
 			free (entry);
 			continue ;
 		}
 		if (entry)
-			ft_prompt(entry, data);
-		if (data->lexer != NULL)
-			free (data->lexer);
-		ft_free_cmd_struct(data);
+			ft_prompt(entry, &data);
+		ft_free_cmd_struct(&data);
 	}
-	if (data != NULL)
-		free (data);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 11:01:58 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/12/03 16:57:21 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/12/07 13:24:46 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,22 +22,24 @@ void	init_token(t_data *data, int type, char *value)
 	while (j < data->nb)
 	{
 		tmp[j].e_type = data->t_tab[j].e_type;
-		tmp[j].value = data->t_tab[j].value;
+		tmp[j].value = ft_strdup(data->t_tab[j].value);
 		j++;
 	}
 	tmp[j].e_type = type;
-	tmp[j].value = value;
+	tmp[j].value = ft_strdup(value);
+	if (data->t_tab != NULL)
+		ft_free_token_tab(data);
 	data->t_tab = tmp;
 	data->nb++;
 }
 
 void	init_lexer(t_data *data, char *content)
 {
-	data->lexer->content = ft_change_flous(data, content, 0, 0);
-	data->lexer->index = 0;
-	data->lexer->c = data->lexer->content[0];
+	data->lexer.content = ft_change_flous(data, content, 0, 0);
+	data->lexer.index = 0;
+	data->lexer.c = data->lexer.content[0];
 	data->nb = 0;
-	data->t_tab = ft_calloc (sizeof(t_token), 1);
+	data->t_tab = NULL;
 }
 
 int	lexer_advance(t_lexer *lexer)

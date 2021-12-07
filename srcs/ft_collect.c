@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_collect.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bledda <bledda@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 15:10:14 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/30 16:14:08 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/12/07 13:09:22 by bledda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ char	*ft_delete(char *str, int x, int y)
 		i++;
 	}
 	newstr[i] = '\0';
+	free(str);
 	return (newstr);
 }
 
