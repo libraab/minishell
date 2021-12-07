@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 17:27:38 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/12/07 17:56:41 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/12/07 20:09:34 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,14 @@ char	*ft_replace(t_data *data, char *str, int start, int end)
 	newstr2 = ft_copy_string2(str, end);
 	s = ft_strdup(newstr);
 	tmp = ft_strjoin(newstr, ft_get_env_var(data, str, start + 1, end));
+	
 	free(newstr);
 	newstr = ft_strdup(tmp);
 	free(tmp);
 	if (newstr == NULL && newstr2 != NULL)
 		newstr = ft_strjoin(s, newstr2);
 	else if (newstr == NULL && newstr2 == NULL)
-		newstr = s;
+		newstr = ft_strdup(s);
 	else
 	{
 		tmp = ft_strjoin(newstr, newstr2);
@@ -121,14 +122,14 @@ char	*ft_change_flous(t_data *data, char *str, int sq, int dq)
 		else if (str[i] == '$' && str[i + 1] != ' ' && str[i + 1] && dq && !sq)
 		{
 			free(newstr);
-			str = (ft_replace(data, str, i, ft_find_end(str, i + 1, 1)));
+			newstr = (ft_replace(data, str, i, ft_find_end(str, i + 1, 1)));
 			free(str);
 			str = ft_strdup(newstr);
 		}
 		else if (str[i] == '$' && str[i + 1] != ' ' && str[i + 1] && dq && sq)
 		{
 			free(newstr);
-			str = (ft_replace(data, str, i, ft_find_end(str, i + 1, 2)));
+			newstr = (ft_replace(data, str, i, ft_find_end(str, i + 1, 2)));
 			free(str);
 			str = ft_strdup(newstr);
 		}

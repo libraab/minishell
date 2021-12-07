@@ -6,13 +6,11 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:58:24 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/12/07 19:34:53 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/12/07 19:51:16 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-//static int	g_exit_status;
 
 void	ft_signals(int sig)
 {
@@ -102,9 +100,7 @@ int	ft_prompt(char *entry, t_data *data)
 		printf("_________________________\n");
 	}
 	//*****************************************************************
-	printf("[%s]\n", content[0]);
 	ft_free_content(data, content);
-	//printf("laaaaa\n");
 	free(entry);
 	return (1);
 }
@@ -135,7 +131,7 @@ int	main(const int ac, const char **av, const char **envp)
 		}
 		if (entry)
 			ft_prompt(entry, &data);
-		ft_free_cmd_struct(&data);
+		ft_free_cmd_struct(&data, 0, 0, 0);
 	}
 	return (0);
 }

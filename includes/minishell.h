@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:56:46 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/12/07 19:02:01 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/12/07 19:53:38 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ typedef struct s_data
 	t_cmd	*cmd;
 	t_token	*t_tab;
 	int		i;
-	int		tot;// cmd
+	int		tot;
 	int		nb;
 	char	c;
 	char	**env;
@@ -127,7 +127,6 @@ char		*ft_copy_string1(char *str, int start);
 char		*ft_copy_string2(char *str, int end);
 char		*ft_check_null(char *newstr);
 
-
 //================================================================
 //						* S P L I T *							//
 //================================================================
@@ -145,8 +144,7 @@ void		init_vars(int *a, int *b, int *c, int *d);
 //================================================================
 
 void		ft_free_content(t_data *data, char **content);
-void		ft_free_cmd_struct(t_data *data);
 void		ft_free_token_tab(t_data *data);
-void		ft_free_cmd_struct(t_data *data);
+void		ft_free_cmd_struct(t_data *data, int i, int j, int k);
 
 #endif
