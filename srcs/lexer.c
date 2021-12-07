@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 11:01:58 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/12/07 13:24:46 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/12/07 19:34:17 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	init_token(t_data *data, int type, char *value)
 
 void	init_lexer(t_data *data, char *content)
 {
+	
 	data->lexer.content = ft_change_flous(data, content, 0, 0);
 	data->lexer.index = 0;
 	data->lexer.c = data->lexer.content[0];

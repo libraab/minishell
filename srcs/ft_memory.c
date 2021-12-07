@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/14 17:35:43 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/12/07 13:32:12 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/12/07 19:33:42 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,11 @@ void ft_free_content(t_data *data, char **content)
 	int		i;
 
 	i = 0;
-	while (i < data->tot)
-	{
-		if (content[i] != NULL)
-			free (content[i]);
-		i++;
-	}
-	free(content);
+	printf("%d\n", data->tot);
+	printf("here\n");
+	if (content)
+		free(content);
+	
 }
 
 void ft_free_cmd_struct(t_data *data)
