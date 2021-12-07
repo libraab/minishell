@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 17:27:38 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/12/07 20:09:34 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/12/07 20:18:29 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ char	*ft_replace(t_data *data, char *str, int start, int end)
 	newstr2 = ft_copy_string2(str, end);
 	s = ft_strdup(newstr);
 	tmp = ft_strjoin(newstr, ft_get_env_var(data, str, start + 1, end));
-	
 	free(newstr);
 	newstr = ft_strdup(tmp);
 	free(tmp);
