@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:58:24 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/12/08 18:16:16 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/12/08 18:53:19 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,11 +78,14 @@ int	ft_prompt(char *entry, t_data *data)
 		init_lexer(data, content[i]);
 		lexer_get_next_token(data, &data->lexer);
 		ft_stock_cmd(data, 0, 0, 0);
-		ft_free_token_tab(data);
+		//ft_free_token_tab(data);
 		if (data->lexer.content)
 			free(data->lexer.content);
 		i++;
 	}
+	//******************************************************************
+	// for (int z = 0; z < data->nb; z++)
+	// 	printf("[%d] [%s]\n", data->t_tab[z].e_type, data->t_tab[z].value);
 	//******************************************************************
 	for (int k = 0; k < data->tot; k++)
 	{
@@ -115,7 +118,32 @@ void	ft_init_data(t_data *d)
 	d->env = 0;
 }
 
-int	main(const int ac, const char **av, const char **envp)
+int ft_count_tab(char **tableau)
+{
+	int i;
+	
+	i = 0;
+	while (tableau[i])
+		i++;
+	return (i);
+}
+
+char	**ft_clone_env(char **env)
+{
+	char	**new_env;
+	int		i;
+
+	i = 0;
+	new_env = ft_calloc(sizeof(char *), ft_count_tab(env) + 1);
+	while (i < ft_count_tab(env))
+	{
+		new_env[i] = ft_strdup(env[i]);
+		i++;
+	}
+	return (new_env);
+}
+
+int	main(const int ac, const char **av, char **envp)
 {
 	t_data	data;
 	char	*entry;
@@ -123,7 +151,7 @@ int	main(const int ac, const char **av, const char **envp)
 	(void) ac;
 	(void) av;
 	ft_init_data(&data);
-	data.env = (char **)envp;
+	data.env = ft_clone_env(envp);
 	while (1)
 	{
 		signal (SIGINT, ft_signals);
@@ -143,5 +171,6 @@ int	main(const int ac, const char **av, const char **envp)
 			ft_prompt(entry, &data);
 		ft_free_cmd_struct(&data, 0, 0, 0);
 	}
+	
 	return (0);
 }

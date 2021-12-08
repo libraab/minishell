@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 15:10:14 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/12/08 17:27:42 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/12/08 19:19:15 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,8 @@ char	*ft_delete(char *str, int x, int y)
 
 	i = 0;
 	j = 0;
+	if (x == y - 1)
+		return (" ");
 	newstr = ft_calloc(sizeof(char *), ft_strlen(str) - 2);
 	while (str[i])
 	{
@@ -98,8 +100,8 @@ char	*ft_delete(char *str, int x, int y)
 		}
 		i++;
 	}
-	newstr[i] = '\0';
-	free(str);
+	if (str)
+		free(str);
 	return (newstr);
 }
 
@@ -112,7 +114,6 @@ void	ft_clean_quote(t_data *d, int i, int j)
 	while (i < d->nb)
 	{
 		j = 0;
-		printf("[%d]\n", d->nb);
 		while (d->t_tab[i].value[j])
 		{
 			if (d->t_tab[i].value[j] == '\'' || d->t_tab[i].value[j] == '"')
