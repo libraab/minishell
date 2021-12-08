@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:58:24 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/12/07 20:22:05 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/12/08 18:16:16 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ int	ft_prompt(char *entry, t_data *data)
 	add_history(entry);
 	ft_check_invalid_chars(entry);
 	content = ft_split_pipe(entry, '|');
-	printf("[%s]\n", content[1]);
 	data->tot = ft_count_cmd_nbr(content);
 	data->cmd = ft_calloc (sizeof(t_cmd), data->tot);
 	data->i = 0;
@@ -77,7 +76,6 @@ int	ft_prompt(char *entry, t_data *data)
 		if (!content[i])
 			break ;
 		init_lexer(data, content[i]);
-		printf("-->[%s]\n", content[0]);
 		lexer_get_next_token(data, &data->lexer);
 		ft_stock_cmd(data, 0, 0, 0);
 		ft_free_token_tab(data);
@@ -100,9 +98,21 @@ int	ft_prompt(char *entry, t_data *data)
 		printf("_________________________\n");
 	}
 	//*****************************************************************
-	ft_free_content(data, content);
+	ft_free_content(content);
 	free(entry);
 	return (1);
+}
+
+void	ft_init_data(t_data *d)
+{
+	d->lexer = (t_lexer){0};
+	d->cmd = 0;
+	d->t_tab = 0;
+	d->i = 0;
+	d->tot = 0;
+	d->nb = 0;
+	d->c = 0;
+	d->env = 0;
 }
 
 int	main(const int ac, const char **av, const char **envp)
@@ -112,7 +122,7 @@ int	main(const int ac, const char **av, const char **envp)
 
 	(void) ac;
 	(void) av;
-	data = (t_data){0};
+	ft_init_data(&data);
 	data.env = (char **)envp;
 	while (1)
 	{

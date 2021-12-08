@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: bledda <bledda@student.42nice.fr>          +#+  +:+       +#+         #
+#    By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/25 10:50:15 by abouhlel          #+#    #+#              #
-#    Updated: 2021/12/07 10:28:56 by bledda           ###   ########.fr        #
+#    Updated: 2021/12/08 18:16:38 by abouhlel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,7 @@ OBJS				= ${SRC:.c=.o}
 #  ╚═════╝     ╚═════╝     ╚═╝     ╚═╝    ╚═╝         ╚═╝    ╚══════╝
 
 CC					= gcc
-CFLAGS  			= #-Wall -Wextra -Werror #-g -fsanitize=address
+CFLAGS  			= -Wall -Wextra -Werror #-g -fsanitize=address 
 RM					= rm -rf
 MAKE_EXT			= @make -s --no-print-directory -C
 LIBR				= -L /Users/$(USER)/.brew/Cellar/readline/8.1.1/lib

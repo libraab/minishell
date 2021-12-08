@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 09:20:58 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/03/30 16:19:22 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/12/08 16:18:03 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,3 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 	}
 	return (ft_strlen(src));
 }
-/*
-#include <stdio.h>
-int	main (void)
-{
-	char a[] = "Coucouc";
-	char b[] = "hola";
-	int x = 2;
-	printf("%zu\n", ft_strlcpy(a, b, x));
-	printf("%s\n\n", a);
-	printf("%zu\n", strlcpy(a, b, x));
-	printf("%s\n", a);
-}
-*/

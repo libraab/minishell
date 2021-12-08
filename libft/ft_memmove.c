@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 08:59:55 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/03/30 16:16:04 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/12/08 16:17:40 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,3 @@ void	*ft_memmove(void *dst, const void *src, size_t len)
 		ft_memcpy(x, y, len);
 	return ((void *)x);
 }
-/*#include <stdio.h>
-int main()
-{
-	char a[] = "hellodljdlsjhlj";
-	char b[] = "bo";
-	printf("%s\n", ft_memmove(a, b, 8));
-	printf("%s", memmove(a, b, 8));
-}*/

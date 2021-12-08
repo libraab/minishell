@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 17:05:05 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/16 09:00:25 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/12/08 16:17:57 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,3 @@ size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 		dst[i] = '\0';
 	return (j + ft_strlen(src));
 }
-/*#include <stdio.h>
-int main()
-{
-	char a[] = "hello world";
-	char b[] = "hola";
-	int x = 2;
-	printf("%zu\n", ft_strlcat(a, b, x));
-	printf("%zu\n", strlcat(a, b, x));
-}*/

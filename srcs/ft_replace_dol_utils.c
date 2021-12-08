@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 12:25:22 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/12/07 17:55:46 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/12/08 18:05:06 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ char	*ft_copy_string1(char *str, int start)
 	int		i;
 
 	i = 0;
+	if(start == 0)
+		return (NULL);
 	newstr = ft_calloc(sizeof(char *), start + 1);
 	while (i < start)
 	{
@@ -45,8 +47,12 @@ char	*ft_copy_string2(char *str, int end)
 {
 	char	*newstr;
 	int		j;
+	int		str_len;
 
 	j = 0;
+	str_len = strlen(str);
+	if(end == str_len)
+		return (NULL);
 	newstr = ft_calloc(sizeof(char *), ft_strlen(str) - end + 1);
 	while (str[end + j])
 	{
@@ -54,15 +60,4 @@ char	*ft_copy_string2(char *str, int end)
 		j++;
 	}
 	return (newstr);
-}
-
-char	*ft_check_null(char *newstr)
-{
-	if (newstr == NULL)
-	{
-		newstr = ft_calloc(sizeof(char), 2);
-		newstr = " ";
-		return (newstr);
-	}
-	return (0);
 }

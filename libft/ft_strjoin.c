@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 09:20:00 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/29 14:07:29 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/12/08 16:17:53 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,3 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	all[i + j] = '\0';
 	return (all);
 }
-/*int main()
-{
-	char a[] = "anticonsti";
-	char b[] = "tutionnellement";
-	printf("%s", ft_strjoin(a, b));
-}*/

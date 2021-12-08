@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_collect.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bledda <bledda@student.42nice.fr>          +#+  +:+       +#+        */
+/*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 15:10:14 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/12/07 13:09:22 by bledda           ###   ########.fr       */
+/*   Updated: 2021/12/08 17:27:42 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ void	ft_clean_quote(t_data *d, int i, int j)
 	while (i < d->nb)
 	{
 		j = 0;
+		printf("[%d]\n", d->nb);
 		while (d->t_tab[i].value[j])
 		{
 			if (d->t_tab[i].value[j] == '\'' || d->t_tab[i].value[j] == '"')

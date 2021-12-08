@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 11:01:58 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/12/07 20:20:55 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/12/08 17:29:38 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,16 @@ void	init_token(t_data *data, int type, char *value)
 	data->nb++;
 }
 
-void	init_lexer(t_data *data, char *content)
+int	init_lexer(t_data *data, char *content)
 {
-	data->lexer.content = ft_change_flous(data, content, 0, 0);
 	data->lexer.index = 0;
-	data->lexer.c = data->lexer.content[0];
 	data->nb = 0;
 	data->t_tab = NULL;
+	data->lexer.content = ft_change_flous(data, content, 0, 0);
+	if (data->lexer.content == NULL)
+		return (0);
+	data->lexer.c = data->lexer.content[0];
+	return (1);
 }
 
 int	lexer_advance(t_lexer *lexer)

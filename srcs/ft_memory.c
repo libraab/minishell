@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/14 17:35:43 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/12/07 19:52:02 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/12/08 18:05:33 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	ft_free_token_tab(t_data *data)
 	free (data->t_tab);
 }
 
-void	ft_free_content(t_data *data, char **content)
+void	ft_free_content(char **content)
 {
 	int	i;
 

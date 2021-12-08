@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 17:27:38 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/12/07 20:18:29 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/12/08 17:25:25 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 char	*ft_get_env_var(t_data *data, char *str, int start, int end)
 {
+	char	*env_var;
 	char	*dol_value;
-	char	*newstr;
+	int		dol_len;
 	int		i;
-	int		size_dol;
-
+	char  *env;
 	i = 0;
-	newstr = NULL;
+	env_var = NULL;
 	dol_value = ft_calloc(sizeof(char *), end - start + 1);
 	while (i < (end - start))
 	{
@@ -28,48 +28,72 @@ char	*ft_get_env_var(t_data *data, char *str, int start, int end)
 		i++;
 	}
 	dol_value = ft_strcat(dol_value, "=");
-	size_dol = ft_strlen(dol_value);
-	free(dol_value);
+	dol_len = ft_strlen(dol_value);
 	i = 0;
 	while (data->env[i])
 	{
-		if (ft_strncmp(data->env[i], dol_value, size_dol) == 0)
-			newstr = data->env[i];
+		if (ft_strncmp(data->env[i], dol_value, dol_len) == 0)
+			env_var = ft_strdup(data->env[i]);
 		i++;
 	}
-	if (!ft_check_null(newstr))
-		return (&newstr[size_dol]);
-	return (newstr);
+	free (dol_value);
+	if (env_var != NULL)
+	{
+		env = ft_strdup(env_var + dol_len);
+		free(env_var);
+	}
+	else
+		env = NULL;
+	return (env);
 }
 
 char	*ft_replace(t_data *data, char *str, int start, int end)
 {
-	char	*newstr;
-	char	*newstr2;
-	char	*s;
+	char	*str_before;
+	char	*str_after;
+	char	*replaced;
 	char	*tmp;
 
-	newstr = ft_copy_string1(str, start);
-	newstr2 = ft_copy_string2(str, end);
-	s = ft_strdup(newstr);
-	tmp = ft_strjoin(newstr, ft_get_env_var(data, str, start + 1, end));
-	free(newstr);
-	newstr = ft_strdup(tmp);
-	free(tmp);
-	if (newstr == NULL && newstr2 != NULL)
-		newstr = ft_strjoin(s, newstr2);
-	else if (newstr == NULL && newstr2 == NULL)
-		newstr = ft_strdup(s);
-	else
+	str_before = ft_copy_string1(str, start);
+	str_after = ft_copy_string2(str, end);
+	replaced = ft_get_env_var(data, str, start + 1, end);
+	if (str_before == NULL && replaced == NULL && str_after == NULL)
+		return (NULL);
+	if (str_before != NULL && replaced == NULL && str_after == NULL) 
+		return (str_before);
+	if (str_before == NULL && replaced != NULL && str_after == NULL)
+		return (replaced);
+	if (str_before == NULL && replaced == NULL && str_after != NULL)
+		return (str_after);
+	if (str_before != NULL && replaced != NULL && str_after == NULL)
 	{
-		tmp = ft_strjoin(newstr, newstr2);
-		free(newstr);
-		newstr = ft_strdup(tmp);
-		free(tmp);
+		tmp = ft_strjoin(str_before, replaced);
+		free (str_before);
+		free (replaced);
 	}
-	free(s);
-	free(newstr2);
-	return (newstr);
+	if (str_before != NULL && replaced == NULL && str_after != NULL) 
+	{
+		tmp = ft_strjoin(str_before, str_after);
+		free (str_before);
+		free (str_after);
+	}
+	if (str_before == NULL && replaced != NULL && str_after != NULL)
+	{
+		tmp = ft_strjoin(replaced, str_after);
+		free (replaced);
+		free (str_after);
+	}
+	if (str_before != NULL && replaced != NULL && str_after != NULL)
+	{
+		tmp = ft_strjoin(str_before, replaced);
+		free (str_before);
+		free (replaced);
+		replaced = ft_strjoin(tmp, str_after);
+		free (str_after);
+		free (tmp);
+		return (replaced);
+	}
+	return (tmp);
 }
 
 int	ft_find_end(char *str, int i, int x)
@@ -101,7 +125,7 @@ char	*ft_change_flous(t_data *data, char *str, int sq, int dq)
 	char	*newstr;
 
 	i = 0;
-	newstr = ft_strdup(str);
+	newstr = NULL;
 	while (str[i])
 	{
 		i = ft_skip_quote(str, i, dq, sq);
@@ -117,6 +141,10 @@ char	*ft_change_flous(t_data *data, char *str, int sq, int dq)
 			newstr = (ft_replace(data, str, i, ft_find_end(str, i + 1, 0)));
 			free(str);
 			str = ft_strdup(newstr);
+			if (newstr == NULL)
+				break;
+			free(newstr);
+			newstr = NULL;
 		}
 		else if (str[i] == '$' && str[i + 1] != ' ' && str[i + 1] && dq && !sq)
 		{
@@ -124,6 +152,8 @@ char	*ft_change_flous(t_data *data, char *str, int sq, int dq)
 			newstr = (ft_replace(data, str, i, ft_find_end(str, i + 1, 1)));
 			free(str);
 			str = ft_strdup(newstr);
+			free(newstr);
+			newstr = NULL;
 		}
 		else if (str[i] == '$' && str[i + 1] != ' ' && str[i + 1] && dq && sq)
 		{
@@ -131,9 +161,10 @@ char	*ft_change_flous(t_data *data, char *str, int sq, int dq)
 			newstr = (ft_replace(data, str, i, ft_find_end(str, i + 1, 2)));
 			free(str);
 			str = ft_strdup(newstr);
+			free(newstr);
+			newstr = NULL;
 		}
 		i++;
 	}
-	free(newstr);
 	return (str);
 }
