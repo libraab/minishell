@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 12:25:22 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/12/08 18:19:34 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/12/09 14:11:13 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ char	*ft_copy_string2(char *str, int end)
 
 	j = 0;
 	str_len = strlen(str);
-	if(end == str_len)
+	if (end == str_len)
 		return (NULL);
 	newstr = ft_calloc(sizeof(char *), ft_strlen(str) - end + 1);
 	while (str[end + j])
@@ -60,4 +60,38 @@ char	*ft_copy_string2(char *str, int end)
 		j++;
 	}
 	return (newstr);
+}
+
+char	*ft_all(char *str_before, char *replaced, char *str_after, char *tmp)
+{
+	tmp = ft_strjoin(str_before, replaced);
+	free (str_before);
+	free (replaced);
+	replaced = ft_strjoin(tmp, str_after);
+	free (str_after);
+	free (tmp);
+	return (replaced);
+}
+
+int	ft_find_end(char *str, int i, int x)
+{
+	if (x == 0)
+	{
+		while (str[i] && (ft_isalpha(str[i]) || str[i] == '_')
+			&& str[i] != ' ' && str[i] != '$')
+			i++;
+	}
+	if (x == 1)
+	{
+		while (str[i] && (ft_isalpha(str[i]) || str[i] == '_')
+			&& str[i] != ' ' && str[i] != '$' && str[i] != '"')
+			i++;
+	}
+	if (x == 2)
+	{
+		while (str[i] && (ft_isalpha(str[i]) || str[i] == '_')
+			&& str[i] != ' ' && str[i] != '$' && str[i] != '\'')
+			i++;
+	}
+	return (i);
 }

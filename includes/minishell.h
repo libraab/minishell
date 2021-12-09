@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:56:46 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/12/08 18:08:05 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/12/09 14:08:43 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void		rl_replace_line(const char *buffer, int something);
 void		lexer_get_next_token(t_data *data, t_lexer *lexer);
 void		init_token(t_data *data, int type, char *value);
 int			init_lexer(t_data *data, char *content);
-void 		ft_init_data(t_data *data);
+void		ft_init_data(t_data *data);
 int			ft_prompt(char *entry, t_data *data);
 char		*ft_collect_file_name(t_lexer *lexer);
 void		lexer_skip_whitespace(t_lexer *lexer);
@@ -114,6 +114,7 @@ void		ft_stock_cmd(t_data *data, int i, int j, int k);
 int			ft_count_arg(t_data *data);
 int			ft_count_redir(t_data *data);
 int			ft_count_cmd_nbr(char **str);
+int			ft_count_tab(char **tableau);
 int			ft_char_is_sep(char c);
 char		*get_path(char **env);
 char		**take_env(char **env);
@@ -126,10 +127,11 @@ char		*ft_get_env_var(t_data *data, char *str, int start, int end);
 int			ft_skip_quote(char *str, int i, int dq, int sq);
 char		*ft_copy_string1(char *str, int start);
 char		*ft_copy_string2(char *str, int end);
+char		*ft_all(char *str_before, char *replaced, char *str_after, char *tmp);
 
-//================================================================
-//						* S P L I T *							//
-//================================================================
+//=============================================================================
+//						* S P L I T *										 //
+//=============================================================================
 
 char		**ft_split_pipe(char const *s, char c);
 void		find_qs(const char c, int *q, int *sq);
@@ -139,12 +141,14 @@ void		find_next_sq(char const *s, int *i, int *len, int *sq);
 char		**delet_spaces(char **newtab);
 void		init_vars(int *a, int *b, int *c, int *d);
 
-//================================================================
-//						* F R E E *							//
-//================================================================
+//=============================================================================
+//						* F R E E *											 //
+//=============================================================================
 
 void		ft_free_content(char **content);
 void		ft_free_token_tab(t_data *data);
 void		ft_free_cmd_struct(t_data *data, int i, int j, int k);
+void		ft_free_data_env(char **data_env);
+char		*ft_free_things(char *env, char *env_var, char *dol_value, int dol_len);
 
 #endif

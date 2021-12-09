@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 17:27:38 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/12/08 17:25:25 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/12/09 14:11:08 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,15 @@
 
 char	*ft_get_env_var(t_data *data, char *str, int start, int end)
 {
-	char	*env_var;
 	char	*dol_value;
+	char	*env_var;
 	int		dol_len;
+	char	*env;
 	int		i;
-	char  *env;
+
 	i = 0;
 	env_var = NULL;
+	env = NULL;
 	dol_value = ft_calloc(sizeof(char *), end - start + 1);
 	while (i < (end - start))
 	{
@@ -36,15 +38,7 @@ char	*ft_get_env_var(t_data *data, char *str, int start, int end)
 			env_var = ft_strdup(data->env[i]);
 		i++;
 	}
-	free (dol_value);
-	if (env_var != NULL)
-	{
-		env = ft_strdup(env_var + dol_len);
-		free(env_var);
-	}
-	else
-		env = NULL;
-	return (env);
+	return (ft_free_things(env, env_var, dol_value, dol_len));
 }
 
 char	*ft_replace(t_data *data, char *str, int start, int end)
@@ -59,7 +53,7 @@ char	*ft_replace(t_data *data, char *str, int start, int end)
 	replaced = ft_get_env_var(data, str, start + 1, end);
 	if (str_before == NULL && replaced == NULL && str_after == NULL)
 		return (NULL);
-	if (str_before != NULL && replaced == NULL && str_after == NULL) 
+	if (str_before != NULL && replaced == NULL && str_after == NULL)
 		return (str_before);
 	if (str_before == NULL && replaced != NULL && str_after == NULL)
 		return (replaced);
@@ -71,7 +65,7 @@ char	*ft_replace(t_data *data, char *str, int start, int end)
 		free (str_before);
 		free (replaced);
 	}
-	if (str_before != NULL && replaced == NULL && str_after != NULL) 
+	if (str_before != NULL && replaced == NULL && str_after != NULL)
 	{
 		tmp = ft_strjoin(str_before, str_after);
 		free (str_before);
@@ -84,40 +78,11 @@ char	*ft_replace(t_data *data, char *str, int start, int end)
 		free (str_after);
 	}
 	if (str_before != NULL && replaced != NULL && str_after != NULL)
-	{
-		tmp = ft_strjoin(str_before, replaced);
-		free (str_before);
-		free (replaced);
-		replaced = ft_strjoin(tmp, str_after);
-		free (str_after);
-		free (tmp);
-		return (replaced);
-	}
+		return (ft_all(str_before, replaced, str_after, tmp));
 	return (tmp);
 }
 
-int	ft_find_end(char *str, int i, int x)
-{
-	if (x == 0)
-	{
-		while (str[i] && (ft_isalpha(str[i]) || str[i] == '_')
-			&& str[i] != ' ' && str[i] != '$')
-			i++;
-	}
-	if (x == 1)
-	{
-		while (str[i] && (ft_isalpha(str[i]) || str[i] == '_')
-			&& str[i] != ' ' && str[i] != '$' && str[i] != '"')
-			i++;
-	}
-	if (x == 2)
-	{
-		while (str[i] && (ft_isalpha(str[i]) || str[i] == '_')
-			&& str[i] != ' ' && str[i] != '$' && str[i] != '\'')
-			i++;
-	}
-	return (i);
-}
+
 
 char	*ft_change_flous(t_data *data, char *str, int sq, int dq)
 {
@@ -142,7 +107,7 @@ char	*ft_change_flous(t_data *data, char *str, int sq, int dq)
 			free(str);
 			str = ft_strdup(newstr);
 			if (newstr == NULL)
-				break;
+				break ;
 			free(newstr);
 			newstr = NULL;
 		}
