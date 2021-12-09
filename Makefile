@@ -6,7 +6,7 @@
 #    By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/25 10:50:15 by abouhlel          #+#    #+#              #
-#    Updated: 2021/12/09 14:03:37 by abouhlel         ###   ########.fr        #
+#    Updated: 2021/12/09 14:54:12 by abouhlel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,8 @@ FOLDER				= srcs/
 
 HEADER_FILE 		= minishell.h
 
-SRCS				=	ft_collect.c \
+SRCS				=	ft_change.c \
+						ft_collect.c \
 						ft_error.c \
 						ft_memory.c \
 						ft_replace_dollar.c \
@@ -35,6 +36,7 @@ SRCS				=	ft_collect.c \
 						ft_utils.c \
 						lexer.c \
 						minishell.c \
+
 
 SRC					= $(addprefix ${FOLDER},${SRCS})
 HEADERS				= $(addprefix ${FOLDER_HEADER},${HEADER_FILE})
