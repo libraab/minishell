@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 11:01:58 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/12/08 19:20:25 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/12/17 09:47:41 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,27 +56,27 @@ int	lexer_advance(t_lexer *lexer)
 	return (0);
 }
 
-void	lexer_skip_whitespace(t_lexer *lexer)
+int	ft_count_tab(char **tableau)
 {
-	while (lexer->c == ' ' && lexer->c != '\0')
-		lexer_advance(lexer);
+	int	i;
+
+	i = 0;
+	while (tableau[i])
+		i++;
+	return (i);
 }
 
-void	lexer_get_next_token(t_data *data, t_lexer *lexer)
+char	**ft_clone_env(char **env)
 {
-	int	cmd;
+	char	**new_env;
+	int		i;
 
-	cmd = 0;
-	while (lexer->c != '\0' && lexer->index < ft_strlen(lexer->content))
+	i = 0;
+	new_env = ft_calloc(sizeof(char *), ft_count_tab(env) + 1);
+	while (i < ft_count_tab(env))
 	{
-		if (lexer->c == ' ')
-			lexer_skip_whitespace(lexer);
-		if (lexer->c == '<')
-			ft_tokenize_l_redir(data, lexer);
-		else if (lexer->c == '>')
-			ft_tokenize_r_redir(data, lexer);
-		else
-			cmd = ft_tokenise_ca(data, lexer, cmd);
+		new_env[i] = ft_strdup(env[i]);
+		i++;
 	}
-	ft_clean_quote(data, 0, 0);
+	return (new_env);
 }

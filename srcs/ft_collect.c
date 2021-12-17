@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 15:10:14 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/12/08 19:19:15 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/12/17 09:38:31 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,10 @@ char	*ft_collect_cmd(t_lexer *lexer)
 	while (!ft_char_is_sep(lexer->c) && lexer->content)
 		lexer_advance(lexer);
 	end = lexer->index;
-	cmd = ft_calloc((end - start) + 1, sizeof(char));
+	cmd = ft_calloc(sizeof(char), end - start + 1);
 	while (start < end)
 		cmd[i++] = lexer->content[start++];
+	cmd[i] = '\0';
 	return (cmd);
 }
 
@@ -52,9 +53,10 @@ char	*ft_collect_str(t_lexer *lexer)
 		lexer_advance(lexer);
 	}
 	end = lexer->index;
-	str = ft_calloc((end - start) + 1, sizeof(char));
+	str = ft_calloc(sizeof(char), end - start + 1);
 	while (start < end)
 		str[i++] = lexer->content[start++];
+	str[i] = '\0';
 	return (str);
 }
 
@@ -76,7 +78,7 @@ char	*ft_collect_file_name(t_lexer *lexer)
 	str = ft_calloc(sizeof(char), end - start + 1);
 	while (start < end)
 		str[i++] = lexer->content[start++];
-	str[i] = 0;
+	str[i] = '\0';
 	return (str);
 }
 

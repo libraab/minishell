@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:58:24 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/12/09 13:56:10 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/12/17 09:56:34 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,24 +83,7 @@ int	ft_prompt(char *entry, t_data *data)
 			free(data->lexer.content);
 		i++;
 	}
-	//******************************************************************
-	// for (int z = 0; z < data->nb; z++)
-	// 	printf("[%d] [%s]\n", data->t_tab[z].e_type, data->t_tab[z].value);
-	//******************************************************************
-	for (int k = 0; k < data->tot; k++)
-	{
-		printf("\n         {C M D}   \n");
-		printf("_________________________\n");
-		printf("| cmd        |   [%s]\n", data->cmd[k].cmd);
-		printf("_________________________\n");
-		for (int n = 0; data->cmd[k].full_cmd[n]; n++)
-			printf("| full cmd   |   [%s]\n", data->cmd[k].full_cmd[n]);
-		printf("_________________________\n");
-		for (int m = 0; data->cmd[k].redir[m]; m++)
-			printf("| redir      |   [%s]\n", data->cmd[k].redir[m]);
-		printf("_________________________\n");
-	}
-	//*****************************************************************
+	ft_print_cmd_tab(data, 0, 0, 0);
 	ft_free_content(content);
 	free(entry);
 	return (1);
@@ -116,31 +99,6 @@ void	ft_init_data(t_data *d)
 	d->nb = 0;
 	d->c = 0;
 	d->env = 0;
-}
-
-int ft_count_tab(char **tableau)
-{
-	int i;
-	
-	i = 0;
-	while (tableau[i])
-		i++;
-	return (i);
-}
-
-char	**ft_clone_env(char **env)
-{
-	char	**new_env;
-	int		i;
-
-	i = 0;
-	new_env = ft_calloc(sizeof(char *), ft_count_tab(env) + 1);
-	while (i < ft_count_tab(env))
-	{
-		new_env[i] = ft_strdup(env[i]);
-		i++;
-	}
-	return (new_env);
 }
 
 int	main(const int ac, const char **av, char **envp)
