@@ -6,7 +6,7 @@
 #    By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/25 10:50:15 by abouhlel          #+#    #+#              #
-#    Updated: 2021/12/17 09:49:54 by abouhlel         ###   ########.fr        #
+#    Updated: 2021/12/17 10:54:35 by abouhlel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,7 +52,7 @@ OBJS				= ${SRC:.c=.o}
 #  ╚═════╝     ╚═════╝     ╚═╝     ╚═╝    ╚═╝         ╚═╝    ╚══════╝
 
 CC					= gcc
-CFLAGS  			= -Wall -Wextra -Werror -g -fsanitize=address 
+CFLAGS  			= -Wall -Wextra -Werror #-g -fsanitize=address 
 RM					= rm -rf
 MAKE_EXT			= @make -s --no-print-directory -C
 LIBR				= -L /Users/$(USER)/.brew/Cellar/readline/8.1.1/lib

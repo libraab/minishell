@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 09:09:32 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/27 14:53:00 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/12/17 10:53:42 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ int	ft_entry_is_only_sp(char *str)
 			return (0);
 		i++;
 	}
+	if (str != NULL)
+		free (str);
 	return (1);
 }
 
