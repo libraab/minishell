@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 12:25:22 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/12/17 10:47:20 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/12/17 13:23:09 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ char	*ft_all(char *before, char *replaced, char *after, char *tmp)
 	return (replaced);
 }
 
-int	ft_find_end(char *str, int i, int x)
+int	ft_end(char *str, int i, int x)
 {
 	if (x == 0)
 	{

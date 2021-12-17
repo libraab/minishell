@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:56:46 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/12/17 12:27:51 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/12/17 13:31:34 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ typedef struct s_data
 	char	c;
 	int		tmp;
 	char	*newstr;
+	int		j;
 }			t_data;
 
 //================================================================
@@ -122,8 +123,8 @@ char		*get_path(char **env);
 char		**take_env(char **env);
 void		ft_check_unclosed_quote(char *str);
 char		*ft_change_flous(t_data *data, char *str, int sq, int dq);
-char		*ft_replace(t_data *data, char *str, int start, int end);
-int			ft_find_end(char *str, int i, int x);
+char		*ft_rep(t_data *data, char *str, int start, int end);
+int			ft_end(char *str, int i, int x);
 void		ft_clean_quote(t_data *data, int i, int j);
 char		*ft_get_env_var(t_data *data, char *str, int start, int end);
 int			ft_skip_quote(char *str, int i, int dq, int sq);

@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 17:27:38 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/12/09 14:56:02 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/12/17 13:31:25 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ char	*get_tmp(char *str_before, char *replaced, char *str_after)
 	return (tmp);
 }
 
-char	*ft_replace(t_data *data, char *str, int start, int end)
+char	*ft_rep(t_data *data, char *str, int start, int end)
 {
 	char	*str_before;
 	char	*str_after;

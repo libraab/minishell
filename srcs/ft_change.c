@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 14:53:14 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/12/17 12:29:51 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/12/17 13:32:54 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,35 +31,31 @@ static void	ft_switch(char c, int *sq, int *dq)
 		*dq = !dq;
 }
 
-char	*ft_change_flous(t_data *data, char *str, int sq, int dq)
+char	*ft_change_flous(t_data *d, char *s, int sq, int dq)
 {
-	int		i;
-
-	i = 0;
-	data->newstr = NULL;
-	while (str[i])
+	while (s[d->j])
 	{
-		i = ft_skip_quote(str, i, dq, sq);
-		if (str[i] == '\'' || str[i] == '"')
-			ft_switch(str[i], &sq, &dq);
-		else if (str[i] == '$' && (str[i + 1] == '?' || str[i + 1] == '$'))
-			i++;
-		else if (str[i] == '$' && str[i + 1] != ' ' && str[i + 1]
+		d->j = ft_skip_quote(s, d->j, dq, sq);
+		if (s[d->j] == '\'' || s[d->j] == '"')
+			ft_switch(s[d->j], &sq, &dq);
+		else if (s[d->j] == '$' && (s[d->j + 1] == '?' || s[d->j + 1] == '$'))
+			d->j++;
+		else if (s[d->j] == '$' && s[d->j + 1] != ' ' && s[d->j + 1]
 			&& (!dq || (dq && !sq) || (dq && sq)))
 		{
-			free(data->newstr);
-			data->tmp = ft_val(dq, sq);
-			if (data->tmp != -1)
-				data->newstr = (ft_replace(data, str, i, ft_find_end(str, i + 1, data->tmp)));
-			free(str);
-			str = ft_strdup(data->newstr);
-			if (!dq && data->newstr == NULL)
+			free(d->newstr);
+			d->tmp = ft_val(dq, sq);
+			if (d->tmp != -1)
+				d->newstr = (ft_rep(d, s, d->j, ft_end(s, d->j + 1, d->tmp)));
+			free(s);
+			s = ft_strdup(d->newstr);
+			if (!dq && d->newstr == NULL)
 				break ;
-			free(data->newstr);
-			data->newstr = NULL;
+			free(d->newstr);
+			d->newstr = NULL;
 		}
-		if (str[i] != '$')
-			i++;
+		if (s[d->j] != '$')
+			d->j++;
 	}
-	return (str);
+	return (s);
 }
