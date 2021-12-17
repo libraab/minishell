@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 14:53:14 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/12/09 15:55:55 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/12/17 11:18:06 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ char	*ft_change_flous(t_data *data, char *str, int sq, int dq)
 			free(newstr);
 			newstr = NULL;
 		}
-		i++;
+		if (str[i] != '$')
+			i++;
 	}
 	return (str);
 }
