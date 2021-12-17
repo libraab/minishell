@@ -6,7 +6,7 @@
 #    By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/25 10:50:15 by abouhlel          #+#    #+#              #
-#    Updated: 2021/12/17 10:54:35 by abouhlel         ###   ########.fr        #
+#    Updated: 2021/12/17 14:39:51 by abouhlel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,12 +24,12 @@ FOLDER				= srcs/
 
 HEADER_FILE 		= minishell.h
 
-SRCS				=	ft_change.c \
+SRCS				=	ft_dollar1.c \
 						ft_collect.c \
 						ft_error.c \
 						ft_memory.c \
-						ft_replace_dollar.c \
-						ft_replace_dol_utils.c \
+						ft_dollar2.c \
+						ft_dollar3.c \
 						ft_split_pipe_utils.c \
 						ft_split_pipe.c \
 						ft_tokenize.c \
