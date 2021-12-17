@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 14:53:14 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/12/17 13:32:54 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/12/17 14:11:42 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ static int	ft_val(int val1, int val2)
 static void	ft_switch(char c, int *sq, int *dq)
 {
 	if (c == '\'')
-		*sq = !sq;
+		*sq = !*sq;
 	else
-		*dq = !dq;
+		*dq = !*dq;
 }
 
 char	*ft_change_flous(t_data *d, char *s, int sq, int dq)

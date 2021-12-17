@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:56:46 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/12/17 13:31:34 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/12/17 13:46:39 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ typedef struct s_data
 	int		i;
 	int		tot;
 	int		nb;
-	char	c;
 	int		tmp;
 	char	*newstr;
 	int		j;
