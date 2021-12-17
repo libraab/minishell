@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:56:46 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/12/17 10:47:31 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/12/17 12:27:51 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,13 @@ typedef struct s_data
 	t_lexer	lexer;
 	t_cmd	*cmd;
 	t_token	*t_tab;
+	char	**env;
 	int		i;
 	int		tot;
 	int		nb;
 	char	c;
-	char	**env;
+	int		tmp;
+	char	*newstr;
 }			t_data;
 
 //================================================================
