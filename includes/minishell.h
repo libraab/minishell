@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:56:46 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/12/17 13:46:39 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/12/17 14:56:24 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,19 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <string.h>
-# include <signal.h>
-# include <errno.h>
-# include <termios.h>
-# include <curses.h>
 # include <term.h>
-# include <sys/ioctl.h>
-# include <sys/types.h>
-# include <sys/stat.h>
 # include <fcntl.h>
+# include <errno.h>
+# include <signal.h>
+# include <curses.h>
 # include <dirent.h>
+# include <stdbool.h>
+# include <termios.h>
 # include <sys/stat.h>
 # include <sys/wait.h>
 # include <sys/time.h>
+# include <sys/ioctl.h>
+# include <sys/types.h>
 # include <sys/resource.h>
 # include "../libft/libft.h"
 
@@ -45,6 +45,7 @@ typedef enum e_type
 	CMD,
 	ARG,
 }	t_TYPE;
+
 typedef struct s_token
 {
 	t_TYPE	e_type;	
@@ -57,6 +58,7 @@ typedef struct s_lexer
 	unsigned int	index;
 	char			*content;
 }					t_lexer;
+
 typedef struct s_cmd
 {
 	char	*cmd;
