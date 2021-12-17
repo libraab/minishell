@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:56:46 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/12/17 09:58:08 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/12/17 10:47:31 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ char		*ft_get_env_var(t_data *data, char *str, int start, int end);
 int			ft_skip_quote(char *str, int i, int dq, int sq);
 char		*ft_copy_string1(char *str, int start);
 char		*ft_copy_string2(char *str, int end);
-char		*ft_all(char *str_before, char *replaced, char *str_after, char *tmp);
+char		*ft_all(char *before, char *replaced, char *after, char *tmp);
 char		**ft_clone_env(char **env);
 int			ft_count_tab(char **tableau);
 void		ft_print_cmd_tab(t_data *data, int i, int j, int k);
@@ -152,6 +152,6 @@ void		ft_free_content(char **content);
 void		ft_free_token_tab(t_data *data);
 void		ft_free_cmd_struct(t_data *data, int i, int j, int k);
 void		ft_free_data_env(char **data_env);
-char		*ft_free_things(char *env, char *env_var, char *dol_value, int dol_len);
+char		*ft_free_things(char *env, char *env_var, char *dolv, int len);
 
 #endif

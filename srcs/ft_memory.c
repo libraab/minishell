@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/14 17:35:43 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/12/09 14:05:35 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/12/17 10:45:35 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,12 +80,12 @@ void	ft_free_data_env(char **data_env)
 	free(data_env);
 }
 
-char	*ft_free_things(char *env, char *env_var, char *dol_value, int dol_len)
+char	*ft_free_things(char *env, char *env_var, char *dolv, int len)
 {
-	free (dol_value);
+	free (dolv);
 	if (env_var != NULL)
 	{
-		env = ft_strdup(env_var + dol_len);
+		env = ft_strdup(env_var + len);
 		free (env_var);
 	}
 	else
