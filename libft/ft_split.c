@@ -12,23 +12,23 @@
 
 #include "libft.h"
 
-static int	count_words(char const *s, char c)
+static int	count_tabs(char const *s, char c)
 {
 	int		i;
-	int		words;
+	int		tabs;
 
-	words = 0;
 	i = 0;
+	tabs = 0;
 	while (s[i])
 	{
 		if (s[i] != c && (s[i + 1] == c || s[i + 1] == '\0'))
-			words++;
+			tabs++;
 		i++;
 	}
-	return (words);
+	return (tabs);
 }
 
-static int	words_len(char const *s, char c)
+static int	word_len(char const *s, char c)
 {
 	int		i;
 	int		len;
@@ -43,32 +43,32 @@ static int	words_len(char const *s, char c)
 	return (len);
 }
 
-static void	*freememory(char **tab, int words)
+static void	*freememory(char **tableau, int tabs)
 {
 	int	i;
 
 	i = 0;
-	while (i < words)
+	while (i < tabs)
 	{
-		free(tab[i]);
+		free(tableau[i]);
 		i++;
 	}
-	free(tab);
+	free(tableau);
 	return (NULL);
 }
 
-static char	**creat_new_tab(char const *s, int words, char c, char **newtab)
+static char	**creat_new_tab(char const *s, int tabs, char c, char **newtab)
 {
 	int		i;
 	int		j;
 	int		len;
 
 	i = -1;
-	while (++i < words)
+	while (++i < tabs)
 	{
 		while (*s == c)
 			s++;
-		len = words_len(s, c);
+		len = word_len(s, c);
 		newtab[i] = ft_calloc(sizeof(char), (len + 1));
 		if (!newtab[i])
 			return (freememory(newtab, i));
@@ -81,17 +81,17 @@ static char	**creat_new_tab(char const *s, int words, char c, char **newtab)
 	return (newtab);
 }
 
-char	**ft_split(char	const *s, char c)
+char	**ft_split(char *s, char c)
 {
 	char	**newtab;
-	int		words;
+	int		tabs;
 
 	if (!s)
 		return (NULL);
-	words = count_words(s, c);
-	newtab = ft_calloc(sizeof(char *), (words + 1));
+	tabs = count_tabs(s, c);
+	newtab = ft_calloc(sizeof(char *), (tabs + 1));
 	if (!newtab)
 		return (NULL);
-	newtab = creat_new_tab(s, words, c, newtab);
+	newtab = creat_new_tab(s, tabs, c, newtab);
 	return (newtab);
 }

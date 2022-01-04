@@ -44,6 +44,7 @@ void	last_fork(t_cmd cm, int fd)
 	if (cm.redir != NULL)
 		take_redir(cm.redir, &inf, &outf);
 	cmd = find_cmd(cm.cmd, env_exec);
+	free_tab(env_exec);
 	if (cmd)
 		fid = fork();
 	if (fid == 0)

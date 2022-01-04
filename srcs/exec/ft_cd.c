@@ -45,7 +45,7 @@ int	ft_cd(char **the_cmd)
 	buf = getcwd(NULL, 0);
 	if (the_cmd[1] == NULL)
 	{
-		chdir("/Users/hboukhor");
+		chdir("/Users/abouhlel");
 		buf2 = getcwd(NULL, 0);
 		change_env(buf, buf2);
 		ft_change_exit_status(0);
