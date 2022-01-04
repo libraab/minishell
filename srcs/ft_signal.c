@@ -23,6 +23,7 @@ void	ft_signals(int sig)
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
+		ft_change_exit_status(1);
 	}
 	if (sig == SIGQUIT)
 	{

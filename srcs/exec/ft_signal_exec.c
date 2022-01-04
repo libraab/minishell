@@ -17,9 +17,11 @@ void	ft_signals_exec(int sig)
 	if (sig == SIGINT)
 	{
 		printf("\n");
+		ft_change_exit_status(130);
 	}
 	if (sig == SIGQUIT)
 	{
 		printf("Quit: 3\n");
+		ft_change_exit_status(131);
 	}
 }
