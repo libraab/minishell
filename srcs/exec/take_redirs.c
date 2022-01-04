@@ -25,6 +25,7 @@ int	take_redir(char **red, int *inf, int *outf)
 		if (red[i + 1][0] == '\0')
 		{
 			printf("syntax error near unexpected token '%s'\n", red[i]);
+			ft_change_exit_status(258);
 			exe.stat = 2;
 			return (1);
 		}
