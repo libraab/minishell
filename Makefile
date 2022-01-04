@@ -74,7 +74,7 @@ OBJS				= ${SRC:.c=.o}
 #  ╚═════╝     ╚═════╝     ╚═╝     ╚═╝    ╚═╝         ╚═╝    ╚══════╝
 
 CC					= gcc
-CFLAGS  			= -Wall -Wextra -Werror -g -fsanitize=address
+CFLAGS  			= -Wall -Wextra -Werror -g #-fsanitize=address
 RM					= rm -rf
 MAKE_EXT			= @make -s --no-print-directory -C
 LIBR				= -L /Users/$(USER)/.brew/Cellar/readline/8.1.1/lib

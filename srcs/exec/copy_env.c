@@ -69,7 +69,7 @@ void	ft_change_exit_status(int x)
 		i++;
 	if (ft_strncmp(exe.env[i], "?=", 2) == 0)
 	{
-		free (exe.env[i]);
-		exe.env[i] = ft_strdup(ft_strcat(ft_strdup("?="), ft_itoa(x)));
+		ft_free (exe.env[i]);
+		exe.env[i] = ft_strcat(ft_strdup("?="), ft_itoa(x));
 	}
 }

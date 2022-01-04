@@ -12,24 +12,6 @@
 
 #include "../includes/minishell.h"
 
-int	ft_skip_quote(char *str, int i, int dq, int sq)
-{
-	char	c;
-
-	if (!str)
-		return (0);
-	if (str[i] == '\'' && !dq && !sq)
-	{
-		c = str[i];
-		i++;
-		while (str[i] && str[i] != c)
-			i++;
-		if (str[i] == '\'' && str[i + 1])
-			i++;
-	}
-	return (i);
-}
-
 char	*ft_copy_string1(char *str, int start)
 {
 	char	*newstr;

@@ -155,7 +155,9 @@ int		ft_check_cmdless_pipe(char *str, int i, int cmd);
 void	ft_check_invalid_chars(char *str);
 // FT_DOLLAR1.c
 int		ft_val(int val1, int val2);
+int		ft_skip_simple_quote(char *str, int i, int sq, int dq);
 void	ft_switch(char c, int *sq, int *dq);
+int		ft_skip_dollar(char *str, int index);
 char	*ft_change_flous(t_data *d, char *s, int sq, int dq);
 // FT_DOLLAR2.c
 char	*ft_get_env_var(char *str, int start, int end);
@@ -164,7 +166,6 @@ char	*get_replace(char *str_before, char *replaced, char *str_after);
 char	*get_tmp(char *str_before, char *replaced, char *str_after);
 char	*ft_rep(char *str, int start, int end);
 // FT_DOLLAR3.c
-int		ft_skip_quote(char *str, int i, int dq, int sq);
 char	*ft_copy_string1(char *str, int start);
 char	*ft_copy_string2(char *str, int end);
 char	*ft_all(char *before, char *replaced, char *after, char *tmp);

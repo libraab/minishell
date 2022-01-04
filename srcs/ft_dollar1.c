@@ -23,20 +23,39 @@ int	ft_val(int val1, int val2)
 	return (-1);
 }
 
+int	ft_skip_simple_quote(char *str, int i, int sq, int dq)
+{
+	char	c;
+
+	if (!str)
+		return (0);
+	if (str[i] == '\'' && !dq && !sq)
+	{
+		c = str[i];
+		i++;
+		while (str[i] && str[i] != c)
+			i++;
+		if (str[i] == '\'' && str[i + 1])
+			i++;
+	}
+	return (i);
+}
+
 void	ft_switch(char c, int *sq, int *dq)
 {
 	if (c == '\'')
 		*sq = !*sq;
-	else
+	else if (c == '"' && dq && sq)
+	{
+		*sq = 0;
+		*dq = !*dq;
+	}
+	else if (c == '"')
 		*dq = !*dq;
 }
 
 int	ft_skip_dollar(char *str, int index)
 {
-	if (str[index] == '\0')
-		return (0);
-	if (str[index] != '$')
-		return (1);
 	if (str[index] == '$')
 	{
 		if (str[index + 1] == '\0')
@@ -57,11 +76,11 @@ char	*ft_change_flous(t_data *d, char *s, int sq, int dq)
 {
 	while (s[d->j])
 	{
-		d->j = ft_skip_quote(s, d->j, dq, sq);
+		d->j = ft_skip_simple_quote(s, d->j, sq, dq);
 		if (s[d->j] == '"' || (s[d->j] == '\'' && dq))
 			ft_switch(s[d->j], &sq, &dq);
-		else if (s[d->j] == '$' && s[d->j + 1] && ft_isalpha(s[d->j + 1])
-			&& (!dq || (dq && !sq) || (dq && sq)))
+		else if (s[d->j] == '$' && s[d->j + 1] && (ft_isalpha(s[d->j + 1])
+			|| s[d->j + 1] == '?') && (!dq || (dq && !sq) || (dq && sq)))
 		{
 			free(d->newstr);
 			d->tmp = ft_val(dq, sq);
@@ -74,7 +93,10 @@ char	*ft_change_flous(t_data *d, char *s, int sq, int dq)
 			free(d->newstr);
 			d->newstr = NULL;
 		}
-		d->j += ft_skip_dollar(s, d->j);
+		if (s[d->j] != '\0' && s[d->j] == '$')
+			d->j += ft_skip_dollar(s, d->j);
+		else if (s[d->j] != '\0')
+			d->j++;
 	}
 	return (s);
 }
