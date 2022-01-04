@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 09:43:16 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/24 09:23:30 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/12/21 11:25:57 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,11 @@ char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strtrim(char *s1, char *set);
 char	**ft_split(char const *s, char c);
+void	ft_putstr(char *s);
 
-///////////////// * B O N U S* ////////////////////////////////////////////
+//*****************************************************************************
+//						* B O N U S *										 //
+//*****************************************************************************
 
 t_list	*ft_lstnew(void *content);
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));

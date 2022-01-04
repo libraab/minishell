@@ -6,31 +6,11 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:58:24 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/12/18 10:24:40 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/12/29 16:09:07 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-void	ft_signals(int sig)
-{
-	if (sig == SIGINT)
-	{
-		printf("\e[2K");
-		rl_on_new_line();
-		rl_redisplay();
-		printf("\n");
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
-	}
-	if (sig == SIGQUIT)
-	{
-		printf("\e[2K");
-		rl_on_new_line();
-		rl_redisplay();
-	}
-}
 
 void	ft_stock_cmd(t_data *d, int i, int j, int k)
 {
@@ -65,6 +45,7 @@ int	ft_prompt(char *entry, t_data *data)
 	int		i;
 
 	i = 0;
+	content = NULL;
 	add_history(entry);
 	ft_check_invalid_chars(entry);
 	content = ft_split_pipe(entry, '|');
@@ -79,28 +60,24 @@ int	ft_prompt(char *entry, t_data *data)
 		lexer_get_next_token(data, &data->lexer);
 		ft_stock_cmd(data, 0, 0, 0);
 		ft_free_token_tab(data);
-		if (data->lexer.content)
-			free(data->lexer.content);
+		ft_free(data->lexer.content);
 		i++;
 	}
-	ft_print_cmd_tab(data, 0, 0, 0);
-	ft_free_content(content);
-	free(entry);
+	//ft_print_cmd_tab(data, 0 , 0, 0);
+	free(content);
+	ft_free(entry);
 	return (1);
 }
 
-void	ft_init_data(t_data *d)
+void	make_exec(char *entry, t_data *data)
 {
-	d->lexer = (t_lexer){0};
-	d->cmd = 0;
-	d->t_tab = 0;
-	d->i = 0;
-	d->tot = 0;
-	d->nb = 0;
-	d->env = 0;
+	ft_prompt(entry, data);
+	multi_pipex(data, 0, data->tot - 1);
+	while (wait(0) > 0)
+		;
 }
 
-int	main(const int ac, const char **av, char **envp)
+int	main(const int ac, const char **av, char **env)
 {
 	t_data	data;
 	char	*entry;
@@ -108,23 +85,22 @@ int	main(const int ac, const char **av, char **envp)
 	(void) ac;
 	(void) av;
 	ft_init_data(&data);
-	data.env = ft_clone_env(envp);
+	copy_env(env);
+	crea_envexp();
 	while (1)
 	{
 		signal (SIGINT, ft_signals);
 		signal (SIGQUIT, ft_signals);
-		entry = readline("\033[30;47m[minishell] >\033[0m ");
+		entry = readline("\033[1;31mMinishell-->\033[0m ");
 		if (!entry)
-		{
-			write(1, "exit\n", 5);
-			return (0);
-		}
+			return (ft_exit_entry());
 		if (ft_entry_is_only_sp(entry))
 			continue ;
 		if (entry)
-			ft_prompt(entry, &data);
+			make_exec(entry, &data);
 		ft_free_cmd_struct(&data, 0, 0, 0);
 	}
-	ft_free_data_env(data.env);
+	free_tab(exe.env);
+	free_tab(exe.expenv);
 	return (0);
 }

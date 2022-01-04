@@ -6,13 +6,13 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 10:53:14 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/11/30 11:16:30 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/12/29 14:51:00 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static int	count_words(char const *s, char c)
+int	count_words(char const *s, char c)
 {
 	int		i;
 	int		words;
@@ -34,7 +34,7 @@ static int	count_words(char const *s, char c)
 	return (words);
 }
 
-static int	words_len(char const *s, char c)
+int	words_len(char const *s, char c)
 {
 	int		i;
 	int		len;
@@ -61,7 +61,7 @@ static int	words_len(char const *s, char c)
 	return (len);
 }
 
-static void	*freememory(char **tableau, int words)
+void	*freememory(char **tableau, int words)
 {
 	int	i;
 
@@ -75,7 +75,7 @@ static void	*freememory(char **tableau, int words)
 	return (NULL);
 }
 
-static char	**creat_new_tab(char const *s, int words, char c, char **newtab)
+char	**creat_new_tab(char const *s, int words, char c, char **newtab)
 {
 	int		i;
 	int		j;
@@ -106,9 +106,9 @@ char	**ft_split_pipe(char const *s, char c)
 	char	**newtab;
 	char	**newtab_sp;
 	int		words;
-	int		i;
 
-	i = 0;
+	newtab = NULL;
+	newtab_sp = NULL;
 	if (!s)
 		return (NULL);
 	words = count_words(s, c);
@@ -116,6 +116,8 @@ char	**ft_split_pipe(char const *s, char c)
 	if (!newtab)
 		return (NULL);
 	newtab = creat_new_tab(s, words, c, newtab);
+	if (!newtab)
+		return (NULL);
 	newtab_sp = delet_spaces(newtab);
 	return (newtab_sp);
 }

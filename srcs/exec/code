@@ -1,0 +1,6 @@
+commande reussie = 0
+commande not found = 127
+ctrl c dans prompt ou heredoc = 1
+ctrl c dans cat = 130
+ctrl \ dans cat = 131
+syntax error = 258

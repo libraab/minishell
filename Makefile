@@ -6,7 +6,7 @@
 #    By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/25 10:50:15 by abouhlel          #+#    #+#              #
-#    Updated: 2021/12/17 14:39:51 by abouhlel         ###   ########.fr        #
+#    Updated: 2021/12/25 17:01:48 by abouhlel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,19 +25,41 @@ FOLDER				= srcs/
 HEADER_FILE 		= minishell.h
 
 SRCS				=	ft_dollar1.c \
+						ft_dollar2.c \
+						ft_dollar3.c \
 						ft_collect.c \
 						ft_error.c \
 						ft_memory.c \
-						ft_dollar2.c \
-						ft_dollar3.c \
 						ft_split_pipe_utils.c \
 						ft_split_pipe.c \
 						ft_tokenize.c \
 						ft_utils.c \
+						ft_signal.c \
 						lexer.c \
 						minishell.c \
-						ft_print_cmd_tab.c 
-
+						ft_print.c \
+						exec/middle_cmds.c \
+						exec/multipipex.c \
+						exec/pipex_utils.c \
+						exec/get_path.c \
+						exec/take_env.c \
+						exec/find_cmd.c \
+						exec/tab_len.c \
+						exec/free_tab.c \
+						exec/ft_cd.c \
+						exec/ft_signal_exec.c \
+						exec/chk_exec_built.c \
+						exec/ft_pwd.c \
+						exec/ft_env.c \
+						exec/ft_unset.c \
+						exec/ft_unset_utils.c \
+						exec/ft_echo.c \
+						exec/ft_export.c \
+						exec/take_redirs.c \
+						exec/make_redirs.c \
+						exec/ft_export_utils.c \
+						exec/copy_env.c \
+						exec/ft_exit.c
 
 SRC					= $(addprefix ${FOLDER},${SRCS})
 HEADERS				= $(addprefix ${FOLDER_HEADER},${HEADER_FILE})
@@ -52,7 +74,7 @@ OBJS				= ${SRC:.c=.o}
 #  ╚═════╝     ╚═════╝     ╚═╝     ╚═╝    ╚═╝         ╚═╝    ╚══════╝
 
 CC					= gcc
-CFLAGS  			= -Wall -Wextra -Werror #-g -fsanitize=address 
+CFLAGS  			= -Wall -Wextra -Werror -g -fsanitize=address
 RM					= rm -rf
 MAKE_EXT			= @make -s --no-print-directory -C
 LIBR				= -L /Users/$(USER)/.brew/Cellar/readline/8.1.1/lib

@@ -12,21 +12,43 @@
 
 #include "libft.h"
 
+void	ft_free_the_two_str(char *s1, char *s2)
+{
+	if (s1 && *s1)
+	{
+		free(s1);
+		s1 = NULL;
+	}
+	if (s2 && *s2)
+	{
+		free(s2);
+		s2 = NULL;
+	}
+}
+
 char	*ft_strcat(char *s1, char *s2)
 {
-	size_t	i;
-	size_t	j;
+	int		i;
+	int		j;
+	char	*newstr;
 
 	i = 0;
-	while (s1[i])
-		i++;
 	j = 0;
+	if (!s1 && !s2)
+		return (NULL);
+	newstr = ft_calloc(sizeof(char), (ft_strlen(s1) + ft_strlen(s2) + 1));
+	while (s1[i])
+	{
+		newstr[i] = s1[i];
+		i++;
+	}
 	while (s2[j])
 	{
-		s1[i] = s2[j];
+		newstr[i] = s2[j];
 		i++;
 		j++;
 	}
-	s1[i] = '\0';
-	return (s1);
+	newstr[i] = '\0';
+	ft_free_the_two_str(s1, s2);
+	return (newstr);
 }

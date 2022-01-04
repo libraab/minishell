@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 15:10:14 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/12/17 09:38:31 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/12/29 14:58:46 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,22 +88,26 @@ char	*ft_delete(char *str, int x, int y)
 	int		j;
 	char	*newstr;
 
-	i = 0;
+	i = -1;
 	j = 0;
+	if (!str)
+		return (NULL);
 	if (x == y - 1)
-		return (" ");
+	{
+		free(str);
+		return (ft_strdup(" "));
+	}
 	newstr = ft_calloc(sizeof(char *), ft_strlen(str) - 2);
-	while (str[i])
+	while (str[++i])
 	{
 		if (i != x && i != y)
 		{
 			newstr[j] = str[i];
 			j++;
 		}
-		i++;
 	}
 	if (str)
-		free(str);
+		free (str);
 	return (newstr);
 }
 

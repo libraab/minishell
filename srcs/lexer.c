@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 11:01:58 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/12/17 13:30:05 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/12/29 14:54:03 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	init_token(t_data *data, int type, char *value)
 
 	j = 0;
 	tmp = ft_calloc(sizeof(t_token), (data->nb + 1));
+	if (!tmp)
+		return ;
 	while (j < data->nb)
 	{
 		tmp[j].e_type = data->t_tab[j].e_type;
@@ -36,11 +38,13 @@ void	init_token(t_data *data, int type, char *value)
 int	init_lexer(t_data *data, char *content)
 {
 	data->lexer.index = 0;
+	data->lexer.content = NULL;
 	data->nb = 0;
 	data->t_tab = NULL;
 	data->newstr = NULL;
 	data->j = 0;
-	data->lexer.content = ft_change_flous(data, content, 0, 0);
+	if (*content)
+		data->lexer.content = ft_change_flous(data, content, 0, 0);
 	if (data->lexer.content == NULL)
 		return (0);
 	data->lexer.c = data->lexer.content[0];

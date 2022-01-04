@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:56:46 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/12/17 14:56:24 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/12/25 15:05:20 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,19 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <string.h>
-# include <term.h>
-# include <fcntl.h>
-# include <errno.h>
 # include <signal.h>
-# include <curses.h>
-# include <dirent.h>
-# include <stdbool.h>
+# include <errno.h>
 # include <termios.h>
+# include <curses.h>
+# include <term.h>
+# include <sys/ioctl.h>
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <fcntl.h>
+# include <dirent.h>
 # include <sys/stat.h>
 # include <sys/wait.h>
 # include <sys/time.h>
-# include <sys/ioctl.h>
-# include <sys/types.h>
 # include <sys/resource.h>
 # include "../libft/libft.h"
 
@@ -45,7 +45,6 @@ typedef enum e_type
 	CMD,
 	ARG,
 }	t_TYPE;
-
 typedef struct s_token
 {
 	t_TYPE	e_type;	
@@ -58,7 +57,6 @@ typedef struct s_lexer
 	unsigned int	index;
 	char			*content;
 }					t_lexer;
-
 typedef struct s_cmd
 {
 	char	*cmd;
@@ -80,82 +78,199 @@ typedef struct s_data
 	int		j;
 }			t_data;
 
+typedef struct s_exe
+{
+	int		stat;
+	char	**env;
+	char	**expenv;
+}			t_exe;
+
+t_exe	exe;
+
 //================================================================
-//						* R E A D L I N E *						//
+//					* R E A D L I N E *							//
 //================================================================
 
-char		*readline(const char *prompt);
-int			add_history(const char *string_for_history);
-int			rl_on_new_line(void);
-void		rl_redisplay(void);
-void		rl_replace_line(const char *buffer, int something);
+char	*readline(const char *prompt);
+int		add_history(const char *string_for_history);
+int		rl_on_new_line(void);
+void	rl_redisplay(void);
+void	rl_replace_line(const char *buffer, int something);
 
 //================================================================
-//						* L E X E R *							//
+//					* L E X E R _ S R C S *						//
 //================================================================
 
-void		lexer_get_next_token(t_data *data, t_lexer *lexer);
-void		init_token(t_data *data, int type, char *value);
-int			init_lexer(t_data *data, char *content);
-void		ft_init_data(t_data *data);
-int			ft_prompt(char *entry, t_data *data);
-char		*ft_collect_file_name(t_lexer *lexer);
-void		lexer_skip_whitespace(t_lexer *lexer);
-char		*ft_collect_cmd(t_lexer *lexer);
-char		*ft_collect_str(t_lexer *lexer);
-int			lexer_advance(t_lexer *lexer);
-void		ft_error(int x);
-int			ft_entry_is_only_sp(char *str);
-int			ft_check_cmdless_pipe(char *str, int i, int cmd);
-char		**ft_split_pipe(char const *s, char c);
-void		ft_alloc_init(t_data *data);
-void		ft_check_invalid_chars(char *str);
-void		lexer_skip_whitespace(t_lexer *lexer);
-void		ft_tokenize_l_redir(t_data *data, t_lexer *lexer);
-void		ft_tokenize_r_redir(t_data *data, t_lexer *lexer);
-int			ft_tokenise_ca(t_data *data, t_lexer *lexer, int x);
-void		ft_stock_cmd(t_data *data, int i, int j, int k);
-int			ft_count_arg(t_data *data);
-int			ft_count_redir(t_data *data);
-int			ft_count_cmd_nbr(char **str);
-int			ft_count_tab(char **tableau);
-int			ft_char_is_sep(char c);
-char		*get_path(char **env);
-char		**take_env(char **env);
-void		ft_check_unclosed_quote(char *str);
-char		*ft_change_flous(t_data *data, char *str, int sq, int dq);
-char		*ft_rep(t_data *data, char *str, int start, int end);
-int			ft_end(char *str, int i, int x);
-void		ft_clean_quote(t_data *data, int i, int j);
-char		*ft_get_env_var(t_data *data, char *str, int start, int end);
-int			ft_skip_quote(char *str, int i, int dq, int sq);
-char		*ft_copy_string1(char *str, int start);
-char		*ft_copy_string2(char *str, int end);
-char		*ft_all(char *before, char *replaced, char *after, char *tmp);
-char		**ft_clone_env(char **env);
-int			ft_count_tab(char **tableau);
-void		ft_print_cmd_tab(t_data *data, int i, int j, int k);
+// MINISHELL.c
+void	ft_stock_cmd(t_data *d, int i, int j, int k);
+int		ft_prompt(char *entry, t_data *data);
+void	make_exec(char *entry, t_data *data);
+// LEXER.c
+void	init_token(t_data *data, int type, char *value);
+int		init_lexer(t_data *data, char *content);
+int		lexer_advance(t_lexer *lexer);
+int		ft_count_tab(char **tableau);
+char	**ft_clone_env(char **env);
+// FT_UTILS.c
+int		ft_char_is_sep(char c);
+int		ft_count_cmd_nbr(char **str);
+int		ft_count_arg(t_data *data);
+int		ft_count_redir(t_data *data);
+char	**delet_spaces(char **newtab);
+// FT_TOKENIZE.c
+void	ft_tokenize_l_redir(t_data *data, t_lexer *lexer);
+void	ft_tokenize_r_redir(t_data *data, t_lexer *lexer);
+int		ft_tokenise_ca(t_data *data, t_lexer *lexer, int x);
+void	lexer_skip_whitespace(t_lexer *lexer);
+void	lexer_get_next_token(t_data *data, t_lexer *lexer);
+// FT_SPLIT_PIPE.c
+int		count_words(char const *s, char c);
+int		words_len(char const *s, char c);
+void	*freememory(char **tableau, int words);
+char	**creat_new_tab(char const *s, int words, char c, char **newtab);
+char	**ft_split_pipe(char const *s, char c);
+// FT_PLIT_PIPE_UTILS.c
+void	find_qs(const char c, int *q, int *sq);
+void	init_vars(int *a, int *b, int *c, int *d);
+int		skip_qs(const char *s, int i, int *q, int *sq);
+void	find_next_q(char const *s, int *i, int *len, int *q);
+void	find_next_sq(char const *s, int *i, int *len, int *sq);
+// FT_SIGNAL.c
+void	ft_signals(int sig);
+int		ft_exit_entry(void);
+int		ft_entry_is_only_sp(char *str);
+void	ft_init_data(t_data *d);
+// FT_PRINT.c
+void	ft_print_cmd_tab(t_data *data, int i, int j, int k);
+// FT_MEMORY.c
+void	ft_free_token_tab(t_data *data);
+void	ft_free_double(char **tabl);
+void	ft_free(char *ptr);
+void	ft_free_cmd_struct(t_data *data, int i, int j, int k);
+char	*ft_free_things(char *env, char *env_var, char *dolv, int len);
+// FT_ERROR.c
+void	ft_error(int x);
+void	ft_check_unclosed_quote(char *str);
+int		ft_check_cmdless_pipe(char *str, int i, int cmd);
+void	ft_check_invalid_chars(char *str);
+// FT_DOLLAR1.c
+int		ft_val(int val1, int val2);
+void	ft_switch(char c, int *sq, int *dq);
+char	*ft_change_flous(t_data *d, char *s, int sq, int dq);
+// FT_DOLLAR2.c
+char	*ft_get_env_var(char *str, int start, int end);
+bool	ft_shall_return(char *str_before, char *replaced, char *str_after);
+char	*get_replace(char *str_before, char *replaced, char *str_after);
+char	*get_tmp(char *str_before, char *replaced, char *str_after);
+char	*ft_rep(char *str, int start, int end);
+// FT_DOLLAR3.c
+int		ft_skip_quote(char *str, int i, int dq, int sq);
+char	*ft_copy_string1(char *str, int start);
+char	*ft_copy_string2(char *str, int end);
+char	*ft_all(char *before, char *replaced, char *after, char *tmp);
+int		ft_end(char *str, int i, int x);
+// FT_COLLECT.c
+char	*ft_collect_cmd(t_lexer *lexer);
+char	*ft_collect_str(t_lexer *lexer);
+char	*ft_collect_file_name(t_lexer *lexer);
+char	*ft_delete(char *str, int x, int y);
+void	ft_clean_quote(t_data *d, int i, int j);
 
-//=============================================================================
-//						* S P L I T *										 //
-//=============================================================================
+//*****************************************************************************
+//								* E X E C *									 //
+//*****************************************************************************
 
-char		**ft_split_pipe(char const *s, char c);
-void		find_qs(const char c, int *q, int *sq);
-int			skip_qs(const char *s, int i, int *q, int *sq);
-void		find_next_q(char const *s, int *i, int *len, int *q);
-void		find_next_sq(char const *s, int *i, int *len, int *sq);
-char		**delet_spaces(char **newtab);
-void		init_vars(int *a, int *b, int *c, int *d);
+void	free_tab(char **tabl);
+void	free_tab_lite(char **tabl);
+void	ft_signals(int sig);
+void	ft_signals_exec(int sig);
 
-//=============================================================================
-//						* F R E E *											 //
-//=============================================================================
+//*****************************************************************************
+//								* S R C *									 //
+//*****************************************************************************
 
-void		ft_free_content(char **content);
-void		ft_free_token_tab(t_data *data);
-void		ft_free_cmd_struct(t_data *data, int i, int j, int k);
-void		ft_free_data_env(char **data_env);
-char		*ft_free_things(char *env, char *env_var, char *dolv, int len);
+char	*get_path(char **env);
+int		tab_len(char **tabl);
+char	**take_env(char *cm);
+int		check_path(void);
+char	*find_cmd(char *agmt, char **env_exec);
+
+//*****************************************************************************
+//						* M U L T I P I P E X *								 //
+//*****************************************************************************
+
+int		open_inf(char *infile_name, int *inf);
+int		open_outf(char *outfil_nam, int *outf);
+void	open_outf_db(char *outfil_nam, int *outf);
+int		take_redir(char **red, int *inf, int *outf);
+void	last_cmd(t_cmd cm, int fd);
+int		exec_cm1(t_data *data);
+void	multi_pipex(t_data *data, int fd, int lastcmd);
+
+//*****************************************************************************
+//						* M U L T I P I P E X _ H D*						 //
+//*****************************************************************************
+
+void	last_cmd_hd(char *av_last, char **env, char *outfile_name, int fd);
+int		exec_cm1_hd(char **av, char **env, char **env_exec);
+void	hd(char **red);
+int		middle_cmds(t_cmd cm, int fd);
+
+//*****************************************************************************
+//						* P I P E X _ U T I LS *							 //
+//*****************************************************************************
+
+void	puterr(char *cmd);
+void	no_infile(char *inf_name);
+
+//*****************************************************************************
+//						* B U I L T I N S *									 //
+//*****************************************************************************
+
+void	exec_built(t_cmd cm);
+int		check_built(char *cmd);
+
+void	ft_pwd(void);
+void	ft_env(void);
+void	ft_exit(char **full_cmd);
+int		ft_echo(char **the_cmd);
+int		ft_cd(char **the_cmd);
+void	change_env(char *buf, char *buf2);
+
+int		ft_unset(char **full_cmd);
+void	rm_env(int d);
+
+void	copy_env(char **env);
+void	copy_env_two(char **env);
+
+//*****************************************************************************
+//						* F T _ E X P O R T _ U T I L S *					 //
+//*****************************************************************************
+
+void	crea_envexp(void);
+void	add_env(char *var);
+void	env_exp(char **env);
+void	add_env_exp(char *var);
+int		check_char_err(char *the_cm);
+
+int		ft_export(char **full_cmd, int k);
+
+void	exec_last_buit(t_cmd cm, int fd);
+
+int		ft_unset_one(char *var);
+int		ft_unset_xp(char **full_cmd);
+int		ft_unset_one_xp(char *var);
+int		check_db_xp(char *var);
+void	ft_change_exit_status(int x);
+
+//*****************************************************************************
+//						* F T _ U N S E T _ U T I L S *						 //
+//*****************************************************************************
+
+int		check_db_xp(char *var);
+void	check_uns_err(char **full_cmd);
+void	rm_env(int d);
+void	rm_env_xp(int d);
+int		ft_unset_one(char *var);
 
 #endif

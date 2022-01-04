@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 09:09:32 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/12/17 10:53:42 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/12/21 11:54:54 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,22 +46,6 @@ void	ft_check_unclosed_quote(char *str)
 	}
 	if (sq || dq)
 		ft_error(2);
-}
-
-int	ft_entry_is_only_sp(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] != ' ')
-			return (0);
-		i++;
-	}
-	if (str != NULL)
-		free (str);
-	return (1);
 }
 
 int	ft_check_cmdless_pipe(char *str, int i, int cmd)

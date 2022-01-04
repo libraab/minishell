@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 12:25:22 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/12/17 14:41:21 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/12/29 15:27:03 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,15 @@ int	ft_skip_quote(char *str, int i, int dq, int sq)
 {
 	char	c;
 
+	if (!str)
+		return (0);
 	if (str[i] == '\'' && !dq && !sq)
 	{
 		c = str[i];
 		i++;
 		while (str[i] && str[i] != c)
+			i++;
+		if (str[i] == '\'' && str[i + 1])
 			i++;
 	}
 	return (i);
@@ -32,9 +36,11 @@ char	*ft_copy_string1(char *str, int start)
 	int		i;
 
 	i = 0;
-	if (start == 0)
+	if (!str || start == 0)
 		return (NULL);
 	newstr = ft_calloc(sizeof(char *), start + 1);
+	if (!newstr)
+		return (NULL);
 	while (i < start)
 	{
 		newstr[i] = str[i];
@@ -50,10 +56,12 @@ char	*ft_copy_string2(char *str, int end)
 	int		str_len;
 
 	j = 0;
-	str_len = strlen(str);
-	if (end == str_len)
+	str_len = ft_strlen(str);
+	if (!str || end == str_len)
 		return (NULL);
 	newstr = ft_calloc(sizeof(char *), ft_strlen(str) - end + 1);
+	if (!newstr)
+		return (NULL);
 	while (str[end + j])
 	{
 		newstr[j] = str[end + j];
@@ -77,21 +85,23 @@ int	ft_end(char *str, int i, int x)
 {
 	if (x == 0)
 	{
-		while (str[i] && (ft_isalpha(str[i]) || str[i] == '_')
+		while (str[i] && (ft_isalnum(str[i]) || str[i] == '_' || str[i] == '@')
 			&& str[i] != ' ' && str[i] != '$')
 			i++;
 	}
 	if (x == 1)
 	{
-		while (str[i] && (ft_isalpha(str[i]) || str[i] == '_')
+		while (str[i] && (ft_isalnum(str[i]) || str[i] == '_' || str[i] == '@')
 			&& str[i] != ' ' && str[i] != '$' && str[i] != '"')
 			i++;
 	}
 	if (x == 2)
 	{
-		while (str[i] && (ft_isalpha(str[i]) || str[i] == '_')
+		while (str[i] && (ft_isalnum(str[i]) || str[i] == '_' || str[i] == '@')
 			&& str[i] != ' ' && str[i] != '$' && str[i] != '\'')
 			i++;
 	}
+	if (str[i] == '?')
+		return (i + 1);
 	return (i);
 }

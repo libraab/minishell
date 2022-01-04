@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/14 17:35:43 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/12/17 10:45:35 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/12/25 15:15:12 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,47 @@ void	ft_free_token_tab(t_data *data)
 	int	i;
 
 	i = 0;
+	if (!data || !data->t_tab)
+		return ;
 	while (i < data->nb)
 	{
-		if (data->t_tab[i].value != NULL)
+		if (data->t_tab[i].value)
+		{
 			free (data->t_tab[i].value);
+			data->t_tab[i].value = NULL;
+		}
 		i++;
 	}
-	free (data->t_tab);
+	if (data->t_tab)
+	{
+		free(data->t_tab);
+		data->t_tab = NULL;
+	}
 }
 
-void	ft_free_content(char **content)
+void	ft_free(char *ptr)
+{
+	if (ptr && *ptr)
+	{
+		free(ptr);
+		ptr = NULL;
+	}
+}
+
+void	ft_free_double(char **tabl)
 {
 	int	i;
 
 	i = 0;
-	if (content)
-		free(content);
+	while (tabl[i])
+	{
+		if (tabl[i] != NULL)
+		{
+			ft_free(tabl[i]);
+			i++;
+		}
+	}
+	ft_free(*tabl);
 }
 
 void	ft_free_cmd_struct(t_data *data, int i, int j, int k)
@@ -62,22 +87,6 @@ void	ft_free_cmd_struct(t_data *data, int i, int j, int k)
 		i++;
 	}
 	free (data->cmd);
-}
-
-void	ft_free_data_env(char **data_env)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	j = ft_count_tab(data_env);
-	while (i < j)
-	{
-		if (data_env[i])
-			free (data_env[i]);
-		i++;
-	}
-	free(data_env);
 }
 
 char	*ft_free_things(char *env, char *env_var, char *dolv, int len)
