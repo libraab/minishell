@@ -35,6 +35,7 @@ void	open_outf_db(char *outfil_nam, int *outf)
 	*outf = open(outfil_nam, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	dup2(*outf, STDOUT_FILENO);
 	close(*outf);
+	return ;
 }
 
 void	make_hd(char **line, int op)
@@ -65,12 +66,11 @@ void	hd(char **red)
 			while (1)
 			{
 				line = readline("> ");
-				if (!line)
-					break ;
-				if (!ft_strncmp(line, red[i + 1], (ft_strlen(red[i + 1]) + 1)))
+				if (!line || !ft_strncmp(line, red[i + 1],
+						(ft_strlen(red[i + 1]) + 1)))
 					break ;
 				write(op, line, ft_strlen(line));
-				write(op, "\n", 2);
+				write(op, "\n", 1);
 			}
 		}
 		i += 2;

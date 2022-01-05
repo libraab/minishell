@@ -80,7 +80,6 @@ typedef struct s_data
 
 typedef struct s_exe
 {
-	int		stat;
 	char	**env;
 	char	**expenv;
 }			t_exe;

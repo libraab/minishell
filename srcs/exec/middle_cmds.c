@@ -49,9 +49,36 @@ int	middle_cmds(t_cmd cm, int fd)
 	char	*cmd;
 	char	**env_exec;
 
+	int inf;
+	int outf = 1;
+
+	int save1;
+	int save2;
+
 	cmd = NULL;
 	pipe(pp1);
-	fid1 = fork();
+	fid1 = 1;
+	if (cm.cmd != NULL)
+	{
+		env_exec = take_env(cm.cmd);
+		cmd = find_cmd(cm.cmd, env_exec);
+		free_tab(env_exec);
+	}
+	// if (cm.cmd == NULL && cm.redir[0] != NULL)
+	// {
+		save1 = dup(STDIN_FILENO);
+		save2 = dup(STDOUT_FILENO);
+	// 	dup2(fd, STDIN_FILENO);
+	// 	close(fd);
+		take_redir(cm.redir, &inf, &outf);
+		dup2(save1, STDOUT_FILENO);
+		dup2(save2, STDIN_FILENO);
+	// 	dup2(pp1[1], STDOUT_FILENO);
+	// 	close(pp1[1]);
+	// 	return(pp1[0]);
+	// }
+	if (cmd)
+		fid1 = fork();
 	if (fid1 == 0)
 	{
 		if (!check_built(cm.cmd))

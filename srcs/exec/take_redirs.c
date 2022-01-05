@@ -12,7 +12,17 @@
 
 #include "../../includes/minishell.h"
 
-//void	redir_err
+int	ft_search_file(char **red, int i)
+{
+	if (red[i + 1][0] == '\0')
+	{
+		printf("syntax error near unexpected token '%s'\n", red[i]);
+		ft_change_exit_status(258);
+		return (0);
+	}
+	return (1);
+}
+
 int	take_redir(char **red, int *inf, int *outf)
 {
 	int	i;
@@ -22,13 +32,8 @@ int	take_redir(char **red, int *inf, int *outf)
 	h = 0;
 	while (red[i])
 	{
-		if (red[i + 1][0] == '\0')
-		{
-			printf("syntax error near unexpected token '%s'\n", red[i]);
-			ft_change_exit_status(258);
-			exe.stat = 2;
+		if (!ft_search_file(red, i))
 			return (1);
-		}
 		else if (red[i][0] == '<' && red[i][1] != '<')
 			open_inf(red[i + 1], inf);
 		else if (red[i][0] == '>' && red[i][1] != '>')
@@ -44,4 +49,3 @@ int	take_redir(char **red, int *inf, int *outf)
 	}
 	return (0);
 }
-//unset hd middle 

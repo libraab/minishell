@@ -39,7 +39,6 @@ void	add_env(char *var)
 	k = 0;
 	cm_sp = ft_split(var, '=');
 	ft_unset_one(cm_sp[0]);
-	//if (cm_sp[0] != NULL)
 	free_tab(cm_sp);
 	j = tab_len(exe.env) + 1;
 	env_tmp = ft_calloc(sizeof(char *), j + 1);
@@ -52,7 +51,6 @@ void	add_env(char *var)
 	env_tmp[k] = ft_strdup(var);
 	free_tab(exe.env);
 	exe.env = env_tmp;
-	//copy_env_two(env_tmp);
 }
 
 void	env_exp(char **env)
@@ -94,7 +92,6 @@ void	add_env_exp(char *var)
 	env_tmp[k] = ft_strdup(var);
 	free_tab(exe.expenv);
 	exe.expenv = env_tmp;
-	//env_exp(env_tmp);
 }
 
 int	check_char_err(char *the_cm)
@@ -102,7 +99,7 @@ int	check_char_err(char *the_cm)
 	if (!ft_isalpha(the_cm[0]))
 	{
 		printf("export: '%s': not a valid identifier\n", the_cm);
-		exe.stat = 1;
+		ft_change_exit_status(1);
 		return (1);
 	}
 	return (0);

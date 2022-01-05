@@ -38,6 +38,6 @@ void	free_tab_lite(char **tabl)
 		tabl[i] = NULL;
 		i++;
 	}
-//	free(tabl);
+	free(tabl);
 	tabl = NULL;
 }

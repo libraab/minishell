@@ -14,6 +14,8 @@
 
 void	exec_built(t_cmd cm)
 {
+	//for(int a = 0; cm.full_cmd[a]; a++)
+		//printf("DANS EXEC BUILT %s\n", cm.full_cmd[a]);
 	if (ft_strncmp(cm.cmd, "pwd", 4) == 0)
 		ft_pwd();
 	if (ft_strncmp(cm.cmd, "cd", 3) == 0)
@@ -28,22 +30,6 @@ void	exec_built(t_cmd cm)
 		ft_export(cm.full_cmd, 1);
 	else if (ft_strncmp(cm.cmd, "exit", 5) == 0)
 		ft_exit(cm.full_cmd);
-	//gestion plusieurs trucs d un coup
-//export 
-	//idem
-	// export seul afficher env export (a creer avec declare -x(copie de env))
-	// export a > rajouter dans env de export mais pas dans env 
-	// actualisation de la variable si re export 
-	// tri dans l'ordre ascii
-	// cas dérreur si exportr =sdfsdfsdf (voir bash)
-	// bon format a=b
-//EXIT %255 ou 256
-	/*
-	exit sans rien ou nb = exit
-	exit + plsrs arguments si 1 er = str > "numeric argument"et exit 
-	si plsrs arg et 1er int : "too many arguments " et ne pas exit 
-	int global 
-	*/
 }
 
 int	check_built(char *cmd)

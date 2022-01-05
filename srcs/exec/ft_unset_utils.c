@@ -39,22 +39,22 @@ void	check_uns_err(char **full_cmd)
 	int	k;
 	int	i;
 
-	i = 0;
 	k = 1;
 	while (full_cmd[k])
 	{
 		if (ft_isdigit(full_cmd[k][0]))
 		{
 			printf("unset: '%s': not a valid identifier\n", full_cmd[k]);
-			exe.stat = 1;
+			ft_change_exit_status(1);
 			return ;
 		}
+		i = 0;
 		while (full_cmd[k][i])
 		{
 			if (!ft_isalnum(full_cmd[k][i]))
 			{
 				printf("unset: '%s': not a valid identifier\n", full_cmd[k]);
-				exe.stat = 1;
+				ft_change_exit_status(1);
 				return ;
 			}
 			i++;

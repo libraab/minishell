@@ -15,11 +15,7 @@
 void	change_env(char *buf, char *buf2)
 {
 	char	*to_be_exp[3];
-// char    *to_be_uns[3];
-//  to_be_uns[0] = ft_strdup("PWD=");
-// to_be_uns[1] = ft_strdup("OLDPWD=");
-//  to_be_uns[2] = 0;
-//  ft_unset(to_be_uns);
+
 	to_be_exp[0] = ft_strjoin("OLDPWD=", buf);
 	to_be_exp[1] = ft_strjoin("PWD=", buf2);
 	to_be_exp[2] = 0;
@@ -28,7 +24,31 @@ void	change_env(char *buf, char *buf2)
 	ft_export(to_be_exp, 0);
 	free(to_be_exp[0]);
 	free(to_be_exp[1]);
-	//free_tab_lite(to_be_exp);
+}
+
+char	*ft_get_home(char **env)
+{
+	int		i;
+	char	*str;
+
+	i = 0;
+	while (env[i])
+	{
+		if (ft_strncmp(env[i], "HOME=", 5) == 0)
+			str = env[i];
+		i++;
+	}
+	return (&str[5]);
+}
+
+int	ft_cd_errors(char **the_cmd, int x)
+{
+	if (x == 0)
+		printf("cd: too many arguments\n");
+	if (x == 1)
+		printf("cd: %s: no such file or directory\n", the_cmd[1]);
+	ft_change_exit_status(1);
+	return (1);
 }
 
 int	ft_cd(char **the_cmd)
@@ -37,15 +57,11 @@ int	ft_cd(char **the_cmd)
 	char	*buf2;
 
 	if (tab_len(the_cmd) > 2)
-	{
-		printf("cd: too many arguments\n");
-		ft_change_exit_status(1);
-		return (1);
-	}
+		return (ft_cd_errors(the_cmd, 0));
 	buf = getcwd(NULL, 0);
 	if (the_cmd[1] == NULL)
 	{
-		chdir("/Users/abouhlel");
+		chdir(ft_get_home(exe.env));
 		buf2 = getcwd(NULL, 0);
 		change_env(buf, buf2);
 		ft_change_exit_status(0);
@@ -53,8 +69,7 @@ int	ft_cd(char **the_cmd)
 	}
 	if (chdir(the_cmd[1]) != 0)
 	{
-		printf("cd: %s: no such file or directory\n", the_cmd[1]);
-		ft_change_exit_status(1);
+		ft_cd_errors(the_cmd, 1);
 		free(buf);
 		return (1);
 	}

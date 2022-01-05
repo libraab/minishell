@@ -80,7 +80,7 @@ char	*ft_change_flous(t_data *d, char *s, int sq, int dq)
 		if (s[d->j] == '"' || (s[d->j] == '\'' && dq))
 			ft_switch(s[d->j], &sq, &dq);
 		else if (s[d->j] == '$' && s[d->j + 1] && (ft_isalpha(s[d->j + 1])
-			|| s[d->j + 1] == '?') && (!dq || (dq && !sq) || (dq && sq)))
+				|| s[d->j + 1] == '?') && (!dq || (dq && !sq) || (dq && sq)))
 		{
 			free(d->newstr);
 			d->tmp = ft_val(dq, sq);

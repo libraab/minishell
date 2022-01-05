@@ -14,9 +14,23 @@
 
 void	ft_exit(char **full_cmd)
 {
-	if (full_cmd[1] == NULL) //|| full_cmd[1] == ft_isdigit(full_cmd[1]))
+	if (full_cmd[1] == NULL || (ft_str_isdigit(full_cmd[1]) && !full_cmd[2]))
 	{
-		printf("exit\n");
+		ft_putstr("exit\n");
 		exit(0);
+	}
+	else if (!ft_str_isdigit(full_cmd[1]))
+	{
+		ft_putstr("exit\n");
+		ft_putstr("exit: ");
+		ft_putstr(full_cmd[1]);
+		ft_putstr(": numeric argument required\n");
+		exit(0);
+	}
+	else if (ft_str_isdigit(full_cmd[1]) && full_cmd[2])
+	{
+		ft_putstr("exit\n");
+		ft_putstr("exit: too many arguments\n");
+		ft_change_exit_status(0);
 	}
 }

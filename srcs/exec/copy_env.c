@@ -37,13 +37,9 @@ void	copy_env_two(char **env)
 	i = 0;
 	j = tab_len(env);
 	env_tmp = ft_calloc(sizeof(char *), j + 1);
-	//exe.env = ft_calloc(sizeof(char *), j + 1);
 	while (env[i])
 	{
-	//	if (exe.env[i] != 0)
-	//		free(exe.env[i]);
 		env_tmp[i] = ft_strdup(env[i]);
-		//exe.env[i] = ft_strdup(env[i]);
 		i++;
 	}
 	free_tab(env);
@@ -51,9 +47,6 @@ void	copy_env_two(char **env)
 	i = 0;
 	while (env_tmp[i])
 	{
-	//	if (exe.env[i] != 0)
-	//		free(exe.env[i]);
-		//env_tmp = ft_strdup(env[i]);
 		exe.env[i] = ft_strdup(env_tmp[i]);
 		i++;
 	}

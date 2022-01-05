@@ -20,7 +20,7 @@ char	**take_env(char *cm)
 	int		p;
 
 	p = check_path();
-	if (!p)
+	if (!p && cm[0])
 		puterr(cm);
 	path_split = ft_split(get_path(exe.env), ':');
 	i = 0;

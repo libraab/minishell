@@ -48,10 +48,12 @@ void	echo_no_opt(char **the_cmd)
 	i = 1;
 	while (the_cmd[i])
 	{
-		printf("%s ", the_cmd[i]);
+		ft_putstr(the_cmd[i]);
 		i++;
+		if (the_cmd[i])
+			ft_putstr(" ");
 	}
-	printf("\n");
+	ft_putstr("\n");
 }
 
 int	ft_echo(char **the_cmd)
@@ -60,7 +62,7 @@ int	ft_echo(char **the_cmd)
 
 	if (the_cmd[1] == NULL)
 	{
-		printf("\n");
+		ft_putstr("\n");
 		return (0);
 	}
 	i = check_opt(the_cmd);
@@ -68,10 +70,10 @@ int	ft_echo(char **the_cmd)
 	{
 		while (the_cmd[i])
 		{
-			printf("%s", the_cmd[i]);
+			ft_putstr(the_cmd[i]);
 			i++;
 			if (the_cmd[i])
-				printf(" ");
+				ft_putstr(" ");
 		}
 	}
 	else

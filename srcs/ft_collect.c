@@ -95,7 +95,7 @@ char	*ft_delete(char *str, int x, int y)
 	if (x == y - 1)
 	{
 		free(str);
-		return (ft_strdup(" "));
+		return (ft_strdup(""));
 	}
 	newstr = ft_calloc(sizeof(char *), ft_strlen(str) - 2);
 	while (str[++i])

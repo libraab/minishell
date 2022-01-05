@@ -12,24 +12,6 @@
 
 #include "../../includes/minishell.h"
 
-    /* gestion plusieurs trucs d un coup
-	export
-		idem
-		export seul afficher env export (a creer avec declare -x(copie de env )) 
-		utiliser join OU direct dans printf si export est seul
-		export a > rajouter dans env de export mais pas dans env 
-		actualisation de la variable si re export 
-		tri dans l'ordre ascii
-		cas dérreur si exportr =sdfsdfsdf (voir bash)
-		bon format a=b
-
-	EXIT %255 ou 256
-	exit sans rien ou nb = exit
-	exit + plsrs arguments si 1 er = str > "numeric argument"et exit 
-	si plsrs arg et 1er int : "too many arguments " et ne pas exit 
-	int global 
-	*/
-
 char	*ft_strchr_plus(const char *s, int c)
 {
 	unsigned int	i;
@@ -87,20 +69,15 @@ void	change_xp_env(char *cm)
 
 int	ft_export(char **full_cmd, int k)
 {
-	int		e;
 	char	**cm_sp;
 
-//	f = 0;
-//	if (k == 0)
-//		f = 1;
 	if (full_cmd[1] == NULL)
 		display_export();
 	while (full_cmd[k])
 	{
 		if (!check_char_err(full_cmd[k]))
 		{
-			e = check_eq(full_cmd[k]);
-			if (e)
+			if (check_eq(full_cmd[k]))
 			{
 				cm_sp = ft_split(full_cmd[k], '=');
 				ft_unset_one(cm_sp[0]);
@@ -110,12 +87,10 @@ int	ft_export(char **full_cmd, int k)
 				if (cm_sp[0] != NULL)
 					free_tab(cm_sp);
 			}
-			if (!e && !check_db_xp(full_cmd[k]))
+			if (!check_eq(full_cmd[k]) && !check_db_xp(full_cmd[k]))
 				change_xp_env(full_cmd[k]);
 		}
 		k++;
 	}
-//	if(f)
-//		free_tab(full_cmd);
 	return (0);
 }

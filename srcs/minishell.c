@@ -63,7 +63,6 @@ int	ft_prompt(char *entry, t_data *data)
 		ft_free(data->lexer.content);
 		i++;
 	}
-	//ft_print_cmd_tab(data, 0 , 0, 0);
 	free(content);
 	ft_free(entry);
 	return (1);

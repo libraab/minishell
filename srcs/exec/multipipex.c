@@ -34,25 +34,28 @@ void	exec_last_built(t_cmd cm, int fd)
 void	last_fork(t_cmd cm, int fd)
 {
 	int		fid;
-	char	*cmd;
-	int		inf;
+	char	*cmd = NULL;
+	int		inf = 0;
 	int		outf;
 	char	**env_exec;
 
-	fid = 1;
-	env_exec = take_env(cm.cmd);
-	if (cm.redir != NULL)
-		take_redir(cm.redir, &inf, &outf);
-	cmd = find_cmd(cm.cmd, env_exec);
-	free_tab(env_exec);
-	if (cmd)
+	// fid = 1;
+	// env_exec = take_env(cm.cmd);
+	// cmd = find_cmd(cm.cmd, env_exec);
+	// free_tab(env_exec);
+	// if (cmd)
 		fid = fork();
 	if (fid == 0)
 	{
-		env_exec = take_env(cm.cmd);
 		if (cm.redir != NULL)
 			take_redir(cm.redir, &inf, &outf);
-		cmd = find_cmd(cm.cmd, env_exec);
+		if (cm.cmd[0] != '/')
+		{
+			env_exec = take_env(cm.cmd);
+			cmd = find_cmd(cm.cmd, env_exec);
+		}
+		else if (cm.cmd[0] == '/')
+			cmd = cm.cmd;
 		if (fd != 0)
 		{
 			dup2(fd, STDIN_FILENO);
@@ -72,7 +75,6 @@ void	last_cmd(t_cmd cm, int fd)
 {
 	int		inf;
 	int		outf;
-	int		is_built;
 	int		save1;
 	int		save2;
 
@@ -86,8 +88,7 @@ void	last_cmd(t_cmd cm, int fd)
 		dup2(save2, STDIN_FILENO);
 		return ;
 	}
-	is_built = check_built(cm.cmd);
-	if (is_built)
+	if (check_built(cm.cmd))
 		exec_last_built(cm, fd);
 	else
 		last_fork(cm, fd);
@@ -121,26 +122,48 @@ void	do_cm1(t_data *data, int is_built, int *pp0, char *cmd1)
 
 int	exec_cm1(t_data *data)
 {
-	char	*cmd1;
+	char	*cmd1 = NULL;
 	int		fid;
 	int		pp0[2];
-	int		is_built;
 	char	**env_exec;
 
-	is_built = 0;
-	cmd1 = NULL;
-	is_built = check_built(data->cmd->cmd);
+	int inf;
+	int outf = 1;
+	int save1;
+	int save2;
+
+
+//	cmd1 = NULL;
+//	check_built(data->cmd->cmd);
 	pipe(pp0);
-	fid = fork();
+	fid = 1;
+	if (data->cmd->cmd != NULL)
+	{
+		env_exec = take_env(data->cmd->cmd);
+		cmd1 = find_cmd(data->cmd->cmd, env_exec);
+		free_tab(env_exec);
+	}
+	if (data->cmd->cmd == NULL && data->cmd[0].redir[0] != NULL)
+	{
+		save1 = dup(STDIN_FILENO);
+		save2 = dup(STDOUT_FILENO);
+		take_redir(data->cmd[0].redir, &inf, &outf);
+		dup2(save1, STDOUT_FILENO);
+		dup2(save2, STDIN_FILENO);
+		return(pp0[0]);
+	}
+	if (cmd1)
+		fid = fork();
+//	fid = fork();
 	if (fid == 0)
 	{
-		if (!is_built)
+		if (!check_built(data->cmd->cmd))
 		{
 			env_exec = take_env(data->cmd[0].cmd);
 			cmd1 = find_cmd(data->cmd[0].cmd, env_exec);
 			free_tab(env_exec);
 		}
-		do_cm1(data, is_built, pp0, cmd1);
+		do_cm1(data, check_built(data->cmd->cmd), pp0, cmd1);
 	}
 	else
 	{
