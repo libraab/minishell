@@ -92,11 +92,6 @@ char	*ft_delete(char *str, int x, int y)
 	j = 0;
 	if (!str)
 		return (NULL);
-	if (x == y - 1)
-	{
-		free(str);
-		return (ft_strdup(""));
-	}
 	newstr = ft_calloc(sizeof(char *), ft_strlen(str) - 2);
 	while (str[++i])
 	{
@@ -106,6 +101,7 @@ char	*ft_delete(char *str, int x, int y)
 			j++;
 		}
 	}
+	newstr[j] = '\0';
 	if (str)
 		free (str);
 	return (newstr);

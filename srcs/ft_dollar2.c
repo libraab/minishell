@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_dollar2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 17:27:38 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/12/29 15:27:37 by abouhlel         ###   ########.fr       */
+/*   Updated: 2022/01/17 15:33:41 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,10 @@ char	*ft_get_env_var(char *str, int start, int end)
 	dol_value = ft_strcat(dol_value, ft_strdup("="));
 	dol_len = ft_strlen(dol_value);
 	i = 0;
-	while (exe.env[i])
+	while (g_exe.env[i])
 	{
-		if (ft_strncmp(exe.env[i], dol_value, dol_len) == 0)
-			env_var = ft_strdup(exe.env[i]);
+		if (ft_strncmp(g_exe.env[i], dol_value, dol_len) == 0)
+			env_var = ft_strdup(g_exe.env[i]);
 		i++;
 	}
 	return (ft_free_things(env, env_var, dol_value, dol_len));

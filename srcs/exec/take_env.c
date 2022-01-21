@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   take_env.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hboukhor <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 15:06:38 by hboukhor          #+#    #+#             */
-/*   Updated: 2021/11/24 15:06:40 by hboukhor         ###   ########.fr       */
+/*   Updated: 2022/01/21 18:54:37 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,11 @@ char	**take_env(char *cm)
 
 	p = check_path();
 	if (!p && cm[0])
+	{
 		puterr(cm);
-	path_split = ft_split(get_path(exe.env), ':');
+		return (0);
+	}
+	path_split = ft_split(get_path(g_exe.env), ':');
 	i = 0;
 	while (path_split[i])
 	{

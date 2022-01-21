@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/25 12:18:54 by hboukhor          #+#    #+#             */
-/*   Updated: 2021/12/25 17:11:23 by abouhlel         ###   ########.fr       */
+/*   Updated: 2022/01/17 13:48:19 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,10 @@ void	echo_no_opt(char **the_cmd)
 	i = 1;
 	while (the_cmd[i])
 	{
-		ft_putstr(the_cmd[i]);
+		printf("%s ", the_cmd[i]);
 		i++;
-		if (the_cmd[i])
-			ft_putstr(" ");
 	}
-	ft_putstr("\n");
+	printf("\n");
 }
 
 int	ft_echo(char **the_cmd)
@@ -62,7 +60,7 @@ int	ft_echo(char **the_cmd)
 
 	if (the_cmd[1] == NULL)
 	{
-		ft_putstr("\n");
+		printf("\n");
 		return (0);
 	}
 	i = check_opt(the_cmd);

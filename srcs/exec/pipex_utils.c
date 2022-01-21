@@ -18,7 +18,6 @@ void	puterr(char *cmd)
 	ft_putstr(": command not found\n");
 	ft_change_exit_status(127);
 	return ;
-	//WEXITSTATUS pour recperer le code DE l exit
 }
 
 void	no_infile(char *inf_name)

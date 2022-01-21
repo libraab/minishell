@@ -6,7 +6,7 @@
 #    By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/25 10:50:15 by abouhlel          #+#    #+#              #
-#    Updated: 2021/12/25 17:01:48 by abouhlel         ###   ########.fr        #
+#    Updated: 2022/01/21 17:58:57 by abouhlel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,7 @@ SRCS				=	ft_dollar1.c \
 						ft_print.c \
 						exec/middle_cmds.c \
 						exec/multipipex.c \
+						exec/multi_utils_and_redir.c \
 						exec/pipex_utils.c \
 						exec/get_path.c \
 						exec/take_env.c \
@@ -77,7 +78,7 @@ CC					= gcc
 CFLAGS  			= -Wall -Wextra -Werror -g -fsanitize=address
 RM					= rm -rf
 MAKE_EXT			= @make -s --no-print-directory -C
-LIBR				= -L /Users/$(USER)/.brew/Cellar/readline/8.1.1/lib
+LIBR				= -lreadline -L /Users/$(USER)/.brew/Cellar/readline/8.1.1/lib
 OBJ					= ${OBJS}
 
 UNAME_S				= $(shell uname -s)
@@ -122,14 +123,14 @@ clean:
 			$(MAKE_EXT) ./libft clean
 			@${RM} ${OBJ}
 			@printf $(magenta)
-			@printf "Object files have been deleted 🚮\n"
+			@printf "Object files have been deleted ✅\n"
 			@printf $(reset)
 
 fclean:		clean
 			$(MAKE_EXT) ./libft fclean
 			@${RM} $(NAME)
-			@printf $(magenta)
-			@printf "Your folder is now clean 🧹\n"
+			@printf $(cyan)
+			@printf "✨ Your folder is now clean ✨\n"
 			@printf $(reset)
 
 .PHONY: 	all clean fclean re

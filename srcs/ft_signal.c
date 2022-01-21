@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/21 11:05:41 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/12/25 11:55:34 by abouhlel         ###   ########.fr       */
+/*   Updated: 2022/01/21 19:46:49 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,19 @@ void	ft_signals(int sig)
 {
 	if (sig == SIGINT)
 	{
-		printf("\e[2K");
-		rl_on_new_line();
-		rl_redisplay();
-		printf("\n");
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
-		ft_change_exit_status(1);
+		if (g_exe.hdc == 0)
+		{
+			printf("\e[2K");
+			rl_on_new_line();
+			rl_redisplay();
+			printf("\n");
+			rl_on_new_line();
+			rl_replace_line("", 0);
+			rl_redisplay();
+			ft_change_exit_status(1);
+		}
+		else
+			exit(1);
 	}
 	if (sig == SIGQUIT)
 	{
@@ -64,4 +69,16 @@ void	ft_init_data(t_data *d)
 	d->tot = 0;
 	d->nb = 0;
 	d->env = 0;
+}
+
+void    echo_control_seq(int c)
+{
+    struct termios    conf;
+
+    ioctl(ttyslot(), TIOCGETA, &conf);
+    if (c == 1)
+        conf.c_lflag |= ECHOCTL;
+    else if (c == 0)
+        conf.c_lflag &= ~(ECHOCTL);
+    ioctl(ttyslot(), TIOCSETA, &conf);
 }

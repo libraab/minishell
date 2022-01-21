@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/25 12:18:54 by hboukhor          #+#    #+#             */
-/*   Updated: 2021/12/25 15:11:28 by abouhlel         ###   ########.fr       */
+/*   Updated: 2022/01/17 15:32:09 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ void	uns_one_xpeq(char *var)
 	i = 0;
 	j = -1;
 	cm = ft_strjoin(var, "=");
-	while (exe.expenv[i])
+	while (g_exe.expenv[i])
 	{
-		if (ft_strncmp(exe.expenv[i], cm, (ft_strlen(var) + 1)) == 0)
+		if (ft_strncmp(g_exe.expenv[i], cm, (ft_strlen(var) + 1)) == 0)
 		{
 			j = i;
 			break ;
@@ -42,9 +42,9 @@ int	ft_unset_one_xp(char *var)
 
 	i = 0;
 	j = -1;
-	while (exe.expenv[i])
+	while (g_exe.expenv[i])
 	{
-		if (ft_strncmp(exe.expenv[i], var, (ft_strlen(var) + 1)) == 0)
+		if (ft_strncmp(g_exe.expenv[i], var, (ft_strlen(var) + 1)) == 0)
 		{
 			j = i;
 			break ;
@@ -70,9 +70,9 @@ void	unset_xpeq(char **f_cmd)
 		i = 0;
 		j = -1;
 		cm = ft_strjoin(f_cmd[k], "=");
-		while (exe.expenv[i])
+		while (g_exe.expenv[i])
 		{
-			if (ft_strncmp(exe.expenv[i], cm, (ft_strlen(f_cmd[k]) + 1)) == 0)
+			if (ft_strncmp(g_exe.expenv[i], cm, (ft_strlen(f_cmd[k]) + 1)) == 0)
 			{
 				j = i;
 				break ;
@@ -95,9 +95,9 @@ int	ft_unset_xp(char **full_cmd)
 	while (full_cmd[k])
 	{
 		i = 0;
-		while (exe.expenv[i])
+		while (g_exe.expenv[i])
 		{
-			if (ft_strncmp(exe.expenv[i], full_cmd[k],
+			if (ft_strncmp(g_exe.expenv[i], full_cmd[k],
 					(ft_strlen(full_cmd[k]) + 1)) == 0)
 			{
 				rm_env_xp(i);
@@ -123,9 +123,9 @@ int	ft_unset(char **full_cmd)
 	{
 		i = 0;
 		cm = ft_strjoin(full_cmd[k], "=");
-		while (exe.env[i])
+		while (g_exe.env[i])
 		{
-			if (ft_strncmp(exe.env[i], cm, (ft_strlen(full_cmd[k]) + 1)) == 0)
+			if (ft_strncmp(g_exe.env[i], cm, (ft_strlen(full_cmd[k]) + 1)) == 0)
 			{
 				rm_env(i);
 				break ;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/25 12:18:54 by hboukhor          #+#    #+#             */
-/*   Updated: 2021/12/25 12:36:19 by abouhlel         ###   ########.fr       */
+/*   Updated: 2022/01/17 15:32:29 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ int	check_db_xp(char *var)
 	i = 0;
 	j = 0;
 	cm = ft_strjoin(var, "=");
-	while (exe.expenv[i])
+	while (g_exe.expenv[i])
 	{
-		if (ft_strncmp(exe.expenv[i], cm, (ft_strlen(cm))) == 0)
+		if (ft_strncmp(g_exe.expenv[i], cm, (ft_strlen(cm))) == 0)
 		{
 			j = 1;
 			break ;
@@ -72,19 +72,19 @@ void	rm_env(int d)
 
 	i = 0;
 	k = 0;
-	j = tab_len(exe.env) - 1;
+	j = tab_len(g_exe.env) - 1;
 	env_tmp = ft_calloc(sizeof(char *), j + 1);
-	while (exe.env[i])
+	while (g_exe.env[i])
 	{
 		if (i != d)
 		{
-			env_tmp[k] = ft_strdup(exe.env[i]);
+			env_tmp[k] = ft_strdup(g_exe.env[i]);
 			k++;
 		}
 		i++;
 	}
-	free_tab(exe.env);
-	exe.env = env_tmp;
+	free_tab(g_exe.env);
+	g_exe.env = env_tmp;
 }
 
 void	rm_env_xp(int d)
@@ -96,19 +96,19 @@ void	rm_env_xp(int d)
 
 	i = 0;
 	k = 0;
-	j = tab_len(exe.expenv) - 1;
+	j = tab_len(g_exe.expenv) - 1;
 	env_tmp = ft_calloc(sizeof(char *), j + 1);
-	while (exe.expenv[i])
+	while (g_exe.expenv[i])
 	{
 		if (i != d)
 		{
-			env_tmp[k] = ft_strdup(exe.expenv[i]);
+			env_tmp[k] = ft_strdup(g_exe.expenv[i]);
 			k++;
 		}
 		i++;
 	}
-	free_tab(exe.expenv);
-	exe.expenv = env_tmp;
+	free_tab(g_exe.expenv);
+	g_exe.expenv = env_tmp;
 }
 
 int	ft_unset_one(char *var)
@@ -120,9 +120,9 @@ int	ft_unset_one(char *var)
 	i = 0;
 	j = -1;
 	cm = ft_strjoin(var, "=");
-	while (exe.env[i])
+	while (g_exe.env[i])
 	{
-		if (ft_strncmp(exe.env[i], cm, (ft_strlen(var) + 1)) == 0)
+		if (ft_strncmp(g_exe.env[i], cm, (ft_strlen(var) + 1)) == 0)
 		{
 			j = i;
 			break ;

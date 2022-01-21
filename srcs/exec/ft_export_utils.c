@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/21 11:46:08 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/12/25 12:46:00 by abouhlel         ###   ########.fr       */
+/*   Updated: 2022/01/17 15:31:39 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ void	crea_envexp(void)
 	int		j;
 
 	i = 0;
-	j = tab_len(exe.env);
-	exe.expenv = ft_calloc(sizeof(char *), j + 1);
-	while (exe.env[i])
+	j = tab_len(g_exe.env);
+	g_exe.expenv = ft_calloc(sizeof(char *), j + 1);
+	while (g_exe.env[i])
 	{
-		exe.expenv[i] = ft_strdup(exe.env[i]);
+		g_exe.expenv[i] = ft_strdup(g_exe.env[i]);
 		i++;
 	}
 }
@@ -40,17 +40,17 @@ void	add_env(char *var)
 	cm_sp = ft_split(var, '=');
 	ft_unset_one(cm_sp[0]);
 	free_tab(cm_sp);
-	j = tab_len(exe.env) + 1;
+	j = tab_len(g_exe.env) + 1;
 	env_tmp = ft_calloc(sizeof(char *), j + 1);
-	while (exe.env[i])
+	while (g_exe.env[i])
 	{
-		env_tmp[k] = ft_strdup(exe.env[i]);
+		env_tmp[k] = ft_strdup(g_exe.env[i]);
 		i++;
 		k++;
 	}
 	env_tmp[k] = ft_strdup(var);
-	free_tab(exe.env);
-	exe.env = env_tmp;
+	free_tab(g_exe.env);
+	g_exe.env = env_tmp;
 }
 
 void	env_exp(char **env)
@@ -59,13 +59,13 @@ void	env_exp(char **env)
 	int		j;
 	char	**tmpexpenv;
 
-	tmpexpenv = exe.expenv;
+	tmpexpenv = g_exe.expenv;
 	i = 0;
 	j = tab_len(env);
-	exe.expenv = ft_calloc(sizeof(char *), j + 1);
+	g_exe.expenv = ft_calloc(sizeof(char *), j + 1);
 	while (env[i])
 	{
-		exe.expenv[i] = ft_strdup(env[i]);
+		g_exe.expenv[i] = ft_strdup(env[i]);
 		i++;
 	}
 	free_tab(tmpexpenv);
@@ -81,17 +81,17 @@ void	add_env_exp(char *var)
 
 	i = 0;
 	k = 0;
-	j = tab_len(exe.expenv) + 1;
+	j = tab_len(g_exe.expenv) + 1;
 	env_tmp = ft_calloc(sizeof(char *), j + 1);
-	while (exe.expenv[i])
+	while (g_exe.expenv[i])
 	{
-		env_tmp[k] = ft_strdup(exe.expenv[i]);
+		env_tmp[k] = ft_strdup(g_exe.expenv[i]);
 		i++;
 		k++;
 	}
 	env_tmp[k] = ft_strdup(var);
-	free_tab(exe.expenv);
-	exe.expenv = env_tmp;
+	free_tab(g_exe.expenv);
+	g_exe.expenv = env_tmp;
 }
 
 int	check_char_err(char *the_cm)

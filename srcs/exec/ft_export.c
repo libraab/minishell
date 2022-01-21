@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/25 12:18:54 by hboukhor          #+#    #+#             */
-/*   Updated: 2021/12/25 15:11:51 by abouhlel         ###   ########.fr       */
+/*   Updated: 2022/01/17 15:31:19 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,9 @@ int	display_export(void)
 	char	**exp_disp;
 
 	i = 0;
-	while (exe.expenv[i])
+	while (g_exe.expenv[i])
 	{
-		exp_disp = ft_split(exe.expenv[i], '=');
+		exp_disp = ft_split(g_exe.expenv[i], '=');
 		if (exp_disp[1] == NULL)
 			printf("declare -x %s=\"\"\n", exp_disp[0]);
 		else

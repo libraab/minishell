@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/25 12:18:54 by hboukhor          #+#    #+#             */
-/*   Updated: 2021/12/30 12:22:58 by abouhlel         ###   ########.fr       */
+/*   Updated: 2022/01/21 19:16:09 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ void	copy_env(char **env)
 
 	i = 0;
 	j = tab_len(env);
-	exe.env = ft_calloc(sizeof(char *), j + 2);
+	g_exe.env = ft_calloc(sizeof(char *), j + 2);
 	while (env[i])
 	{
-		exe.env[i] = ft_strdup(env[i]);
+		g_exe.env[i] = ft_strdup(env[i]);
 		i++;
 	}
-	exe.env[i] = ft_strdup("?=0");
+	g_exe.env[i] = ft_strdup("?=0");
 }
 
 void	copy_env_two(char **env)
@@ -43,11 +43,11 @@ void	copy_env_two(char **env)
 		i++;
 	}
 	free_tab(env);
-	exe.env = ft_calloc(sizeof(char *), j + 1);
+	g_exe.env = ft_calloc(sizeof(char *), j + 1);
 	i = 0;
 	while (env_tmp[i])
 	{
-		exe.env[i] = ft_strdup(env_tmp[i]);
+		g_exe.env[i] = ft_strdup(env_tmp[i]);
 		i++;
 	}
 	free_tab(env_tmp);
@@ -58,11 +58,11 @@ void	ft_change_exit_status(int x)
 	int	i;
 
 	i = 0;
-	while (exe.env[i][0] != '?')
+	while (g_exe.env[i][0] != '?')
 		i++;
-	if (ft_strncmp(exe.env[i], "?=", 2) == 0)
+	if (ft_strncmp(g_exe.env[i], "?=", 2) == 0)
 	{
-		ft_free (exe.env[i]);
-		exe.env[i] = ft_strcat(ft_strdup("?="), ft_itoa(x));
+		ft_free (g_exe.env[i]);
+		g_exe.env[i] = ft_strcat(ft_strdup("?="), ft_itoa(x));
 	}
 }

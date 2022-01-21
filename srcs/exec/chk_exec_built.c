@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   chk_exec_built.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/25 12:18:54 by hboukhor          #+#    #+#             */
-/*   Updated: 2021/12/25 17:16:16 by abouhlel         ###   ########.fr       */
+/*   Updated: 2022/01/19 15:35:23 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 void	exec_built(t_cmd cm)
 {
-	//for(int a = 0; cm.full_cmd[a]; a++)
-		//printf("DANS EXEC BUILT %s\n", cm.full_cmd[a]);
 	if (ft_strncmp(cm.cmd, "pwd", 4) == 0)
 		ft_pwd();
 	if (ft_strncmp(cm.cmd, "cd", 3) == 0)
@@ -50,4 +48,24 @@ int	check_built(char *cmd)
 		return (7);
 	else
 		return (0);
+}
+
+void	exec_last_built(t_cmd cm, int fd)
+{
+	int	inf;
+	int	outf;
+	int	save1;
+	int	save2;
+
+	outf = 1;
+	save1 = dup(STDIN_FILENO);
+	save2 = dup(STDOUT_FILENO);
+	if (cm.redir != NULL)
+		take_redir(cm.redir, &inf, &outf);
+	if (fd != 0)
+		close(fd);
+	if (g_exe.rs)
+		exec_built(cm);
+	dup2(save1, STDOUT_FILENO);
+	dup2(save2, STDIN_FILENO);
 }

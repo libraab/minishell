@@ -3,22 +3,46 @@
 /*                                                        :::      ::::::::   */
 /*   take_redirs.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/25 12:18:54 by hboukhor          #+#    #+#             */
-/*   Updated: 2021/12/25 12:21:36 by abouhlel         ###   ########.fr       */
+/*   Updated: 2022/01/17 15:33:27 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	ft_search_file(char **red, int i)
+void	red_err(void)
 {
-	if (red[i + 1][0] == '\0')
+	printf("syntax error near unexpected token 'newline'\n");
+	ft_change_exit_status(258);
+	g_exe.rs = 0;
+}
+
+int	check_red2(char **red)
+{
+	int	i;
+
+	if (red[0] != NULL)
 	{
-		printf("syntax error near unexpected token '%s'\n", red[i]);
-		ft_change_exit_status(258);
-		return (0);
+		if (red[1][0] == '\0')
+		{
+			red_err();
+			return (0);
+		}
+		i = 3;
+		if (red[2] != NULL)
+		{
+			while (i <= tab_len(red))
+			{
+				if (red[i][0] == '\0')
+				{
+					red_err();
+					return (0);
+				}
+				i += 2;
+			}
+		}
 	}
 	return (1);
 }
@@ -30,20 +54,19 @@ int	take_redir(char **red, int *inf, int *outf)
 
 	i = 0;
 	h = 0;
+	if (!check_red2(red))
+		return (0);
 	while (red[i])
 	{
-		if (!ft_search_file(red, i))
-			return (1);
-		else if (red[i][0] == '<' && red[i][1] != '<')
+		if (red[i][0] == '<' && red[i][1] != '<')
 			open_inf(red[i + 1], inf);
 		else if (red[i][0] == '>' && red[i][1] != '>')
 			open_outf(red[i + 1], outf);
 		else if (red[i][0] == '>' && red[i][1] == '>')
 			open_outf_db(red[i + 1], outf);
-		else if (red[i][0] == '<' && red[i][1] == '<' && h == 0)
+		else if (red[i][0] == '<' && red[i][1] == '<')
 		{
 			hd(red);
-			h = 1;
 		}
 		i += 2;
 	}

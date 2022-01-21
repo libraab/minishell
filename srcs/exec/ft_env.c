@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/25 12:18:54 by hboukhor          #+#    #+#             */
-/*   Updated: 2021/12/25 12:53:57 by abouhlel         ###   ########.fr       */
+/*   Updated: 2022/01/17 15:31:04 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ void	ft_env(void)
 	int	i;
 
 	i = -1;
-	while (exe.env[++i])
+	while (g_exe.env[++i])
 	{
-		if (exe.env[i][0] == '?')
+		if (g_exe.env[i][0] == '?')
 			continue ;
-		printf("%s\n", exe.env[i]);
+		printf("%s\n", g_exe.env[i]);
 	}
 }

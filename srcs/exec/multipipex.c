@@ -6,63 +6,35 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 15:05:49 by hboukhor          #+#    #+#             */
-/*   Updated: 2021/12/25 15:10:31 by abouhlel         ###   ########.fr       */
+/*   Updated: 2022/01/21 19:49:29 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+
 #include "../../includes/minishell.h"
 
-void	exec_last_built(t_cmd cm, int fd)
+void	last_fork(t_data *data, t_cmd cm, int fd)
 {
-	int	inf;
-	int	outf;
-	int	save1;
-	int	save2;
-
-	outf = 1;
-	save1 = dup(STDIN_FILENO);
-	save2 = dup(STDOUT_FILENO);
-	if (cm.redir != NULL)
-		take_redir(cm.redir, &inf, &outf);
-	if (fd != 0)
-		close(fd);
-	exec_built(cm);
-	dup2(save1, STDOUT_FILENO);
-	dup2(save2, STDIN_FILENO);
-}
-
-void	last_fork(t_cmd cm, int fd)
-{
-	int		fid;
-	char	*cmd = NULL;
-	int		inf = 0;
-	int		outf;
-	char	**env_exec;
-
-	// fid = 1;
-	// env_exec = take_env(cm.cmd);
-	// cmd = find_cmd(cm.cmd, env_exec);
-	// free_tab(env_exec);
-	// if (cmd)
-		fid = fork();
-	if (fid == 0)
+	data->cmd3 = NULL;
+	data->inf3 = 0;
+	data->fid3 = fork();
+	if (data->fid3 == 0)
 	{
 		if (cm.redir != NULL)
-			take_redir(cm.redir, &inf, &outf);
-		if (cm.cmd[0] != '/')
-		{
-			env_exec = take_env(cm.cmd);
-			cmd = find_cmd(cm.cmd, env_exec);
-		}
-		else if (cm.cmd[0] == '/')
-			cmd = cm.cmd;
-		if (fd != 0)
+			take_redir(cm.redir, &data->inf3, &data->outf3);
+		if (cm.cmd[0] != '/' && g_exe.rs)
+			data->cmd3 = get_cmd(cm.cmd);
+		else if (cm.cmd[0] == '/' && g_exe.rs)
+			data->cmd3 = find_slash_cmd(cm.cmd);
+		if (fd != 0)// && cm.redir == NULL)
 		{
 			dup2(fd, STDIN_FILENO);
 			close(fd);
 		}
-		execve(cmd, cm.full_cmd, exe.env);
-		exit(1);
+		//close (fd);
+		if (g_exe.rs)
+			exit(execve(data->cmd3, cm.full_cmd, g_exe.env));
+		//exit(0);
 	}
 	else
 	{
@@ -71,7 +43,7 @@ void	last_fork(t_cmd cm, int fd)
 	}
 }
 
-void	last_cmd(t_cmd cm, int fd)
+void	last_cmd(t_data *data, t_cmd cm, int fd)
 {
 	int		inf;
 	int		outf;
@@ -79,6 +51,11 @@ void	last_cmd(t_cmd cm, int fd)
 	int		save2;
 
 	outf = 1;
+	// if (get_cmd(cm.cmd) == NULL)
+	// {
+	// 	printf("%s\n", cm.cmd);
+	// 	return ;
+	// }
 	if (cm.cmd == NULL && cm.redir != NULL)
 	{
 		save1 = dup(STDIN_FILENO);
@@ -86,12 +63,15 @@ void	last_cmd(t_cmd cm, int fd)
 		take_redir(cm.redir, &inf, &outf);
 		dup2(save1, STDOUT_FILENO);
 		dup2(save2, STDIN_FILENO);
+		close(save1);
+		close(save2);
+		close(fd);
 		return ;
 	}
-	if (check_built(cm.cmd))
+	else if (check_built(cm.cmd))
 		exec_last_built(cm, fd);
 	else
-		last_fork(cm, fd);
+		last_fork(data, cm, fd);
 }
 
 void	do_cm1(t_data *data, int is_built, int *pp0, char *cmd1)
@@ -104,73 +84,47 @@ void	do_cm1(t_data *data, int is_built, int *pp0, char *cmd1)
 		take_redir(data->cmd[0].redir, &inf, &outf);
 	close(pp0[0]);
 	if (outf == 1)
-		dup2(pp0[1], STDOUT_FILENO);
-	else if (outf != 1)
 	{
-		dup2(outf, STDOUT_FILENO);
-		close(outf);
+		dup2(pp0[1], STDOUT_FILENO);
+		close(pp0[1]);
 	}
 	close(pp0[1]);
-	if (data->cmd[0].redir[0] != NULL)
-		take_redir(data->cmd[0].redir, &inf, &outf);
-	if (!is_built)
-		execve(cmd1, data->cmd[0].full_cmd, exe.env);
-	else
+	// if (data->cmd[0].redir[0] != NULL)
+	// 	take_redir(data->cmd[0].redir, &inf, &outf);
+	if (!is_built && g_exe.rs)
+		execve(cmd1, data->cmd[0].full_cmd, g_exe.env);
+	else if (is_built && g_exe.rs)
 		exec_built(data->cmd[0]);
-	exit(1);
+	exit(0);
 }
 
 int	exec_cm1(t_data *data)
 {
-	char	*cmd1 = NULL;
-	int		fid;
-	int		pp0[2];
-	char	**env_exec;
-
-	int inf;
-	int outf = 1;
-	int save1;
-	int save2;
-
-
-//	cmd1 = NULL;
-//	check_built(data->cmd->cmd);
-	pipe(pp0);
-	fid = 1;
-	if (data->cmd->cmd != NULL)
-	{
-		env_exec = take_env(data->cmd->cmd);
-		cmd1 = find_cmd(data->cmd->cmd, env_exec);
-		free_tab(env_exec);
-	}
+	init_vars_cm1(data);
+	pipe(data->pp0);
+	data->cmd1 = check_cmd(data);
+	check_red(data->cmd[0].redir);
 	if (data->cmd->cmd == NULL && data->cmd[0].redir[0] != NULL)
 	{
-		save1 = dup(STDIN_FILENO);
-		save2 = dup(STDOUT_FILENO);
-		take_redir(data->cmd[0].redir, &inf, &outf);
-		dup2(save1, STDOUT_FILENO);
-		dup2(save2, STDIN_FILENO);
-		return(pp0[0]);
+		no_cmd_redirs(data, data->pp0);
+		return (data->pp0[0]);
 	}
-	if (cmd1)
-		fid = fork();
-//	fid = fork();
-	if (fid == 0)
+	if (data->cmd1)
+		data->fid = fork();
+	if (data->fid == 0)
 	{
 		if (!check_built(data->cmd->cmd))
-		{
-			env_exec = take_env(data->cmd[0].cmd);
-			cmd1 = find_cmd(data->cmd[0].cmd, env_exec);
-			free_tab(env_exec);
-		}
-		do_cm1(data, check_built(data->cmd->cmd), pp0, cmd1);
+			data->cmd1 = get_cmd(data->cmd[0].cmd);
+		do_cm1(data, check_built(data->cmd->cmd), data->pp0, data->cmd1);
 	}
 	else
 	{
-		close (pp0[1]);
-		return (pp0[0]);
+		//if (data->cmd1)
+		//	free(data->cmd1);
+		close (data->pp0[1]);
+		return (data->pp0[0]);
 	}
-	return (pp0[0]);
+	return (data->pp0[0]);
 }
 
 void	multi_pipex(t_data *data, int fd, int lastcmd)
@@ -188,11 +142,11 @@ void	multi_pipex(t_data *data, int fd, int lastcmd)
 		pp0 = exec_cm1(data);
 		multi_pipex(data, pp0, (lastcmd - 1));
 	}
-	else if (the_cm < cm_max)
+	else if (the_cm < cm_max && g_exe.rs)
 	{
 		pp0 = middle_cmds(data->cmd[the_cm], fd);
 		multi_pipex(data, pp0, (lastcmd - 1));
 	}
-	else if (the_cm == cm_max)
-		last_cmd(data->cmd[cm_max], fd);
+	else if (the_cm == cm_max && g_exe.rs)
+		last_cmd(data, data->cmd[cm_max], fd);
 }

@@ -6,11 +6,19 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 15:05:15 by hboukhor          #+#    #+#             */
-/*   Updated: 2021/12/25 12:59:42 by abouhlel         ###   ########.fr       */
+/*   Updated: 2022/01/21 19:15:29 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+char	*find_slash_cmd(char *agmt)
+{
+	if (access(agmt, F_OK) == 0)
+		return (agmt);
+	no_infile(agmt);
+	return (0);
+}
 
 char	*find_cmd(char *agmt, char **env_exec)
 {
@@ -20,17 +28,20 @@ char	*find_cmd(char *agmt, char **env_exec)
 	i = 0;
 	while (env_exec[i])
 	{
-		if (agmt[0] == '/')
-		{
-			if (access(agmt, F_OK) == 0)
-				return (agmt);
-			i++;
-		}
-		else
+		// if (agmt[0] == '/')
+		// {
+		// 	if (access(agmt, F_OK) == 0)
+		// 		return (agmt);
+		// 	i++;
+		// }
+		// else
 		{
 			tmp = ft_strjoin(env_exec[i], agmt);
 			if (access(tmp, F_OK) == 0)
+			{
+				printf("[%s]\n", tmp);
 				return (tmp);
+			}
 			free(tmp);
 			i++;
 		}

@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:58:24 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/12/29 16:09:07 by abouhlel         ###   ########.fr       */
+/*   Updated: 2022/01/21 19:46:43 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,18 @@ void	ft_stock_cmd(t_data *d, int i, int j, int k)
 	d->i++;
 }
 
+void	init_prompt_vars(int *i, char ***content)
+{
+	*i = 0;
+	*content = NULL;
+}
+
 int	ft_prompt(char *entry, t_data *data)
 {
 	char	**content;
 	int		i;
 
-	i = 0;
-	content = NULL;
+	init_prompt_vars(&i, &content);
 	add_history(entry);
 	ft_check_invalid_chars(entry);
 	content = ft_split_pipe(entry, '|');
@@ -70,10 +75,17 @@ int	ft_prompt(char *entry, t_data *data)
 
 void	make_exec(char *entry, t_data *data)
 {
+	int	status;
+
+	g_exe.rs = 1;
+	g_exe.inv_cm = 0;
+	g_exe.hdc = 0;
 	ft_prompt(entry, data);
 	multi_pipex(data, 0, data->tot - 1);
-	while (wait(0) > 0)
+	while (waitpid(-1, &status, 0) > 0)
 		;
+	if (1)//si fork
+		ft_change_exit_status(WEXITSTATUS(status));
 }
 
 int	main(const int ac, const char **av, char **env)
@@ -99,7 +111,7 @@ int	main(const int ac, const char **av, char **env)
 			make_exec(entry, &data);
 		ft_free_cmd_struct(&data, 0, 0, 0);
 	}
-	free_tab(exe.env);
-	free_tab(exe.expenv);
+	free_tab(g_exe.env);
+	free_tab(g_exe.expenv);
 	return (0);
 }

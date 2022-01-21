@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 15:05:26 by hboukhor          #+#    #+#             */
-/*   Updated: 2021/12/25 12:33:05 by abouhlel         ###   ########.fr       */
+/*   Updated: 2022/01/17 15:32:43 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ int	check_path(void)
 
 	j = 0;
 	i = 0;
-	while (exe.env[i])
+	while (g_exe.env[i])
 	{
-		if (ft_strncmp(exe.env[i], "PATH=", 5) == 0)
+		if (ft_strncmp(g_exe.env[i], "PATH=", 5) == 0)
 		{
 			j = 1;
 			break ;

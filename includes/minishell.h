@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:56:46 by abouhlel          #+#    #+#             */
-/*   Updated: 2021/12/25 15:05:20 by abouhlel         ###   ########.fr       */
+/*   Updated: 2022/01/21 18:48:10 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,13 @@ typedef struct s_cmd
 	char	*cmd;
 	char	**full_cmd;
 	char	**redir;
+	int		inf2;
+	int		outf2;
+	int		is_built2;
+	int		fid2;
+	char	*cmd2;
+	int		inf22;
+	int		outf22;
 }			t_cmd;
 
 typedef struct s_data
@@ -76,15 +83,32 @@ typedef struct s_data
 	int		tmp;
 	char	*newstr;
 	int		j;
+	char	*cmd1;
+	int		fid;
+	int		pp0[2];
+	int		fid3;
+	char	*cmd3;
+	int		inf3;
+	int		outf3;
 }			t_data;
 
 typedef struct s_exe
 {
 	char	**env;
 	char	**expenv;
+	int		rs;
+	int		inv_cm;
+	int		hdc;
 }			t_exe;
 
-t_exe	exe;
+t_exe	g_exe;
+
+
+
+# define PANIC(x) do{\
+	fprintf(stderr, "%s:%d: error: %s\n", __FILE__, __LINE__, strerror(errno));\
+	if (x > 0) exit(x);\
+}while(0)
 
 //================================================================
 //					* R E A D L I N E *							//
@@ -94,6 +118,9 @@ char	*readline(const char *prompt);
 int		add_history(const char *string_for_history);
 int		rl_on_new_line(void);
 void	rl_redisplay(void);
+void	rl_forced_update_display(void);
+void	rl_clear_message (void);
+void    echo_control_seq(int c);
 void	rl_replace_line(const char *buffer, int something);
 
 //================================================================
@@ -135,6 +162,7 @@ int		skip_qs(const char *s, int i, int *q, int *sq);
 void	find_next_q(char const *s, int *i, int *len, int *q);
 void	find_next_sq(char const *s, int *i, int *len, int *sq);
 // FT_SIGNAL.c
+void	ft_sig_hd(int sig);
 void	ft_signals(int sig);
 int		ft_exit_entry(void);
 int		ft_entry_is_only_sp(char *str);
@@ -195,6 +223,10 @@ char	**take_env(char *cm);
 int		check_path(void);
 char	*find_cmd(char *agmt, char **env_exec);
 
+char	*find_slash_cmd(char *agmt);
+
+char	*get_cmd(char *cmd);
+
 //*****************************************************************************
 //						* M U L T I P I P E X *								 //
 //*****************************************************************************
@@ -203,7 +235,8 @@ int		open_inf(char *infile_name, int *inf);
 int		open_outf(char *outfil_nam, int *outf);
 void	open_outf_db(char *outfil_nam, int *outf);
 int		take_redir(char **red, int *inf, int *outf);
-void	last_cmd(t_cmd cm, int fd);
+int		ft_search_file(char **red, int i);
+void	last_cmd(t_data *data, t_cmd cm, int fd);
 int		exec_cm1(t_data *data);
 void	multi_pipex(t_data *data, int fd, int lastcmd);
 
@@ -223,6 +256,10 @@ int		middle_cmds(t_cmd cm, int fd);
 void	puterr(char *cmd);
 void	no_infile(char *inf_name);
 
+void	init_vars_cm1(t_data *data);
+char	*check_cmd(t_data *data);
+void	no_cmd_redirs(t_data *data, int *pp0);
+void	check_red(char **red);
 //*****************************************************************************
 //						* B U I L T I N S *									 //
 //*****************************************************************************
@@ -255,7 +292,7 @@ int		check_char_err(char *the_cm);
 
 int		ft_export(char **full_cmd, int k);
 
-void	exec_last_buit(t_cmd cm, int fd);
+void	exec_last_built(t_cmd cm, int fd);
 
 int		ft_unset_one(char *var);
 int		ft_unset_xp(char **full_cmd);
