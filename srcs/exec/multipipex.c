@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 15:05:49 by hboukhor          #+#    #+#             */
-/*   Updated: 2022/01/22 12:48:30 by abouhlel         ###   ########.fr       */
+/*   Updated: 2022/01/22 13:45:43 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,8 @@ void	last_cmd(t_data *data, t_cmd cm, int fd)
 	int		save2;
 
 	outf = 1;
-	// if (get_cmd(cm.cmd) == NULL)
-	// {
-	// 	printf("%s\n", cm.cmd);
-	// 	return ;
-	// }
+	if (get_cmd(cm.cmd) == NULL)
+		return ;
 	if (cm.cmd == NULL && cm.redir != NULL)
 	{
 		save1 = dup(STDIN_FILENO);

@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/25 12:18:54 by hboukhor          #+#    #+#             */
-/*   Updated: 2022/01/22 12:40:11 by abouhlel         ###   ########.fr       */
+/*   Updated: 2022/01/22 15:06:33 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	exec_last_built(t_cmd cm, int fd)
 	save1 = dup(STDIN_FILENO);
 	save2 = dup(STDOUT_FILENO);
 	if (cm.redir != NULL)
-	take_redir(cm.redir, &inf, &outf);
+		take_redir(cm.redir, &inf, &outf);
 	if (fd != 0)
 		close(fd);
 	if (g_exe.rs)
