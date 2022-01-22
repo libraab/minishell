@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/25 12:18:54 by hboukhor          #+#    #+#             */
-/*   Updated: 2022/01/22 12:38:45 by abouhlel         ###   ########.fr       */
+/*   Updated: 2022/01/22 13:36:49 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,5 @@ void	ft_change_exit_status(int x)
 		ft_free (g_exe.env[i]);
 		g_exe.env[i] = ft_strcat(ft_strdup("?="), ft_itoa(x));
 	}
-	printf("%d done\n", x);
+	//printf("%d done\n", x);
 }

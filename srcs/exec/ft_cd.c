@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/25 12:18:54 by hboukhor          #+#    #+#             */
-/*   Updated: 2022/01/22 13:29:07 by abouhlel         ###   ########.fr       */
+/*   Updated: 2022/01/22 13:34:16 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ int	ft_cd(char **the_cmd)
 	buf = getcwd(NULL, 0);
 	if (tab_len(the_cmd) > 2)
 		return (ft_cd_errors(the_cmd, 0, buf));
+	
 	if (the_cmd[1] == NULL || (ft_strncmp(the_cmd[1], "~", 2) == 0))
 	{
 		chdir(ft_get_home(g_exe.env));
