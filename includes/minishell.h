@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:56:46 by abouhlel          #+#    #+#             */
-/*   Updated: 2022/01/22 10:31:46 by abouhlel         ###   ########.fr       */
+/*   Updated: 2022/01/22 12:47:39 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ typedef struct s_exe
 	int		rs;
 	int		inv_cm;
 	int		hdc;
+	int		forked;
 }			t_exe;
 
 t_exe	g_exe;
@@ -238,6 +239,7 @@ void	multi_pipex(t_data *data, int fd, int lastcmd);
 void	last_cmd_hd(char *av_last, char **env, char *outfile_name, int fd);
 int		exec_cm1_hd(char **av, char **env, char **env_exec);
 void	hd(char **red);
+char	*get_oldpwd(char **env);
 int		middle_cmds(t_cmd cm, int fd);
 
 //*****************************************************************************

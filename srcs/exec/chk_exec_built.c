@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   chk_exec_built.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/25 12:18:54 by hboukhor          #+#    #+#             */
-/*   Updated: 2022/01/19 15:35:23 by macbook          ###   ########.fr       */
+/*   Updated: 2022/01/22 12:40:11 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	exec_last_built(t_cmd cm, int fd)
 	save1 = dup(STDIN_FILENO);
 	save2 = dup(STDOUT_FILENO);
 	if (cm.redir != NULL)
-		take_redir(cm.redir, &inf, &outf);
+	take_redir(cm.redir, &inf, &outf);
 	if (fd != 0)
 		close(fd);
 	if (g_exe.rs)

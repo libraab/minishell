@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 15:05:49 by hboukhor          #+#    #+#             */
-/*   Updated: 2022/01/22 10:23:53 by abouhlel         ###   ########.fr       */
+/*   Updated: 2022/01/22 12:48:30 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,12 +140,17 @@ void	multi_pipex(t_data *data, int fd, int lastcmd)
 	{
 		pp0 = exec_cm1(data);
 		multi_pipex(data, pp0, (lastcmd - 1));
+		g_exe.forked = 1;
 	}
 	else if (the_cm < cm_max && g_exe.rs)
 	{
 		pp0 = middle_cmds(data->cmd[the_cm], fd);
 		multi_pipex(data, pp0, (lastcmd - 1));
+		g_exe.forked = 1;
 	}
 	else if (the_cm == cm_max && g_exe.rs)
+	{
+		g_exe.forked = 0;
 		last_cmd(data, data->cmd[cm_max], fd);
+	}
 }

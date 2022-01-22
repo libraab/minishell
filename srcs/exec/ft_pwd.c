@@ -6,11 +6,26 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/25 12:18:54 by hboukhor          #+#    #+#             */
-/*   Updated: 2022/01/22 11:28:56 by abouhlel         ###   ########.fr       */
+/*   Updated: 2022/01/22 12:04:37 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+char	*get_oldpwd(char **env)
+{
+	int		i;
+	char	*s;
+
+	i = 0;
+	while (env[i])
+	{
+		if (ft_strncmp(env[i], "OLDPWD=", 7) == 0)
+			s = env[i];
+		i++;
+	}
+	return (&s[7]);
+}
 
 char	*get_pwd(char **env)
 {

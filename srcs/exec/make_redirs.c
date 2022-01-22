@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/25 12:18:54 by hboukhor          #+#    #+#             */
-/*   Updated: 2022/01/22 10:20:04 by abouhlel         ###   ########.fr       */
+/*   Updated: 2022/01/22 12:26:50 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	hd(char **red)
 			{
 				g_exe.hdc = 1;
 				echo_control_seq(0);
-				line = readline(">");
+				line = readline("> ");
 				if (!line || !ft_strncmp(line, red[i + 1],
 						(ft_strlen(red[i + 1]) + 1)))
 					break ;
