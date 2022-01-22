@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/21 11:05:41 by abouhlel          #+#    #+#             */
-/*   Updated: 2022/01/21 19:46:49 by abouhlel         ###   ########.fr       */
+/*   Updated: 2022/01/22 10:32:29 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	ft_entry_is_only_sp(char *str)
 	return (1);
 }
 
-void	ft_init_data(t_data *d)
+void	ft_init_data(t_data *d, char **env)
 {
 	d->lexer = (t_lexer){0};
 	d->cmd = 0;
@@ -69,16 +69,18 @@ void	ft_init_data(t_data *d)
 	d->tot = 0;
 	d->nb = 0;
 	d->env = 0;
+	copy_env(env);
+	crea_envexp();
 }
 
-void    echo_control_seq(int c)
+void	echo_control_seq(int c)
 {
-    struct termios    conf;
+	struct termios	conf;
 
-    ioctl(ttyslot(), TIOCGETA, &conf);
-    if (c == 1)
-        conf.c_lflag |= ECHOCTL;
-    else if (c == 0)
-        conf.c_lflag &= ~(ECHOCTL);
-    ioctl(ttyslot(), TIOCSETA, &conf);
+	ioctl(ttyslot(), TIOCGETA, &conf);
+	if (c == 1)
+		conf.c_lflag |= ECHOCTL;
+	else if (c == 0)
+		conf.c_lflag &= ~(ECHOCTL);
+	ioctl(ttyslot(), TIOCSETA, &conf);
 }

@@ -6,10 +6,9 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 15:05:49 by hboukhor          #+#    #+#             */
-/*   Updated: 2022/01/21 19:49:29 by abouhlel         ###   ########.fr       */
+/*   Updated: 2022/01/22 10:23:53 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../../includes/minishell.h"
 
@@ -26,7 +25,7 @@ void	last_fork(t_data *data, t_cmd cm, int fd)
 			data->cmd3 = get_cmd(cm.cmd);
 		else if (cm.cmd[0] == '/' && g_exe.rs)
 			data->cmd3 = find_slash_cmd(cm.cmd);
-		if (fd != 0)// && cm.redir == NULL)
+		if (fd != 0) // && cm.redir == NULL)
 		{
 			dup2(fd, STDIN_FILENO);
 			close(fd);
