@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/25 12:18:54 by hboukhor          #+#    #+#             */
-/*   Updated: 2022/01/24 12:28:29 by abouhlel         ###   ########.fr       */
+/*   Updated: 2022/01/24 12:43:37 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,13 +85,14 @@ int	ft_cd(char **cmd)
 	if (tab_len(cmd) > 2)
 		return (ft_cd_errors(cmd, 0, NULL));
 	buf = getcwd(NULL, 0);
-	if (cmd[1] != NULL && cmd[1][0] == '-' && cmd[1][1] != '\0')
+	if (cmd[1] && cmd[1][0] == '-' && cmd[1][1] != '\0')
 			return (ft_cd_errors(cmd, 2, buf));
 	if (cmd[1] == NULL || !ft_strncmp(cmd[1], "~", 2))
 		chdir(ft_get_home(g_exe.env));
 	if (cmd[1] && cmd[1][0] == '-')
 		chdir(get_oldpwd(g_exe.env));
-	if (cmd[1] && cmd[1][0] != '-' && cmd[1][0] != '~' && chdir(cmd[1]) != 0)
+	if (cmd[1] && cmd[1][0] != '-' && (cmd[1][0] != '~'
+		|| (cmd[1][0] == '~' && cmd[1][1] != '\0')) && chdir(cmd[1]) != 0)
 		return(ft_cd_errors(cmd, 1, buf));
 	buf2 = getcwd(NULL, 0);
 	change_env(buf, buf2);
