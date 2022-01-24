@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:58:24 by abouhlel          #+#    #+#             */
-/*   Updated: 2022/01/21 19:46:43 by abouhlel         ###   ########.fr       */
+/*   Updated: 2022/01/24 13:02:24 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,12 +80,14 @@ void	make_exec(char *entry, t_data *data)
 	g_exe.rs = 1;
 	g_exe.inv_cm = 0;
 	g_exe.hdc = 0;
+	g_exe.forked = 0;
 	ft_prompt(entry, data);
 	multi_pipex(data, 0, data->tot - 1);
 	while (waitpid(-1, &status, 0) > 0)
 		;
-	if (1)//si fork
+	if (g_exe.forked == 1)
 		ft_change_exit_status(WEXITSTATUS(status));
+	ft_free_cmd_struct(data, 0, 0, 0);
 }
 
 int	main(const int ac, const char **av, char **env)
@@ -109,7 +111,6 @@ int	main(const int ac, const char **av, char **env)
 			continue ;
 		if (entry)
 			make_exec(entry, &data);
-		ft_free_cmd_struct(&data, 0, 0, 0);
 	}
 	free_tab(g_exe.env);
 	free_tab(g_exe.expenv);

@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/21 11:05:41 by abouhlel          #+#    #+#             */
-/*   Updated: 2022/01/21 19:46:49 by abouhlel         ###   ########.fr       */
+/*   Updated: 2022/01/24 12:54:44 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,14 +71,14 @@ void	ft_init_data(t_data *d)
 	d->env = 0;
 }
 
-void    echo_control_seq(int c)
+void	echo_control_seq(int c)
 {
-    struct termios    conf;
+	struct termios	conf;
 
-    ioctl(ttyslot(), TIOCGETA, &conf);
-    if (c == 1)
-        conf.c_lflag |= ECHOCTL;
-    else if (c == 0)
-        conf.c_lflag &= ~(ECHOCTL);
-    ioctl(ttyslot(), TIOCSETA, &conf);
+	ioctl(ttyslot(), TIOCGETA, &conf);
+	if (c == 1)
+		conf.c_lflag |= ECHOCTL;
+	else if (c == 0)
+		conf.c_lflag &= ~(ECHOCTL);
+	ioctl(ttyslot(), TIOCSETA, &conf);
 }

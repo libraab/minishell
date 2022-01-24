@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:56:46 by abouhlel          #+#    #+#             */
-/*   Updated: 2022/01/21 18:48:10 by abouhlel         ###   ########.fr       */
+/*   Updated: 2022/01/24 12:56:13 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ typedef struct s_exe
 	int		rs;
 	int		inv_cm;
 	int		hdc;
+	int		forked;
 }			t_exe;
 
 t_exe	g_exe;
@@ -266,7 +267,7 @@ void	check_red(char **red);
 
 void	exec_built(t_cmd cm);
 int		check_built(char *cmd);
-
+char	*get_oldpwd(char **env);
 void	ft_pwd(void);
 void	ft_env(void);
 void	ft_exit(char **full_cmd);
