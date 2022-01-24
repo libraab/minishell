@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   take_redirs.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/25 12:18:54 by hboukhor          #+#    #+#             */
-/*   Updated: 2022/01/17 15:33:27 by macbook          ###   ########.fr       */
+/*   Updated: 2022/01/24 15:44:40 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ int	take_redir(char **red, int *inf, int *outf)
 
 	i = 0;
 	h = 0;
+	printf("line take redir\n");
 	if (!check_red2(red))
 		return (0);
 	while (red[i])

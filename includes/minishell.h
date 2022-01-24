@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:56:46 by abouhlel          #+#    #+#             */
-/*   Updated: 2022/01/24 12:56:13 by abouhlel         ###   ########.fr       */
+/*   Updated: 2022/01/24 15:39:38 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,13 +104,6 @@ typedef struct s_exe
 
 t_exe	g_exe;
 
-
-
-# define PANIC(x) do{\
-	fprintf(stderr, "%s:%d: error: %s\n", __FILE__, __LINE__, strerror(errno));\
-	if (x > 0) exit(x);\
-}while(0)
-
 //================================================================
 //					* R E A D L I N E *							//
 //================================================================
@@ -119,9 +112,7 @@ char	*readline(const char *prompt);
 int		add_history(const char *string_for_history);
 int		rl_on_new_line(void);
 void	rl_redisplay(void);
-void	rl_forced_update_display(void);
-void	rl_clear_message (void);
-void    echo_control_seq(int c);
+void	echo_control_seq(int c);
 void	rl_replace_line(const char *buffer, int something);
 
 //================================================================

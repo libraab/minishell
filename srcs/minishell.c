@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:58:24 by abouhlel          #+#    #+#             */
-/*   Updated: 2022/01/24 13:02:24 by abouhlel         ###   ########.fr       */
+/*   Updated: 2022/01/24 15:41:21 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,8 @@ void	make_exec(char *entry, t_data *data)
 	multi_pipex(data, 0, data->tot - 1);
 	while (waitpid(-1, &status, 0) > 0)
 		;
-	if (g_exe.forked == 1)
-		ft_change_exit_status(WEXITSTATUS(status));
+	// if (g_exe.forked == 1)
+	// 	ft_change_exit_status(WEXITSTATUS(status));
 	ft_free_cmd_struct(data, 0, 0, 0);
 }
 

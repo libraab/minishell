@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 15:05:15 by hboukhor          #+#    #+#             */
-/*   Updated: 2022/01/21 19:15:29 by abouhlel         ###   ########.fr       */
+/*   Updated: 2022/01/24 13:11:52 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,25 +25,20 @@ char	*find_cmd(char *agmt, char **env_exec)
 	int		i;
 	char	*tmp;
 
-	i = 0;
-	while (env_exec[i])
+	i = -1;
+	while (env_exec[++i])
 	{
 		// if (agmt[0] == '/')
 		// {
 		// 	if (access(agmt, F_OK) == 0)
 		// 		return (agmt);
-		// 	i++;
 		// }
 		// else
 		{
 			tmp = ft_strjoin(env_exec[i], agmt);
 			if (access(tmp, F_OK) == 0)
-			{
-				printf("[%s]\n", tmp);
 				return (tmp);
-			}
 			free(tmp);
-			i++;
 		}
 	}
 	puterr(agmt);
