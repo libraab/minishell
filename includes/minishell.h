@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:56:46 by abouhlel          #+#    #+#             */
-/*   Updated: 2022/01/22 12:47:39 by abouhlel         ###   ########.fr       */
+/*   Updated: 2022/01/21 18:48:10 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,10 +99,16 @@ typedef struct s_exe
 	int		rs;
 	int		inv_cm;
 	int		hdc;
-	int		forked;
 }			t_exe;
 
 t_exe	g_exe;
+
+
+
+# define PANIC(x) do{\
+	fprintf(stderr, "%s:%d: error: %s\n", __FILE__, __LINE__, strerror(errno));\
+	if (x > 0) exit(x);\
+}while(0)
 
 //================================================================
 //					* R E A D L I N E *							//
@@ -112,7 +118,9 @@ char	*readline(const char *prompt);
 int		add_history(const char *string_for_history);
 int		rl_on_new_line(void);
 void	rl_redisplay(void);
-void	echo_control_seq(int c);
+void	rl_forced_update_display(void);
+void	rl_clear_message (void);
+void    echo_control_seq(int c);
 void	rl_replace_line(const char *buffer, int something);
 
 //================================================================
@@ -158,7 +166,7 @@ void	ft_sig_hd(int sig);
 void	ft_signals(int sig);
 int		ft_exit_entry(void);
 int		ft_entry_is_only_sp(char *str);
-void	ft_init_data(t_data *d, char **env);
+void	ft_init_data(t_data *d);
 // FT_PRINT.c
 void	ft_print_cmd_tab(t_data *data, int i, int j, int k);
 // FT_MEMORY.c
@@ -239,7 +247,6 @@ void	multi_pipex(t_data *data, int fd, int lastcmd);
 void	last_cmd_hd(char *av_last, char **env, char *outfile_name, int fd);
 int		exec_cm1_hd(char **av, char **env, char **env_exec);
 void	hd(char **red);
-char	*get_oldpwd(char **env);
 int		middle_cmds(t_cmd cm, int fd);
 
 //*****************************************************************************

@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/25 12:18:54 by hboukhor          #+#    #+#             */
-/*   Updated: 2022/01/22 15:06:57 by abouhlel         ###   ########.fr       */
+/*   Updated: 2022/01/24 12:28:29 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,75 +49,50 @@ int	ft_cd_errors(char **the_cmd, int x, char *buf)
 	{
 		ft_putstr("cd: ");
 		ft_putstr(the_cmd[1]);
-		ft_putstr(": invalid option\ncd: usage: cd [-L|-P] [dir]\n");
+		ft_putstr(": no such file or directory\n");
+		free(buf);
 	}
 	if (x == 2)
 	{
 		ft_putstr("cd: ");
 		ft_putstr(the_cmd[1]);
-		ft_putstr(": no such file or directory\n");
+		ft_putstr(": invalid option\ncd: usage: cd [-L|-P] [dir]\n");
+		free(buf);
 	}
 	ft_change_exit_status(1);
-	free (buf);
 	return (1);
 }
+char	*get_oldpwd(char **env)
+{
+	int		i;
+	char	*s;
 
-// int	ft_cd(char **the_cmd)
-// {
-// 	char	*buf;
-// 	char	*buf2;
+	i = 0;
+	while (env[i])
+	{
+		if (ft_strncmp(env[i], "OLDPWD=", 7) == 0)
+			s = env[i];
+		i++;
+	}
+	return (&s[7]);
+}
 
-// 	buf = getcwd(NULL, 0);
-// 	if (tab_len(the_cmd) > 2)
-// 		return (ft_cd_errors(the_cmd, 0, buf));
-// 	if (the_cmd[1] && !ft_strncmp(the_cmd[1], "-", 1) && the_cmd[1][1] != '\0')
-// 		return(ft_cd_errors(the_cmd, 1, buf));
-// 	if (the_cmd[1] && !ft_strncmp(the_cmd[1], "~", 1) && the_cmd[1][1] != '\0')
-// 		return(ft_cd_errors(the_cmd, 2, buf));
-// 	if (the_cmd[1] && the_cmd[1][0] != '-' && the_cmd[1][0] != '~'
-// 		&& chdir(the_cmd[1]) != 0)
-// 		return(ft_cd_errors(the_cmd, 2, buf));
-// 	if (the_cmd[1] == NULL || !ft_strncmp(the_cmd[1], "~", 2))
-// 		chdir(ft_get_home(g_exe.env));
-// 	if (!ft_strncmp(the_cmd[1], "-", 2))
-// 		chdir(get_oldpwd(g_exe.env));
-// 	buf2 = getcwd(NULL, 0);
-// 	change_env(buf, buf2);
-// 	ft_change_exit_status(0);
-// 	return (0);
-// }
-int	ft_cd(char **the_cmd)
+int	ft_cd(char **cmd)
 {
 	char	*buf;
 	char	*buf2;
 
+	if (tab_len(cmd) > 2)
+		return (ft_cd_errors(cmd, 0, NULL));
 	buf = getcwd(NULL, 0);
-	if (tab_len(the_cmd) > 2)
-		return (ft_cd_errors(the_cmd, 0, buf));
-	
-	if (the_cmd[1] == NULL || (ft_strncmp(the_cmd[1], "~", 2) == 0))
-	{
+	if (cmd[1] != NULL && cmd[1][0] == '-' && cmd[1][1] != '\0')
+			return (ft_cd_errors(cmd, 2, buf));
+	if (cmd[1] == NULL || !ft_strncmp(cmd[1], "~", 2))
 		chdir(ft_get_home(g_exe.env));
-		buf2 = getcwd(NULL, 0);
-		change_env(buf, buf2);
-		ft_change_exit_status(0);
-		return (0);
-	}
-	else if (!ft_strncmp(the_cmd[1], "-", 1))
-	{
-		if (the_cmd[1][1] != '\0')
-			return(ft_cd_errors(the_cmd, 1, buf));
-		else
-		{
-			chdir(get_oldpwd(g_exe.env));
-			buf2 = getcwd(NULL, 0);
-			change_env(buf, buf2);
-			ft_change_exit_status(0);
-			return (0);
-		}
-	}
-	else if (chdir(the_cmd[1]) != 0)
-		return(ft_cd_errors(the_cmd, 2, buf));
+	if (cmd[1] && cmd[1][0] == '-')
+		chdir(get_oldpwd(g_exe.env));
+	if (cmd[1] && cmd[1][0] != '-' && cmd[1][0] != '~' && chdir(cmd[1]) != 0)
+		return(ft_cd_errors(cmd, 1, buf));
 	buf2 = getcwd(NULL, 0);
 	change_env(buf, buf2);
 	ft_change_exit_status(0);

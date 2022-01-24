@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 09:09:32 by abouhlel          #+#    #+#             */
-/*   Updated: 2022/01/22 10:36:20 by abouhlel         ###   ########.fr       */
+/*   Updated: 2021/12/21 11:54:54 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@ void	ft_error(int x)
 		write(2, "ERROR\nUnclosed quote\n", 21);
 	if (x == 3)
 		write(2, "ERROR\nCommandless pipe\n", 23);
-	if (x == 4)
-		write(2, "ERROR\nNo such file or directory\n", 33);
 	else
 		write(2, "ERROR\n", 6);
 	exit(EXIT_FAILURE);

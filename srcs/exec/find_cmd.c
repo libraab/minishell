@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 15:05:15 by hboukhor          #+#    #+#             */
-/*   Updated: 2022/01/22 11:39:56 by abouhlel         ###   ########.fr       */
+/*   Updated: 2022/01/21 19:15:29 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,10 @@ char	*find_cmd(char *agmt, char **env_exec)
 		{
 			tmp = ft_strjoin(env_exec[i], agmt);
 			if (access(tmp, F_OK) == 0)
+			{
+				printf("[%s]\n", tmp);
 				return (tmp);
+			}
 			free(tmp);
 			i++;
 		}

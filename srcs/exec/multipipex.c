@@ -6,9 +6,10 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 15:05:49 by hboukhor          #+#    #+#             */
-/*   Updated: 2022/01/22 13:45:43 by abouhlel         ###   ########.fr       */
+/*   Updated: 2022/01/21 19:49:29 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../../includes/minishell.h"
 
@@ -25,7 +26,7 @@ void	last_fork(t_data *data, t_cmd cm, int fd)
 			data->cmd3 = get_cmd(cm.cmd);
 		else if (cm.cmd[0] == '/' && g_exe.rs)
 			data->cmd3 = find_slash_cmd(cm.cmd);
-		if (fd != 0) // && cm.redir == NULL)
+		if (fd != 0)// && cm.redir == NULL)
 		{
 			dup2(fd, STDIN_FILENO);
 			close(fd);
@@ -50,8 +51,11 @@ void	last_cmd(t_data *data, t_cmd cm, int fd)
 	int		save2;
 
 	outf = 1;
-	if (get_cmd(cm.cmd) == NULL)
-		return ;
+	// if (get_cmd(cm.cmd) == NULL)
+	// {
+	// 	printf("%s\n", cm.cmd);
+	// 	return ;
+	// }
 	if (cm.cmd == NULL && cm.redir != NULL)
 	{
 		save1 = dup(STDIN_FILENO);
@@ -137,17 +141,12 @@ void	multi_pipex(t_data *data, int fd, int lastcmd)
 	{
 		pp0 = exec_cm1(data);
 		multi_pipex(data, pp0, (lastcmd - 1));
-		g_exe.forked = 1;
 	}
 	else if (the_cm < cm_max && g_exe.rs)
 	{
 		pp0 = middle_cmds(data->cmd[the_cm], fd);
 		multi_pipex(data, pp0, (lastcmd - 1));
-		g_exe.forked = 1;
 	}
 	else if (the_cm == cm_max && g_exe.rs)
-	{
-		g_exe.forked = 0;
 		last_cmd(data, data->cmd[cm_max], fd);
-	}
 }

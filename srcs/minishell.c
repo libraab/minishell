@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:58:24 by abouhlel          #+#    #+#             */
-/*   Updated: 2022/01/22 12:49:00 by abouhlel         ###   ########.fr       */
+/*   Updated: 2022/01/21 19:46:43 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,14 +80,12 @@ void	make_exec(char *entry, t_data *data)
 	g_exe.rs = 1;
 	g_exe.inv_cm = 0;
 	g_exe.hdc = 0;
-	g_exe.forked = 0;
 	ft_prompt(entry, data);
 	multi_pipex(data, 0, data->tot - 1);
 	while (waitpid(-1, &status, 0) > 0)
 		;
-	if (g_exe.forked == 1)
+	if (1)//si fork
 		ft_change_exit_status(WEXITSTATUS(status));
-	ft_free_cmd_struct(data, 0, 0, 0);
 }
 
 int	main(const int ac, const char **av, char **env)
@@ -95,26 +93,25 @@ int	main(const int ac, const char **av, char **env)
 	t_data	data;
 	char	*entry;
 
+	(void) ac;
 	(void) av;
-	if (ac == 1)
+	ft_init_data(&data);
+	copy_env(env);
+	crea_envexp();
+	while (1)
 	{
-		ft_init_data(&data, env);
-		while (1)
-		{
-			signal (SIGINT, ft_signals);
-			signal (SIGQUIT, ft_signals);
-			entry = readline("\033[1;31mMinishell-->\033[0m ");
-			if (!entry)
-				return (ft_exit_entry());
-			if (ft_entry_is_only_sp(entry))
-				continue ;
-			if (entry)
-				make_exec(entry, &data);
-		}
-		free_tab(g_exe.env);
-		free_tab(g_exe.expenv);
+		signal (SIGINT, ft_signals);
+		signal (SIGQUIT, ft_signals);
+		entry = readline("\033[1;31mMinishell-->\033[0m ");
+		if (!entry)
+			return (ft_exit_entry());
+		if (ft_entry_is_only_sp(entry))
+			continue ;
+		if (entry)
+			make_exec(entry, &data);
+		ft_free_cmd_struct(&data, 0, 0, 0);
 	}
-	else
-		ft_error(4);
+	free_tab(g_exe.env);
+	free_tab(g_exe.expenv);
 	return (0);
 }
