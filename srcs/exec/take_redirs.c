@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/25 12:18:54 by hboukhor          #+#    #+#             */
-/*   Updated: 2022/01/24 15:44:40 by abouhlel         ###   ########.fr       */
+/*   Updated: 2022/01/24 19:35:08 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ int	take_redir(char **red, int *inf, int *outf)
 
 	i = 0;
 	h = 0;
-	printf("line take redir\n");
 	if (!check_red2(red))
 		return (0);
 	while (red[i])
@@ -66,9 +65,7 @@ int	take_redir(char **red, int *inf, int *outf)
 		else if (red[i][0] == '>' && red[i][1] == '>')
 			open_outf_db(red[i + 1], outf);
 		else if (red[i][0] == '<' && red[i][1] == '<')
-		{
 			hd(red);
-		}
 		i += 2;
 	}
 	return (0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/21 11:46:08 by abouhlel          #+#    #+#             */
-/*   Updated: 2022/01/17 15:31:39 by macbook          ###   ########.fr       */
+/*   Updated: 2022/01/24 19:58:06 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,20 +76,20 @@ void	add_env_exp(char *var)
 {
 	int		i;
 	int		j;
-	int		k;
 	char	**env_tmp;
 
-	i = 0;
-	k = 0;
+	i = - 1;
 	j = tab_len(g_exe.expenv) + 1;
 	env_tmp = ft_calloc(sizeof(char *), j + 1);
-	while (g_exe.expenv[i])
+	while (g_exe.expenv[++i])
 	{
-		env_tmp[k] = ft_strdup(g_exe.expenv[i]);
-		i++;
-		k++;
+		if (ft_strncmp(env_tmp[i - 1], var, 1) < 0)
+		{
+			env_tmp[i] = ft_strdup(var);
+			i++;
+		}
+		env_tmp[i] = ft_strdup(g_exe.expenv[i]);
 	}
-	env_tmp[k] = ft_strdup(var);
 	free_tab(g_exe.expenv);
 	g_exe.expenv = env_tmp;
 }

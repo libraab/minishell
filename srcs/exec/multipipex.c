@@ -6,12 +6,11 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 15:05:49 by hboukhor          #+#    #+#             */
-/*   Updated: 2022/01/24 15:57:50 by abouhlel         ###   ########.fr       */
+/*   Updated: 2022/01/24 19:55:41 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
 void	last_fork(t_data *data, t_cmd cm, int fd)
 {
 	data->cmd3 = NULL;
@@ -35,11 +34,8 @@ void	last_fork(t_data *data, t_cmd cm, int fd)
 			exit(execve(data->cmd3, cm.full_cmd, g_exe.env));
 		//exit(0);
 	}
-	else
-	{
-		if (fd != STDIN_FILENO)
-			close(fd);
-	}
+	if (fd != STDIN_FILENO)
+		close(fd);
 }
 
 void	last_cmd(t_data *data, t_cmd cm, int fd)
@@ -50,7 +46,7 @@ void	last_cmd(t_data *data, t_cmd cm, int fd)
 	int		save2;
 
 	outf = 1;
-	if (get_cmd(cm.cmd) == NULL)
+	if (get_cmd(cm.cmd) == NULL && !check_built(cm.cmd))//ft_strncmp(cm.redir[0], "<<", 3))
 		return ;
 	if (cm.cmd == NULL && cm.redir != NULL)
 	{
@@ -131,6 +127,7 @@ void	multi_pipex(t_data *data, int fd, int lastcmd)
 
 	signal(SIGINT, ft_signals_exec);
 	signal(SIGQUIT, ft_signals_exec);
+	ft_change_exit_status(0);
 	cm_max = data->tot - 1;
 	the_cm = cm_max - lastcmd;
 	if (lastcmd != 0 && lastcmd == cm_max)

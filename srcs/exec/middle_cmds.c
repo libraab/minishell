@@ -6,7 +6,7 @@
 /*   By: abouhlel <abouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 15:05:35 by hboukhor          #+#    #+#             */
-/*   Updated: 2022/01/21 19:31:49 by abouhlel         ###   ########.fr       */
+/*   Updated: 2022/01/24 17:00:14 by abouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char	*get_cmd(char *cmd)
 {
 	char	**env_exec;
 	char	*cmdf;
-
+	
 	cmdf = NULL;
 	env_exec = take_env(cmd);
 	if (env_exec)
